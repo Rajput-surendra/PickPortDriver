@@ -519,17 +519,20 @@ class _MyprofileState extends State<Myprofile> {
         backgroundColor: colors.primary,
         elevation: 0,
         centerTitle: true,
-        leading: Container(
-          margin: const EdgeInsets.all(10),
-          decoration:
-          const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-          child: InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
+        leading: Padding(
+          padding: const EdgeInsets.only(top: 10,left: 10),
+          child: Container(
+            margin: const EdgeInsets.all(5),
+            decoration:
+            const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+            child: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
             ),
           ),
         ),

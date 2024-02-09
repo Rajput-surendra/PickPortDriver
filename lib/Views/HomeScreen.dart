@@ -70,10 +70,25 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    getProfile();
-    getSliderApi();
-    inIt();
-    getTransactionApi();
+   // Future.delayed(Duration(seconds: 5), () {
+    // return
+      getProfile();
+   // });
+  //  Future.delayed(Duration(seconds: 10), () {
+    //  return
+        getSliderApi();
+  //  });
+
+   // Future.delayed(Duration(seconds: 15), () {
+
+     getTransactionApi();
+  //  });
+   // Future.delayed(Duration(seconds: 20), () {
+
+      inIt();
+  //  });
+
+
 
     super.initState();
   }
@@ -95,13 +110,13 @@ class _HomeScreenState extends State<HomeScreen> {
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
-      final result = await response.stream.bytesToString();
+      var result = await response.stream.bytesToString();
       var finalResult = GetProfileModel.fromJson(jsonDecode(result));
       setState(() {
         getProfileModel = finalResult;
-        print(
-            '____Som______${getProfileModel?.data?[0].userFullname}_________');
-       // Fluttertoast.showToast(msg: qrCodeResult);
+       //  print(
+       //      '____Som______${getProfileModel?.data?[0].userFullname}_________');
+       // // Fluttertoast.showToast(msg: qrCodeResult);
       });
     } else {
       print(response.reasonPhrase);
@@ -114,10 +129,9 @@ class _HomeScreenState extends State<HomeScreen> {
     name = prefs1.getString('userName');
     image = prefs1.getString('userImage');
 
-    _position = await getUserCurrentPosition();
 
-    print("${_position!.longitude}________ggggg______");
-    getUserOrderHistory();
+    _position = await getUserCurrentPosition();
+    getUserOrderHistory("0");
     getDriverRating(userId ?? '300');
   }
 
@@ -151,10 +165,10 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Widget> dots = [];
     if (getSliderModel == null) {
     } else {
-      for (int i = 0; i < getSliderModel!.data!.length; i++) {
+      for (int i = 0; i < getSliderModel!.data!.length; i++ ) {
         dots.add(
           Container(
-            margin: EdgeInsets.all(1.5),
+            margin: const EdgeInsets.all(1.5),
             width: 6,
             height: 6,
             decoration: BoxDecoration(
@@ -174,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
       isButtonDisabled = true;
     });
 
-    Timer(Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 5), () {
       setState(() {
         isButtonDisabled = false;
       });
@@ -233,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                    Text(
                       getTranslated(context, "Hello"),
                      // 'Hello,',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     Text(
                       '${getProfileModel?.data?[0].userFullname}',
@@ -250,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => NotificationScreen()));
+                          builder: (context) => const NotificationScreen()));
                 },
                 child: Container(
                   height: 40,
@@ -260,7 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       shape: BoxShape.circle, color: Colors.white),
                   child: const Icon(
                     Icons.notification_important_rounded,
-                    color: Colors.black,
+                    color: CustomColors.primaryColor,
                   ),
                 ),
               ),
@@ -272,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SupportNewScreen()));
+                          builder: (context) => const SupportNewScreen()));
                 },
                 child: Container(
                   height: 40,
@@ -282,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       shape: BoxShape.circle, color: Colors.white),
                   child: const Icon(
                     Icons.headset_rounded,
-                    color: Colors.black,
+                    color: CustomColors.primaryColor,
                   ),
                 ),
               ),
@@ -343,7 +357,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: 10,
+                  height: 5,
                 ),
 
                 Expanded(
@@ -352,11 +366,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                         color: Colors.blue.shade50,
                         borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20))),
+                            topLeft: Radius.circular(35),
+                            topRight: Radius.circular(35))),
                     child: ListView(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Column(
@@ -366,7 +380,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ? const Center(
                                     child: CircularProgressIndicator())
                                 : CarouselSlider(
-                                    items: getSliderModel!.data!
+                                    items: getSliderModel?.data!
                                         .map(
                                           (item) => Stack(
                                               alignment: Alignment.center,
@@ -422,7 +436,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text(
                             getTranslated(context, "Deliveries"),
                           //  'Deliveries',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -432,616 +446,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Text(
                               getTranslated(context, "New delivery list"),
                               //'New delivery list',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             )),
                         const SizedBox(
                           height: 10,
                         ),
                         selectedSegmentVal == 0
-                            ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                    width: double.maxFinite,
-                                    child: isLoading
-                                        ? const Center(
-                                            child: CircularProgressIndicator())
-                                        : orderHistoryList.isEmpty
-                                            ?  Center(
-                                                child: Text(
-                                                  getTranslated(context, "Data not available"),
-                                                 //   'Data not available'
-                                                ))
-                                            : ListView.builder(
-                                                scrollDirection: Axis.vertical,
-                                                shrinkWrap: true,
-                                                physics:
-                                                    const NeverScrollableScrollPhysics(),
-                                                itemCount: orderHistoryList.length,
-                                                itemBuilder: (context, index) {
-                                                 bool isAccepted = orderHistoryList[index]
-                                                     .parcelDetails.first.status == "2"? true : false;
-                                                 // isButtonDisabled = isAccepted? false: true;
-                                                  return InkWell(
-                                                    onTap: isAccepted
-                                                        ? () {
-                                                            print(
-                                                                '____Som___jj___${orderHistoryList[index].orderId}_________');
-                                                            // Navigator.push(
-                                                            //     context,
-                                                            //     MaterialPageRoute(
-                                                            //       builder: (context) =>
-                                                            //           OrderDetailView(orderDetail: orderHistoryList[index]),
-                                                            //     ));
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder: (context) =>
-                                                                        PercelDetails(
-                                                                            pId: orderHistoryList[index]
-                                                                                .orderId)));
-                                                          }
-                                                        : null,
-                                                    child: Card(
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                15.0),
-                                                      ),
-                                                      elevation: 2,
-                                                      color: Colors.white,
-                                                      child: Container(
-                                                        padding: const EdgeInsets
-                                                                .symmetric(
-                                                            horizontal: 20,
-                                                            vertical: 20),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: const EdgeInsets
-                                                                          .only(
-                                                                              right:
-                                                                                  8.0),
-                                                                      child: Text(
-                                                                          getTranslated(context, "Customer Name"),
-                                                                        //  "Customer Name",
-                                                                          style: const TextStyle(
-                                                                              fontSize:
-                                                                                  14,
-                                                                              color:
-                                                                                  colors.black54)),
-                                                                    ),
-                                                                    Text(
-                                                                        orderHistoryList[
-                                                                                    index]
-                                                                                .senderName ??
-                                                                            '',
-                                                                        style: const TextStyle(
-                                                                            fontSize:
-                                                                                16,
-                                                                            color: colors
-                                                                                .primary)),
-                                                                  ],
-                                                                ),
-                                                                Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .end,
-                                                                  children: [
-                                                                    Text(
-                                                                        DateFormat(
-                                                                                'yyyy-MM-dd')
-                                                                            .format(orderHistoryList[index]
-                                                                                .onDate),
-                                                                        style: const TextStyle(
-                                                                            fontSize:
-                                                                                14,
-                                                                            color: colors
-                                                                                .black54)),
-                                                                    Text(
-                                                                        "₹ ${orderHistoryList[index].parcelDetails.first.materialInfo?.price ?? ''}",
-                                                                        style: const TextStyle(
-                                                                            fontSize:
-                                                                                14,
-                                                                            color: colors
-                                                                                .blackTemp,fontFamily: 'lora')),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-
-                                                            const SizedBox(
-                                                              height: 20,
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Container(
-                                                                  child: Column(
-                                                                    children: [
-                                                                      Container(
-                                                                        padding:
-                                                                            const EdgeInsets
-                                                                                .all(8),
-                                                                        decoration: const BoxDecoration(
-                                                                            shape: BoxShape
-                                                                                .circle,
-                                                                            color: Colors
-                                                                                .red),
-                                                                        child:
-                                                                            const Icon(
-                                                                          Icons
-                                                                              .pin_drop,
-                                                                          size: 14,
-                                                                          color: Colors
-                                                                              .white,
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        height: 40,
-                                                                        width: 1,
-                                                                        color: Colors
-                                                                            .black,
-                                                                      ),
-                                                                      Container(
-                                                                        padding:
-                                                                            const EdgeInsets
-                                                                                .all(8),
-                                                                        decoration: const BoxDecoration(
-                                                                            shape: BoxShape
-                                                                                .circle,
-                                                                            color: Colors
-                                                                                .grey),
-                                                                        child:
-                                                                            const Icon(
-                                                                          Icons
-                                                                              .pin_drop,
-                                                                          size: 14,
-                                                                          color: Colors
-                                                                              .yellow,
-                                                                        ),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                const SizedBox(
-                                                                  width: 10,
-                                                                ),
-                                                                Container(
-                                                                  child: Column(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      Container(
-                                                                        child:
-                                                                            Column(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment
-                                                                                  .start,
-                                                                          children: [
-                                                                              Text(
-                                                                              getTranslated(context, "Pick up Point"),
-                                                                             // "Pick up Point",
-                                                                              style: TextStyle(
-                                                                                  color: colors.primary,
-                                                                                  fontSize: 12),
-                                                                            ),
-                                                                            Container(
-                                                                              width:
-                                                                                  MediaQuery.of(context).size.width * 0.65,
-                                                                              child:
-                                                                                  Text(
-                                                                                orderHistoryList[index].senderAddress,
-                                                                                style:
-                                                                                    const TextStyle(color: Colors.black, fontSize: 12),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      const SizedBox(
-                                                                        height: 20,
-                                                                      ),
-                                                                      Container(
-                                                                        child:
-                                                                            Column(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment
-                                                                                  .start,
-                                                                          children: [
-                                                                             Text(
-                                                                              getTranslated(context, "Drop Point"),
-                                                                            //  "Drop Point",
-                                                                              style: const TextStyle(
-                                                                                  color: colors.primary,
-                                                                                  fontSize: 12),
-                                                                            ),
-                                                                            Container(
-                                                                              width:
-                                                                                  MediaQuery.of(context).size.width * 0.65,
-                                                                              child:
-                                                                                  Text(
-                                                                                orderHistoryList[index].parcelDetails.first.receiverAddress ?? "",
-                                                                                style:
-                                                                                    const TextStyle(color: Colors.black, fontSize: 12),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ),
-                                                            const SizedBox(
-                                                              height: 20,
-                                                            ),
-                                                            // const SizedBox(
-                                                            //   height: 10,
-                                                            // ),
-                                                            // Row(
-                                                            //   crossAxisAlignment:
-                                                            //       CrossAxisAlignment
-                                                            //           .start,
-                                                            //   mainAxisAlignment:
-                                                            //       MainAxisAlignment
-                                                            //           .spaceBetween,
-                                                            //   children: [
-                                                            //     Column(
-                                                            //       crossAxisAlignment:
-                                                            //           CrossAxisAlignment
-                                                            //               .start,
-                                                            //       children: [
-                                                            //         const Text(
-                                                            //           "Mobile No",
-                                                            //           style: TextStyle(
-                                                            //               fontSize:
-                                                            //                   13,
-                                                            //               color: Color(
-                                                            //                   0xFFBF2331)),
-                                                            //         ),
-                                                            //         Text(orderHistoryList[
-                                                            //                     index]
-                                                            //                 .phoneNo ??
-                                                            //             ''),
-                                                            //       ],
-                                                            //     ),
-                                                            //     Column(
-                                                            //       crossAxisAlignment:
-                                                            //           CrossAxisAlignment
-                                                            //               .start,
-                                                            //       children: [
-                                                            //         const Text(
-                                                            //           "Material category ",
-                                                            //           style: TextStyle(
-                                                            //               fontSize:
-                                                            //                   13,
-                                                            //               color: Color(
-                                                            //                   0xFFBF2331)),
-                                                            //         ),
-                                                            //         SizedBox(
-                                                            //           width: 100,
-                                                            //           child: Text(
-                                                            //             orderHistoryList[index]
-                                                            //                     .senderAddress ??
-                                                            //                 '',
-                                                            //             maxLines: 3,
-                                                            //             overflow:
-                                                            //                 TextOverflow
-                                                            //                     .clip,
-                                                            //           ),
-                                                            //         ),
-                                                            //       ],
-                                                            //     ),
-                                                            //   ],
-                                                            // ),
-                                                            // const SizedBox(
-                                                            //   height: 10,
-                                                            // ),
-                                                            // Row(
-                                                            //   crossAxisAlignment:
-                                                            //       CrossAxisAlignment
-                                                            //           .start,
-                                                            //   mainAxisAlignment:
-                                                            //       MainAxisAlignment
-                                                            //           .spaceBetween,
-                                                            //   children: [
-                                                            //     Column(
-                                                            //       crossAxisAlignment:
-                                                            //           CrossAxisAlignment
-                                                            //               .start,
-                                                            //       children: [
-                                                            //         const Text(
-                                                            //           "Recipient Address",
-                                                            //           style: TextStyle(
-                                                            //               fontSize:
-                                                            //                   13,
-                                                            //               color: Color(
-                                                            //                   0xFFBF2331)),
-                                                            //         ),
-                                                            //         SizedBox(
-                                                            //           width: 100,
-                                                            //           child: Text(
-                                                            //             orderHistoryList[index]
-                                                            //                     .senderAddress ??
-                                                            //                 '',
-                                                            //             maxLines: 3,
-                                                            //             overflow:
-                                                            //                 TextOverflow
-                                                            //                     .clip,
-                                                            //           ),
-                                                            //         ),
-                                                            //       ],
-                                                            //     ),
-                                                            //     Padding(
-                                                            //       padding:
-                                                            //           const EdgeInsets
-                                                            //                   .only(
-                                                            //               right:
-                                                            //                   16),
-                                                            //       child: Card(
-                                                            //         elevation: 0,
-                                                            //         color: CustomColors
-                                                            //             .accentColor,
-                                                            //         child: Padding(
-                                                            //           padding:
-                                                            //               const EdgeInsets
-                                                            //                       .all(
-                                                            //                   8.0),
-                                                            //           child: Column(
-                                                            //             crossAxisAlignment:
-                                                            //                 CrossAxisAlignment
-                                                            //                     .center,
-                                                            //             children: [
-                                                            //               const Text(
-                                                            //                 "order Amount",
-                                                            //                 textAlign:
-                                                            //                     TextAlign.center,
-                                                            //                 style: TextStyle(
-                                                            //                     fontSize:
-                                                            //                         14,
-                                                            //                     color:
-                                                            //                         CustomColors.White,
-                                                            //                     fontWeight: FontWeight.bold),
-                                                            //               ),
-                                                            //               Text(
-                                                            //                 '₹ ' + orderHistoryList[index].orderAmount ??
-                                                            //                     '',
-                                                            //                 style: TextStyle(
-                                                            //                     fontSize:
-                                                            //                         14,
-                                                            //                     fontWeight:
-                                                            //                         FontWeight.bold,
-                                                            //                     color: CustomColors.White),
-                                                            //               ),
-                                                            //             ],
-                                                            //           ),
-                                                            //         ),
-                                                            //       ),
-                                                            //     ),
-                                                            //   ],
-                                                            // ),
-                                                            // const SizedBox(
-                                                            //   height: 10,
-                                                            // ),
-                                                            // Row(
-                                                            //   crossAxisAlignment:
-                                                            //       CrossAxisAlignment
-                                                            //           .start,
-                                                            //   mainAxisAlignment:
-                                                            //       MainAxisAlignment
-                                                            //           .spaceBetween,
-                                                            //   children: [
-                                                            //     Column(
-                                                            //       crossAxisAlignment:
-                                                            //           CrossAxisAlignment
-                                                            //               .start,
-                                                            //       children: [
-                                                            //         const Text(
-                                                            //           "Recipient Flat Number",
-                                                            //           style: TextStyle(
-                                                            //               fontSize:
-                                                            //                   13,
-                                                            //               color: Color(
-                                                            //                   0xFFBF2331)),
-                                                            //         ),
-                                                            //         Text(orderHistoryList[
-                                                            //                 index]
-                                                            //             .saleIds
-                                                            //             .toString()),
-                                                            //       ],
-                                                            //     ),
-                                                            //     Column(
-                                                            //       crossAxisAlignment:
-                                                            //           CrossAxisAlignment
-                                                            //               .start,
-                                                            //       children: [
-                                                            //         const Text(
-                                                            //           "Date                        ",
-                                                            //           style: TextStyle(
-                                                            //               fontSize:
-                                                            //                   13,
-                                                            //               color: Color(
-                                                            //                   0xFFBF2331)),
-                                                            //         ),
-                                                            //         Text(orderHistoryList[
-                                                            //                 index]
-                                                            //             .onDate
-                                                            //             .toString()
-                                                            //             .substring(
-                                                            //                 0, 11)),
-                                                            //       ],
-                                                            //     ),
-                                                            //   ],
-                                                            // ),
-                                                            // const SizedBox(
-                                                            //   height: 10,
-                                                            // ),
-                                                            // const SizedBox(
-                                                            //   height: 10,
-                                                            // ),
-
-                                                        // Future.delayed( Duration(milliseconds: 500), () {
-                                                        //   setState(() {
-                                                        //     // Here you can write your code for open new view
-                                                        //   });
-                                                        //
-                                                        // });
-
-
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Expanded(
-                                                                  child:
-                                                                  isButtonDisabled? Container(
-                                                                    height: 35,
-                                                                    width: double.maxFinite,
-                                                                    decoration: BoxDecoration(
-                                                                      borderRadius: BorderRadius.circular(30),
-                                                                      color: colors.primary
-                                                                    ),
-
-                                                                    child: Center(
-                                                                      child: Text("Wait For 5 Second..",style: TextStyle(
-                                                                        color: colors.whiteTemp
-                                                                      ),),
-                                                                    ),
-                                                                  ):  InkWell(
-                                                                    // onTap: orderHistoryList[index].isAccepted ?? false
-                                                                    //     ? null
-                                                                    //     : () {
-                                                                    //   getUserOrderHistory();
-                                                                    //   setState(() {
-                                                                    //           orderHistoryList[index].isAccepted = true;
-                                                                    //           orderRejectedOrAccept(index, context);
-                                                                    //         });
-                                                                    //       },
-                                                                    onTap: orderHistoryList[index].parcelDetails.first.status == "2"?
-                                                                        (){
-                                                                          Navigator.push(
-                                                                              context,
-                                                                              MaterialPageRoute(
-                                                                                  builder: (context) =>
-                                                                                      PercelDetails(
-                                                                                          pId: orderHistoryList[index]
-                                                                                              .orderId)));
-                                                                        }
-                                                                        :(){
-                                                                      setState(() {
-                                                                        orderRejectedOrAccept(index, context);
-                                                                       // getUserOrderHistory();
-                                                                      });
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      padding:
-                                                                          const EdgeInsets.all(10),
-                                                                      width: MediaQuery.of(context).size.width *
-                                                                          0.30,
-                                                                      decoration: BoxDecoration(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(
-                                                                                  20),
-                                                                          color:  isButtonDisabled ? Colors.blue :
-                                                                          // orderHistoryList[index].isAccepted ?? false
-                                                                          orderHistoryList[index].parcelDetails.first.status == "2"
-                                                                              ? Colors.grey
-                                                                              : Colors.green),
-                                                                      child: Center(
-                                                                        child: Text(
-                                                                            // orderHistoryList[index].isAccepted??false
-                                                                                 orderHistoryList[index].parcelDetails.first.status == "2"
-                                                                                ? getTranslated(context, "View Detail")//'Accepted'
-                                                                                : getTranslated(context, "Accept"),//'Accept',
-                                                                            style: const TextStyle(
-                                                                                color:
-                                                                                    Colors.white)),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                const SizedBox(
-                                                                  width: 20,
-                                                                ),
-                                                                // orderHistoryList[
-                                                                //                 index]
-                                                                //             .isAccepted ??
-                                                                //         false
-                                                                //     ? SizedBox
-                                                                //         .shrink()
-                                                                //     : Expanded(
-                                                                //         child:
-                                                                //             InkWell(
-                                                                //           onTap:
-                                                                //               () {
-                                                                //             orderRejectedOrAccept(
-                                                                //                 index,
-                                                                //                 context,
-                                                                //                 isRejected:
-                                                                //                     true);
-                                                                //           },
-                                                                //           child:
-                                                                //               Container(
-                                                                //             width: MediaQuery.of(context).size.width *
-                                                                //                 0.35,
-                                                                //             padding:
-                                                                //                 const EdgeInsets.all(10),
-                                                                //             decoration: BoxDecoration(
-                                                                //                 borderRadius:
-                                                                //                     BorderRadius.circular(20),
-                                                                //                 color: Colors.red),
-                                                                //             child:
-                                                                //                  Center(
-                                                                //               child:
-                                                                //                   Text(
-                                                                //                     getTranslated(context, "Reject"),
-                                                                //               //  'Reject',
-                                                                //                 style:
-                                                                //                     TextStyle(color: Colors.white),
-                                                                //               ),
-                                                                //             ),
-                                                                //           ),
-                                                                //         ),
-                                                                //       ),
-                                                              ],
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                }),
-
-                                  ),
-                                const SizedBox(height: 10,),
-                                const Text("  Transaction History",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
-                                const SizedBox(height: 10,),
-                                withdrawalRequest()
-                              ],
-                            )
+                            ? currentDelivery(context)
                             : selectedSegmentVal == 1
-                                ? activeOrder()
+                                ? scheduleDelivery(context)
                                 : completeOrder(),
                         const SizedBox(
                           height: 50,
@@ -1123,6 +537,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   setState(() {
                     isOnline = true;
+                    getUserStatusOnlineOrOffline();
                   });
                 },
                 child: Container(
@@ -1133,7 +548,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Icons.check_circle_rounded,
                         color: isOnline ? Colors.green : Colors.white,
                       ),
-                      SizedBox(width: 5,),
+                      const SizedBox(width: 5,),
                       Text(
                         getTranslated(context, "Online"),
                         //'Online',
@@ -1155,6 +570,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   setState(() {
                     isOnline = false;
+                    getUserStatusOnlineOrOffline();
+                    print('____Som______${isOnline}_________');
                   });
                 },
                 child: Container(
@@ -1165,7 +582,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icons.wifi_tethering_off,
                       color: isOnline ? Colors.white : Colors.red,
                     ),
-                    SizedBox(width: 5,),
+                    const SizedBox(width: 5,),
                     Text(
                       getTranslated(context, "Offline"),
                       // 'Offline',
@@ -1184,15 +601,1412 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+   currentDelivery(BuildContext context) {
+    return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                  width: double.maxFinite,
+                                  child: isLoading
+                                      ? const Center(
+                                          child: CircularProgressIndicator())
+                                      : orderHistoryList.isEmpty
+                                          ?  Center(
+                                              child: Text(
+                                                getTranslated(context, "Data not available"),
+                                               //   'Data not available'
+                                              ))
+                                          : ListView.builder(
+                                              scrollDirection: Axis.vertical,
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              itemCount: orderHistoryList.length,
+                                              itemBuilder: (context, index) {
+                                               bool isAccepted =
+                                               orderHistoryList[index].parcelDetails.first.status == "2"? true : false;
+                                               // isButtonDisabled = isAccepted? false: true;
+                                                return InkWell(
+                                                  onTap: () {
+                                                        if(orderHistoryList[index].parcelDetails.first.status == "2"){
+                                                          Navigator.push(context,MaterialPageRoute(builder: (context) =>PercelDetails(pId: orderHistoryList[index].orderId)));
+                                                        }
+                                                        },
+
+                                                  child: Card(
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15.0),
+                                                    ),
+                                                    elevation: 2,
+                                                    color: Colors.white,
+                                                    child: Container(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 20,
+                                                          vertical: 20),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: const EdgeInsets
+                                                                        .only(
+                                                                            right:
+                                                                                8.0),
+                                                                    child: Text(
+                                                                        getTranslated(context, "Customer Name"),
+                                                                      //  "Customer Name",
+                                                                        style: const TextStyle(
+                                                                            fontSize:
+                                                                                14,
+                                                                            color:
+                                                                                colors.black54)),
+                                                                  ),
+                                                                  Text(
+                                                                      orderHistoryList[
+                                                                                  index]
+                                                                              .senderName ??
+                                                                          '',
+                                                                      style: const TextStyle(
+                                                                          fontSize:
+                                                                              16,
+                                                                          color: colors
+                                                                              .primary)),
+                                                                ],
+                                                              ),
+                                                              Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .end,
+                                                                children: [
+                                                                  Text(
+                                                                      DateFormat(
+                                                                              'yyyy-MM-dd')
+                                                                          .format(orderHistoryList[index]
+                                                                              .onDate),
+                                                                      style: const TextStyle(
+                                                                          fontSize:
+                                                                              14,
+                                                                          color: colors
+                                                                              .black54)),
+                                                                  Text(
+                                                                      "₹ ${orderHistoryList[index].parcelDetails.first.materialInfo?.price ?? ''}",
+                                                                      style: const TextStyle(
+                                                                          fontSize:
+                                                                              14,
+                                                                          color: colors
+                                                                              .blackTemp,fontFamily: 'lora')),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+
+                                                          const SizedBox(
+                                                            height: 20,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Container(
+                                                                child: Column(
+                                                                  children: [
+                                                                    Container(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                              .all(8),
+                                                                      decoration: const BoxDecoration(
+                                                                          shape: BoxShape
+                                                                              .circle,
+                                                                          color: Colors
+                                                                              .red),
+                                                                      child:
+                                                                          const Icon(
+                                                                        Icons
+                                                                            .pin_drop,
+                                                                        size: 14,
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ),
+                                                                    Container(
+                                                                      height: 40,
+                                                                      width: 1,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
+                                                                    Container(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                              .all(8),
+                                                                      decoration: const BoxDecoration(
+                                                                          shape: BoxShape
+                                                                              .circle,
+                                                                          color: Colors
+                                                                              .grey),
+                                                                      child:
+                                                                          const Icon(
+                                                                        Icons
+                                                                            .pin_drop,
+                                                                        size: 14,
+                                                                        color: Colors
+                                                                            .yellow,
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Container(
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Container(
+                                                                      child:
+                                                                          Column(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment
+                                                                                .start,
+                                                                        children: [
+                                                                            Text(
+                                                                            getTranslated(context, "Pick up Point"),
+                                                                           // "Pick up Point",
+                                                                            style: const TextStyle(
+                                                                                color: colors.primary,
+                                                                                fontSize: 12),
+                                                                          ),
+                                                                          Container(
+                                                                            width:
+                                                                                MediaQuery.of(context).size.width * 0.65,
+                                                                            child:
+                                                                                Text(
+                                                                              orderHistoryList[index].senderAddress,
+                                                                              style:
+                                                                                  const TextStyle(color: Colors.black, fontSize: 12),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                      height: 20,
+                                                                    ),
+                                                                    Container(
+                                                                      child:
+                                                                          Column(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment
+                                                                                .start,
+                                                                        children: [
+                                                                           Text(
+                                                                            getTranslated(context, "Drop Point"),
+                                                                          //  "Drop Point",
+                                                                            style: const TextStyle(
+                                                                                color: colors.primary,
+                                                                                fontSize: 12),
+                                                                          ),
+                                                                          Container(
+                                                                            width:
+                                                                                MediaQuery.of(context).size.width * 0.65,
+                                                                            child:
+                                                                                Text(
+                                                                              orderHistoryList[index].parcelDetails.first.receiverAddress ?? "",
+                                                                              style:
+                                                                                  const TextStyle(color: Colors.black, fontSize: 12),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 20,
+                                                          ),
+                                                          // const SizedBox(
+                                                          //   height: 10,
+                                                          // ),
+
+                                                          // Row(
+                                                          //   crossAxisAlignment:
+                                                          //       CrossAxisAlignment
+                                                          //           .start,
+                                                          //   mainAxisAlignment:
+                                                          //       MainAxisAlignment
+                                                          //           .spaceBetween,
+                                                          //   children: [
+                                                          //     Column(
+                                                          //       crossAxisAlignment:
+                                                          //           CrossAxisAlignment
+                                                          //               .start,
+                                                          //       children: [
+                                                          //         const Text(
+                                                          //           "Mobile No",
+                                                          //           style: TextStyle(
+                                                          //               fontSize:
+                                                          //                   13,
+                                                          //               color: Color(
+                                                          //                   0xFFBF2331)),
+                                                          //         ),
+                                                          //         Text(orderHistoryList[
+                                                          //                     index]
+                                                          //                 .phoneNo ??
+                                                          //             ''),
+                                                          //       ],
+                                                          //     ),
+                                                          //     Column(
+                                                          //       crossAxisAlignment:
+                                                          //           CrossAxisAlignment
+                                                          //               .start,
+                                                          //       children: [
+                                                          //         const Text(
+                                                          //           "Material category ",
+                                                          //           style: TextStyle(
+                                                          //               fontSize:
+                                                          //                   13,
+                                                          //               color: Color(
+                                                          //                   0xFFBF2331)),
+                                                          //         ),
+                                                          //         SizedBox(
+                                                          //           width: 100,
+                                                          //           child: Text(
+                                                          //             orderHistoryList[index]
+                                                          //                     .senderAddress ??
+                                                          //                 '',
+                                                          //             maxLines: 3,
+                                                          //             overflow:
+                                                          //                 TextOverflow
+                                                          //                     .clip,
+                                                          //           ),
+                                                          //         ),
+                                                          //       ],
+                                                          //     ),
+                                                          //   ],
+                                                          // ),
+                                                          // const SizedBox(
+                                                          //   height: 10,
+                                                          // ),
+                                                          // Row(
+                                                          //   crossAxisAlignment:
+                                                          //       CrossAxisAlignment
+                                                          //           .start,
+                                                          //   mainAxisAlignment:
+                                                          //       MainAxisAlignment
+                                                          //           .spaceBetween,
+                                                          //   children: [
+                                                          //     Column(
+                                                          //       crossAxisAlignment:
+                                                          //           CrossAxisAlignment
+                                                          //               .start,
+                                                          //       children: [
+                                                          //         const Text(
+                                                          //           "Recipient Address",
+                                                          //           style: TextStyle(
+                                                          //               fontSize:
+                                                          //                   13,
+                                                          //               color: Color(
+                                                          //                   0xFFBF2331)),
+                                                          //         ),
+                                                          //         SizedBox(
+                                                          //           width: 100,
+                                                          //           child: Text(
+                                                          //             orderHistoryList[index]
+                                                          //                     .senderAddress ??
+                                                          //                 '',
+                                                          //             maxLines: 3,
+                                                          //             overflow:
+                                                          //                 TextOverflow
+                                                          //                     .clip,
+                                                          //           ),
+                                                          //         ),
+                                                          //       ],
+                                                          //     ),
+                                                          //     Padding(
+                                                          //       padding:
+                                                          //           const EdgeInsets
+                                                          //                   .only(
+                                                          //               right:
+                                                          //                   16),
+                                                          //       child: Card(
+                                                          //         elevation: 0,
+                                                          //         color: CustomColors
+                                                          //             .accentColor,
+                                                          //         child: Padding(
+                                                          //           padding:
+                                                          //               const EdgeInsets
+                                                          //                       .all(
+                                                          //                   8.0),
+                                                          //           child: Column(
+                                                          //             crossAxisAlignment:
+                                                          //                 CrossAxisAlignment
+                                                          //                     .center,
+                                                          //             children: [
+                                                          //               const Text(
+                                                          //                 "order Amount",
+                                                          //                 textAlign:
+                                                          //                     TextAlign.center,
+                                                          //                 style: TextStyle(
+                                                          //                     fontSize:
+                                                          //                         14,
+                                                          //                     color:
+                                                          //                         CustomColors.White,
+                                                          //                     fontWeight: FontWeight.bold),
+                                                          //               ),
+                                                          //               Text(
+                                                          //                 '₹ ' + orderHistoryList[index].orderAmount ??
+                                                          //                     '',
+                                                          //                 style: TextStyle(
+                                                          //                     fontSize:
+                                                          //                         14,
+                                                          //                     fontWeight:
+                                                          //                         FontWeight.bold,
+                                                          //                     color: CustomColors.White),
+                                                          //               ),
+                                                          //             ],
+                                                          //           ),
+                                                          //         ),
+                                                          //       ),
+                                                          //     ),
+                                                          //   ],
+                                                          // ),
+                                                          // const SizedBox(
+                                                          //   height: 10,
+                                                          // ),
+                                                          // Row(
+                                                          //   crossAxisAlignment:
+                                                          //       CrossAxisAlignment
+                                                          //           .start,
+                                                          //   mainAxisAlignment:
+                                                          //       MainAxisAlignment
+                                                          //           .spaceBetween,
+                                                          //   children: [
+                                                          //     Column(
+                                                          //       crossAxisAlignment:
+                                                          //           CrossAxisAlignment
+                                                          //               .start,
+                                                          //       children: [
+                                                          //         const Text(
+                                                          //           "Recipient Flat Number",
+                                                          //           style: TextStyle(
+                                                          //               fontSize:
+                                                          //                   13,
+                                                          //               color: Color(
+                                                          //                   0xFFBF2331)),
+                                                          //         ),
+                                                          //         Text(orderHistoryList[
+                                                          //                 index]
+                                                          //             .saleIds
+                                                          //             .toString()),
+                                                          //       ],
+                                                          //     ),
+                                                          //     Column(
+                                                          //       crossAxisAlignment:
+                                                          //           CrossAxisAlignment
+                                                          //               .start,
+                                                          //       children: [
+                                                          //         const Text(
+                                                          //           "Date                        ",
+                                                          //           style: TextStyle(
+                                                          //               fontSize:
+                                                          //                   13,
+                                                          //               color: Color(
+                                                          //                   0xFFBF2331)),
+                                                          //         ),
+                                                          //         Text(orderHistoryList[
+                                                          //                 index]
+                                                          //             .onDate
+                                                          //             .toString()
+                                                          //             .substring(
+                                                          //                 0, 11)),
+                                                          //       ],
+                                                          //     ),
+                                                          //   ],
+                                                          // ),
+                                                          // const SizedBox(
+                                                          //   height: 10,
+                                                          // ),
+                                                          // const SizedBox(
+                                                          //   height: 10,
+                                                          // ),
+
+                                                      // Future.delayed( Duration(milliseconds: 500), () {
+                                                      //   setState(() {
+                                                      //     // Here you can write your code for open new view
+                                                      //   });
+                                                      //
+                                                      // });
+
+
+                                                        // Row(
+                                                        //     mainAxisAlignment:
+                                                        //         MainAxisAlignment
+                                                        //             .spaceBetween,
+                                                        //     children: [
+                                                        //       Expanded(
+                                                        //         child:
+                                                        //         isButtonDisabled? Container(
+                                                        //           height: 35,
+                                                        //           width: double.maxFinite,
+                                                        //           decoration: BoxDecoration(
+                                                        //             borderRadius: BorderRadius.circular(30),
+                                                        //             color: colors.primary
+                                                        //           ),
+                                                        //
+                                                        //           child: Center(
+                                                        //             child: Text("Wait For 5 Second..",style: TextStyle(
+                                                        //               color: colors.whiteTemp
+                                                        //             ),),
+                                                        //           ),
+                                                        //         ):  InkWell(
+                                                        //           // onTap: orderHistoryList[index].isAccepted ?? false
+                                                        //           //     ? null
+                                                        //           //     : () {
+                                                        //           //   getUserOrderHistory();
+                                                        //           //   setState(() {
+                                                        //           //           orderHistoryList[index].isAccepted = true;
+                                                        //           //           orderRejectedOrAccept(index, context);
+                                                        //           //         });
+                                                        //           //       },
+                                                        //           onTap: orderHistoryList[index].parcelDetails.first.status == "2"?
+                                                        //               (){
+                                                        //                 Navigator.push(
+                                                        //                     context,
+                                                        //                     MaterialPageRoute(
+                                                        //                         builder: (context) =>
+                                                        //                             PercelDetails(
+                                                        //                                 pId: orderHistoryList[index]
+                                                        //                                     .orderId)));
+                                                        //               }
+                                                        //               :(){
+                                                        //             setState(() {
+                                                        //               orderRejectedOrAccept(index, context);
+                                                        //              // getUserOrderHistory();
+                                                        //             });
+                                                        //           },
+                                                        //           child:
+                                                        //               Container(
+                                                        //             padding:
+                                                        //                 const EdgeInsets.all(10),
+                                                        //             width: MediaQuery.of(context).size.width *
+                                                        //                 0.30,
+                                                        //             decoration: BoxDecoration(
+                                                        //                 borderRadius:
+                                                        //                     BorderRadius.circular(
+                                                        //                         20),
+                                                        //                 color:  isButtonDisabled ? Colors.blue :
+                                                        //                 // orderHistoryList[index].isAccepted ?? false
+                                                        //                 orderHistoryList[index].parcelDetails.first.status == "2"
+                                                        //                     ? Colors.grey
+                                                        //                     : Colors.green),
+                                                        //             child: Center(
+                                                        //               child: Text(
+                                                        //                   // orderHistoryList[index].isAccepted??false
+                                                        //                        orderHistoryList[index].parcelDetails.first.status == "2"
+                                                        //                       ? getTranslated(context, "View Detail")//'Accepted'
+                                                        //                       : getTranslated(context, "Accept"),//'Accept',
+                                                        //                   style: const TextStyle(
+                                                        //                       color:
+                                                        //                           Colors.white)),
+                                                        //             ),
+                                                        //           ),
+                                                        //         ),
+                                                        //       ),
+                                                        //       const SizedBox(
+                                                        //         width: 20,
+                                                        //       ),
+                                                        //       // orderHistoryList[
+                                                        //       //                 index]
+                                                        //       //             .isAccepted ??
+                                                        //       //         false
+                                                        //       //     ? SizedBox
+                                                        //       //         .shrink()
+                                                        //       //     : Expanded(
+                                                        //       //         child:
+                                                        //       //             InkWell(
+                                                        //       //           onTap:
+                                                        //       //               () {
+                                                        //       //             orderRejectedOrAccept(
+                                                        //       //                 index,
+                                                        //       //                 context,
+                                                        //       //                 isRejected:
+                                                        //       //                     true);
+                                                        //       //           },
+                                                        //       //           child:
+                                                        //       //               Container(
+                                                        //       //             width: MediaQuery.of(context).size.width *
+                                                        //       //                 0.35,
+                                                        //       //             padding:
+                                                        //       //                 const EdgeInsets.all(10),
+                                                        //       //             decoration: BoxDecoration(
+                                                        //       //                 borderRadius:
+                                                        //       //                     BorderRadius.circular(20),
+                                                        //       //                 color: Colors.red),
+                                                        //       //             child:
+                                                        //       //                  Center(
+                                                        //       //               child:
+                                                        //       //                   Text(
+                                                        //       //                     getTranslated(context, "Reject"),
+                                                        //       //               //  'Reject',
+                                                        //       //                 style:
+                                                        //       //                     TextStyle(color: Colors.white),
+                                                        //       //               ),
+                                                        //       //             ),
+                                                        //       //           ),
+                                                        //       //         ),
+                                                        //       //       ),
+                                                        //     ],
+                                                        //   ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:isButtonDisabled == true ? Container(
+                                                                  height: 35,
+                                                                  width: double.maxFinite,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(30),
+                                                                      color: colors.primary
+                                                                  ),
+
+                                                                  child: const Center(
+                                                                    child: Text("Wait For 5 Second..",style: TextStyle(
+                                                                        color: colors.whiteTemp
+                                                                    ),),
+                                                                  ),
+                                                                ):  InkWell(
+                                                                  onTap:
+                                                                  // orderHistoryList[index].isAccepted ?? false
+                                                                  //     ? null
+                                                                  //     :
+                                                                      () {
+                                                                        if(orderHistoryList[index].parcelDetails.first.status == "2"){
+                                                                          Navigator.push(context,MaterialPageRoute(builder: (context) =>PercelDetails(pId: orderHistoryList[index].orderId)));
+                                                                        }
+                                                                    setState(() {
+                                                                      orderHistoryList[index].isAccepted = true;
+                                                                      orderRejectedOrAccept(index, context);
+
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                  Container(
+                                                                    padding:
+                                                                    const EdgeInsets.all(10),
+                                                                    width: MediaQuery.of(context).size.width *
+                                                                        0.30,
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            20),
+                                                                        color:isButtonDisabled ? Colors.blue :   orderHistoryList[index].parcelDetails.first.status == "2"
+                                                                            ? Colors.grey
+                                                                            : Colors.green),
+                                                                    child: Center(
+                                                                      child: Text(
+                                                                          orderHistoryList[index].parcelDetails.first.status == "2"
+                                                                              ? getTranslated(context, "View Detail")//'Accepted'
+                                                                              : getTranslated(context, "Accept"),//'Accept',
+                                                                          style: const TextStyle(
+                                                                              color:
+                                                                              Colors.white)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 20,
+                                                              ),
+                                                              // orderHistoryList[
+                                                              //                 index]
+                                                              //             .isAccepted ??
+                                                              //         false
+                                                              //     ? SizedBox
+                                                              //         .shrink()
+                                                              //     : Expanded(
+                                                              //         child:
+                                                              //             InkWell(
+                                                              //           onTap:
+                                                              //               () {
+                                                              //             orderRejectedOrAccept(
+                                                              //                 index,
+                                                              //                 context,
+                                                              //                 isRejected:
+                                                              //                     true);
+                                                              //           },
+                                                              //           child:
+                                                              //               Container(
+                                                              //             width: MediaQuery.of(context).size.width *
+                                                              //                 0.35,
+                                                              //             padding:
+                                                              //                 const EdgeInsets.all(10),
+                                                              //             decoration: BoxDecoration(
+                                                              //                 borderRadius:
+                                                              //                     BorderRadius.circular(20),
+                                                              //                 color: Colors.red),
+                                                              //             child:
+                                                              //                  Center(
+                                                              //               child:
+                                                              //                   Text(
+                                                              //                     getTranslated(context, "Reject"),
+                                                              //               //  'Reject',
+                                                              //                 style:
+                                                              //                     TextStyle(color: Colors.white),
+                                                              //               ),
+                                                              //             ),
+                                                              //           ),
+                                                              //         ),
+                                                              //       ),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              }),
+
+                                ),
+                              const SizedBox(height: 10,),
+                              const Text("  Transaction History",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+                              const SizedBox(height: 10,),
+                              withdrawalRequest()
+                            ],
+                          );
+  }
+   scheduleDelivery(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: double.maxFinite,
+          child: isLoading
+              ? const Center(
+              child: CircularProgressIndicator())
+              : orderHistoryList.isEmpty
+              ?  Center(
+              child: Text(
+                getTranslated(context, "Data not available"),
+                //   'Data not available'
+              ))
+              : ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              physics:
+              const NeverScrollableScrollPhysics(),
+              itemCount: orderHistoryList.length,
+              itemBuilder: (context, index) {
+                bool isAccepted = orderHistoryList[index]
+                    .parcelDetails.first.status == "2"? true : false;
+                // isButtonDisabled = isAccepted? false: true;
+                return InkWell(
+                  onTap: isAccepted
+                      ? () {
+                    print(
+                        '____Som___jj___${orderHistoryList[index].orderId}_________');
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) =>
+                    //           OrderDetailView(orderDetail: orderHistoryList[index]),
+                    //     ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PercelDetails(
+                                    pId: orderHistoryList[index]
+                                        .orderId)));
+                  }
+                      : null,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                      BorderRadius.circular(
+                          15.0),
+                    ),
+                    elevation: 2,
+                    color: Colors.white,
+                    child: Container(
+                      padding: const EdgeInsets
+                          .symmetric(
+                          horizontal: 20,
+                          vertical: 20),
+                      child: Column(
+                        crossAxisAlignment:
+                        CrossAxisAlignment
+                            .start,
+                        children: [
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment
+                                .spaceBetween,
+                            crossAxisAlignment:
+                            CrossAxisAlignment
+                                .start,
+                            children: [
+                              Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment
+                                    .start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets
+                                        .only(
+                                        right:
+                                        8.0),
+                                    child: Text(
+                                        getTranslated(context, "Customer Name"),
+                                        //  "Customer Name",
+                                        style: const TextStyle(
+                                            fontSize:
+                                            14,
+                                            color:
+                                            colors.black54)),
+                                  ),
+                                  Text(
+                                      orderHistoryList[
+                                      index]
+                                          .senderName ??
+                                          '',
+                                      style: const TextStyle(
+                                          fontSize:
+                                          16,
+                                          color: colors
+                                              .primary)),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment
+                                    .end,
+                                children: [
+                                  Text(
+                                      DateFormat(
+                                          'yyyy-MM-dd')
+                                          .format(orderHistoryList[index]
+                                          .onDate),
+                                      style: const TextStyle(
+                                          fontSize:
+                                          14,
+                                          color: colors
+                                              .black54)),
+                                  Text(
+                                      "₹ ${orderHistoryList[index].parcelDetails.first.materialInfo?.price ?? ''}",
+                                      style: const TextStyle(
+                                          fontSize:
+                                          14,
+                                          color: colors
+                                              .blackTemp,fontFamily: 'lora')),
+                                ],
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      padding:
+                                      const EdgeInsets
+                                          .all(8),
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape
+                                              .circle,
+                                          color: Colors
+                                              .red),
+                                      child:
+                                      const Icon(
+                                        Icons
+                                            .pin_drop,
+                                        size: 14,
+                                        color: Colors
+                                            .white,
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 40,
+                                      width: 1,
+                                      color: Colors
+                                          .black,
+                                    ),
+                                    Container(
+                                      padding:
+                                      const EdgeInsets
+                                          .all(8),
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape
+                                              .circle,
+                                          color: Colors
+                                              .grey),
+                                      child:
+                                      const Icon(
+                                        Icons
+                                            .pin_drop,
+                                        size: 14,
+                                        color: Colors
+                                            .yellow,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .spaceBetween,
+                                  children: [
+                                    Container(
+                                      child:
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment
+                                            .start,
+                                        children: [
+                                          Text(
+                                            getTranslated(context, "Pick up Point"),
+                                            // "Pick up Point",
+                                            style: const TextStyle(
+                                                color: colors.primary,
+                                                fontSize: 12),
+                                          ),
+                                          Container(
+                                            width:
+                                            MediaQuery.of(context).size.width * 0.65,
+                                            child:
+                                            Text(
+                                              orderHistoryList[index].senderAddress,
+                                              style:
+                                              const TextStyle(color: Colors.black, fontSize: 12),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Container(
+                                      child:
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment
+                                            .start,
+                                        children: [
+                                          Text(
+                                            getTranslated(context, "Drop Point"),
+                                            //  "Drop Point",
+                                            style: const TextStyle(
+                                                color: colors.primary,
+                                                fontSize: 12),
+                                          ),
+                                          Container(
+                                            width:
+                                            MediaQuery.of(context).size.width * 0.65,
+                                            child:
+                                            Text(
+                                              orderHistoryList[index].parcelDetails.first.receiverAddress ?? "",
+                                              style:
+                                              const TextStyle(color: Colors.black, fontSize: 12),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+
+                          // Row(
+                          //   crossAxisAlignment:
+                          //       CrossAxisAlignment
+                          //           .start,
+                          //   mainAxisAlignment:
+                          //       MainAxisAlignment
+                          //           .spaceBetween,
+                          //   children: [
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Mobile No",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         Text(orderHistoryList[
+                          //                     index]
+                          //                 .phoneNo ??
+                          //             ''),
+                          //       ],
+                          //     ),
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Material category ",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         SizedBox(
+                          //           width: 100,
+                          //           child: Text(
+                          //             orderHistoryList[index]
+                          //                     .senderAddress ??
+                          //                 '',
+                          //             maxLines: 3,
+                          //             overflow:
+                          //                 TextOverflow
+                          //                     .clip,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // Row(
+                          //   crossAxisAlignment:
+                          //       CrossAxisAlignment
+                          //           .start,
+                          //   mainAxisAlignment:
+                          //       MainAxisAlignment
+                          //           .spaceBetween,
+                          //   children: [
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Recipient Address",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         SizedBox(
+                          //           width: 100,
+                          //           child: Text(
+                          //             orderHistoryList[index]
+                          //                     .senderAddress ??
+                          //                 '',
+                          //             maxLines: 3,
+                          //             overflow:
+                          //                 TextOverflow
+                          //                     .clip,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     Padding(
+                          //       padding:
+                          //           const EdgeInsets
+                          //                   .only(
+                          //               right:
+                          //                   16),
+                          //       child: Card(
+                          //         elevation: 0,
+                          //         color: CustomColors
+                          //             .accentColor,
+                          //         child: Padding(
+                          //           padding:
+                          //               const EdgeInsets
+                          //                       .all(
+                          //                   8.0),
+                          //           child: Column(
+                          //             crossAxisAlignment:
+                          //                 CrossAxisAlignment
+                          //                     .center,
+                          //             children: [
+                          //               const Text(
+                          //                 "order Amount",
+                          //                 textAlign:
+                          //                     TextAlign.center,
+                          //                 style: TextStyle(
+                          //                     fontSize:
+                          //                         14,
+                          //                     color:
+                          //                         CustomColors.White,
+                          //                     fontWeight: FontWeight.bold),
+                          //               ),
+                          //               Text(
+                          //                 '₹ ' + orderHistoryList[index].orderAmount ??
+                          //                     '',
+                          //                 style: TextStyle(
+                          //                     fontSize:
+                          //                         14,
+                          //                     fontWeight:
+                          //                         FontWeight.bold,
+                          //                     color: CustomColors.White),
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // Row(
+                          //   crossAxisAlignment:
+                          //       CrossAxisAlignment
+                          //           .start,
+                          //   mainAxisAlignment:
+                          //       MainAxisAlignment
+                          //           .spaceBetween,
+                          //   children: [
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Recipient Flat Number",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         Text(orderHistoryList[
+                          //                 index]
+                          //             .saleIds
+                          //             .toString()),
+                          //       ],
+                          //     ),
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Date                        ",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         Text(orderHistoryList[
+                          //                 index]
+                          //             .onDate
+                          //             .toString()
+                          //             .substring(
+                          //                 0, 11)),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+
+                          // Future.delayed( Duration(milliseconds: 500), () {
+                          //   setState(() {
+                          //     // Here you can write your code for open new view
+                          //   });
+                          //
+                          // });
+
+
+                          // Row(
+                          //     mainAxisAlignment:
+                          //         MainAxisAlignment
+                          //             .spaceBetween,
+                          //     children: [
+                          //       Expanded(
+                          //         child:
+                          //         isButtonDisabled? Container(
+                          //           height: 35,
+                          //           width: double.maxFinite,
+                          //           decoration: BoxDecoration(
+                          //             borderRadius: BorderRadius.circular(30),
+                          //             color: colors.primary
+                          //           ),
+                          //
+                          //           child: Center(
+                          //             child: Text("Wait For 5 Second..",style: TextStyle(
+                          //               color: colors.whiteTemp
+                          //             ),),
+                          //           ),
+                          //         ):  InkWell(
+                          //           // onTap: orderHistoryList[index].isAccepted ?? false
+                          //           //     ? null
+                          //           //     : () {
+                          //           //   getUserOrderHistory();
+                          //           //   setState(() {
+                          //           //           orderHistoryList[index].isAccepted = true;
+                          //           //           orderRejectedOrAccept(index, context);
+                          //           //         });
+                          //           //       },
+                          //           onTap: orderHistoryList[index].parcelDetails.first.status == "2"?
+                          //               (){
+                          //                 Navigator.push(
+                          //                     context,
+                          //                     MaterialPageRoute(
+                          //                         builder: (context) =>
+                          //                             PercelDetails(
+                          //                                 pId: orderHistoryList[index]
+                          //                                     .orderId)));
+                          //               }
+                          //               :(){
+                          //             setState(() {
+                          //               orderRejectedOrAccept(index, context);
+                          //              // getUserOrderHistory();
+                          //             });
+                          //           },
+                          //           child:
+                          //               Container(
+                          //             padding:
+                          //                 const EdgeInsets.all(10),
+                          //             width: MediaQuery.of(context).size.width *
+                          //                 0.30,
+                          //             decoration: BoxDecoration(
+                          //                 borderRadius:
+                          //                     BorderRadius.circular(
+                          //                         20),
+                          //                 color:  isButtonDisabled ? Colors.blue :
+                          //                 // orderHistoryList[index].isAccepted ?? false
+                          //                 orderHistoryList[index].parcelDetails.first.status == "2"
+                          //                     ? Colors.grey
+                          //                     : Colors.green),
+                          //             child: Center(
+                          //               child: Text(
+                          //                   // orderHistoryList[index].isAccepted??false
+                          //                        orderHistoryList[index].parcelDetails.first.status == "2"
+                          //                       ? getTranslated(context, "View Detail")//'Accepted'
+                          //                       : getTranslated(context, "Accept"),//'Accept',
+                          //                   style: const TextStyle(
+                          //                       color:
+                          //                           Colors.white)),
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       ),
+                          //       const SizedBox(
+                          //         width: 20,
+                          //       ),
+                          //       // orderHistoryList[
+                          //       //                 index]
+                          //       //             .isAccepted ??
+                          //       //         false
+                          //       //     ? SizedBox
+                          //       //         .shrink()
+                          //       //     : Expanded(
+                          //       //         child:
+                          //       //             InkWell(
+                          //       //           onTap:
+                          //       //               () {
+                          //       //             orderRejectedOrAccept(
+                          //       //                 index,
+                          //       //                 context,
+                          //       //                 isRejected:
+                          //       //                     true);
+                          //       //           },
+                          //       //           child:
+                          //       //               Container(
+                          //       //             width: MediaQuery.of(context).size.width *
+                          //       //                 0.35,
+                          //       //             padding:
+                          //       //                 const EdgeInsets.all(10),
+                          //       //             decoration: BoxDecoration(
+                          //       //                 borderRadius:
+                          //       //                     BorderRadius.circular(20),
+                          //       //                 color: Colors.red),
+                          //       //             child:
+                          //       //                  Center(
+                          //       //               child:
+                          //       //                   Text(
+                          //       //                     getTranslated(context, "Reject"),
+                          //       //               //  'Reject',
+                          //       //                 style:
+                          //       //                     TextStyle(color: Colors.white),
+                          //       //               ),
+                          //       //             ),
+                          //       //           ),
+                          //       //         ),
+                          //       //       ),
+                          //     ],
+                          //   ),
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment
+                                .spaceBetween,
+                            children: [
+                              Expanded(
+                                child:isButtonDisabled == true ? Container(
+                                  height: 35,
+                                  width: double.maxFinite,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: colors.primary
+                                  ),
+
+                                  child: const Center(
+                                    child: Text("Wait For 5 Second..",style: TextStyle(
+                                        color: colors.whiteTemp
+                                    ),),
+                                  ),
+                                ):  InkWell(
+                                  onTap:
+                                  // orderHistoryList[index].isAccepted ?? false
+                                  //     ? null
+                                  //     :
+                                      () {
+                                    setState(() {
+                                      orderHistoryList[index].isAccepted = true;
+                                      orderRejectedOrAccept(index, context);
+
+                                    });
+                                  },
+                                  child:
+                                  Container(
+                                    padding:
+                                    const EdgeInsets.all(10),
+                                    width: MediaQuery.of(context).size.width *
+                                        0.30,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(
+                                            20),
+                                        color:isButtonDisabled ? Colors.blue :   orderHistoryList[index].isAccepted ?? false
+                                            ? Colors.grey
+                                            : Colors.green),
+                                    child: Center(
+                                      child: Text(
+                                          orderHistoryList[index].isAccepted ?? false
+                                              ? getTranslated(context, "View Detail")//'Accepted'
+                                              : getTranslated(context, "Accept"),//'Accept',
+                                          style: const TextStyle(
+                                              color:
+                                              Colors.white)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              // orderHistoryList[
+                              //                 index]
+                              //             .isAccepted ??
+                              //         false
+                              //     ? SizedBox
+                              //         .shrink()
+                              //     : Expanded(
+                              //         child:
+                              //             InkWell(
+                              //           onTap:
+                              //               () {
+                              //             orderRejectedOrAccept(
+                              //                 index,
+                              //                 context,
+                              //                 isRejected:
+                              //                     true);
+                              //           },
+                              //           child:
+                              //               Container(
+                              //             width: MediaQuery.of(context).size.width *
+                              //                 0.35,
+                              //             padding:
+                              //                 const EdgeInsets.all(10),
+                              //             decoration: BoxDecoration(
+                              //                 borderRadius:
+                              //                     BorderRadius.circular(20),
+                              //                 color: Colors.red),
+                              //             child:
+                              //                  Center(
+                              //               child:
+                              //                   Text(
+                              //                     getTranslated(context, "Reject"),
+                              //               //  'Reject',
+                              //                 style:
+                              //                     TextStyle(color: Colors.white),
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }),
+
+        ),
+
+      ],
+    );
+  }
   withdrawalRequest(){
-    return  getTransactionModel == null? Center(child: CircularProgressIndicator()) : getTransactionModel?.data?.length==0 ?  Center(child: Text("No Withdrawal List Found!!")):Padding(
+    return  getTransactionModel == null? /*Center(child: CircularProgressIndicator()) : getTransactionModel?.data?.isEmpty ?*/  const Center(child: Text("No Withdrawal List Found!!")):Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         // height:  MediaQuery.of(context).size.height,
         child: ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: getTransactionModel?.data?.length,
+            itemCount: getTransactionModel?.data?.length ??0,
             itemBuilder: (context,i){
               return Card(
                 child: Padding(
@@ -1255,7 +2069,7 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       Map<String, String> body = {};
       body[RequestKeys.userId] = userId ?? '';
-      body[RequestKeys.status] = isSwitched ? '2' : '1';
+      body[RequestKeys.status] = isOnline ? '2' : '1';
       var res = await api.userOfflineOnlineApi(body);
       if (res.status) {
         print('_____success____');
@@ -1272,7 +2086,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } finally {}
   }
 
-  void getUserOrderHistory() async {
+   getUserOrderHistory(String status) async {
     isLoading = true;
     setState(() {});
     /*SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -1282,6 +2096,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body[RequestKeys.lat] = _position?.latitude.toString() ?? '';
       body[RequestKeys.long] = _position?.longitude.toString() ?? '';
       body[RequestKeys.userId1] = userId.toString() ?? '';
+      body[RequestKeys.status] = status.toString();
       var res = await api.getOrderHistoryData(body);
       print('____ffff_______${body}__________');
       if (res.status ?? false) {
@@ -1295,16 +2110,16 @@ class _HomeScreenState extends State<HomeScreen> {
       //Future.delayed(const Duration(seconds: 1), () {
           // print('One second has passed.'); // Prints after 1 second.
         isActive.clear();
-        for(int i=0;i<orderHistoryList.length;i++){
-          isActive.add(false);
-         }
+        // for(int i=0;i<orderHistoryList.length;i++){
+        //   isActive.add(false);
+        //  }
 
   //  });
-        Future.delayed(const Duration(seconds: 10), () {
-          for(int i=0;i<orderHistoryList.length;i++){
-            isActive.add(true);
-          }
-        });
+  //       Future.delayed(const Duration(seconds: 10), () {
+  //         for(int i=0;i<orderHistoryList.length;i++){
+  //           isActive.add(true);
+  //         }
+  //       });
         startTimer();
         setState(() {});
       } else {
@@ -1342,7 +2157,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'order_id': orderHistoryList[index].orderId,
       'status': isRejected ?? false ? '0' : '2'
     });
-    print('____Som______${request.fields}_________');
+    print('____Som___status___${request.fields}_________');
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -1352,6 +2167,7 @@ class _HomeScreenState extends State<HomeScreen> {
         log(response.body);
         var res = OrderAcceptApiResponse.fromJson(jsonDecode(response.body));
         Fluttertoast.showToast(msg: res.message ?? '');
+        getUserOrderHistory("");
       }
     });
 
@@ -1428,7 +2244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text(
                         getTranslated(context, "Current Delivery"),
                        // 'Current Delivery',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 10,
                             color: colors.primary),
@@ -1468,7 +2284,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text(
                         getTranslated(context, "Scheduled Delivery"),
                        // 'Scheduled Delivery',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 10,
                             color: colors.primary),
@@ -1510,7 +2326,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text(
                         getTranslated(context, "Parcel History"),
                        // 'Parcel History',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 10,
                             color: colors.primary),
@@ -1540,10 +2356,11 @@ class _HomeScreenState extends State<HomeScreen> {
     selectedSegmentVal = i;
     String status;
     if (i == 0) {
-      getUserOrderHistory();
+      getUserOrderHistory('0');
       // parcelHistory(2);
     } else if (i == 1) {
-      getAcceptedOrder('2');
+      getUserOrderHistory("1");
+      //getAcceptedOrder('2');
     } else {
       getAcceptedOrder('4');
       // getParcelHistory();
@@ -1558,15 +2375,12 @@ class _HomeScreenState extends State<HomeScreen> {
         isLoading2
             ? const Center(child: CircularProgressIndicator())
             : parcelDataList?.data?.isEmpty ?? true
-                ?  Center(child: Text(
-          getTranslated(context, "Data Not Available"),
-          // 'Data Not Available'
-        ))
+                ?  const Center(child: Text("Data Not Available"))
                 : ListView.builder(
                     scrollDirection: Axis.vertical,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: parcelDataList?.data?.length,
+                    itemCount: parcelDataList?.data?.length ?? 0,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {},
@@ -1725,7 +2539,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Text(
                                                   getTranslated(context, "Pick up Point"),
                                                   // "Pick up Point",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: colors.primary,
                                                       fontSize: 12),
                                                 ),
@@ -2036,8 +2850,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         }
                                             :(){
                                           setState(() {
+                                            // getUserOrderHistory("");
                                             orderRejectedOrAccept(index, context);
-                                            getUserOrderHistory();
+
                                           });
                                         },
                                         child:
@@ -2046,20 +2861,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                           const EdgeInsets.all(10),
                                           width: MediaQuery.of(context).size.width *
                                               0.30,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  20),
-                                              color:
-                                              // isButtonDisabled ? Colors.blue :
-                                              // orderHistoryList[index].isAccepted ?? false
-                                              parcelDataList?.data?[index].parcelDetails?.first.status.toString() == "2"
-                                                  ? Colors.grey
-                                                  : Colors.green),
+                                          // decoration: BoxDecoration(
+                                          //     borderRadius:
+                                          //     BorderRadius.circular(
+                                          //         20),
+                                          //     color:
+                                          //     // isButtonDisabled ? Colors.blue :
+                                          //     // orderHistoryList[index].isAccepted ?? false
+                                          //     parcelDataList?.data?[index].parcelDetails?.first.status.toString() == "2"
+                                          //         ? Colors.grey
+                                          //         : Colors.green),
                                           child: Center(
                                             child: Text(
                                               // orderHistoryList[index].isAccepted??false
                                                 parcelDataList?.data?[index].parcelDetails?.first.status.toString() == "2"
+
                                                     ? getTranslated(context, "View Detail")//'Accepted'
                                                     : getTranslated(context, "Accept"),//'Accept',
                                                 style: const TextStyle(
@@ -2589,7 +3405,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   child: Text(
                                                       getTranslated(context, "Delivered"),
                                                       //"Delivered",
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontSize: 15,
                                                           color: Colors.green,
                                                           fontWeight:
@@ -2598,7 +3414,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               : Text(
                                               getTranslated(context, "cancel"),
                                               //"Cancel",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 13,
                                                       color: Colors.red,
                                                       fontWeight:
@@ -2621,7 +3437,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                            Text(
                                             getTranslated(context, "Receiver's Name :"),
                                             //"Receiver's Name :",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 15,
                                                 color: colors.blackTemp,
                                                 fontWeight: FontWeight.bold),
@@ -2642,7 +3458,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Text(
                                             getTranslated(context, "Order Date :"),
                                            // "Order Date :",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 15,
                                                 color: colors.blackTemp,
                                                 fontWeight: FontWeight.bold),
@@ -2700,6 +3516,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     );
   }
+
+
 
   void whatsAppLaunch(String num) async {
     var whatsapp = "${num}";

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -85,7 +86,12 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {});
     }
   }
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getToken();
+  }
   String? mobileOtp, mobileNo;
 
   loginWithMobileNumberApi() async {
@@ -137,55 +143,15 @@ class _LoginScreenState extends State<LoginScreen> {
       print(response.reasonPhrase);
     }
   }
+  String? token;
 
-  // loginWithMobileNumberApi() async {
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-  //   var headers = {
-  //     'Cookie': 'ci_session=c59791396657a1155df9f32cc7d7b547a40d648c'
-  //   };
-  //   var request = http.MultipartRequest('POST', Uri.parse('${Urls.baseUrl}Authentication/DeliveryLogin'));
-  //   request.fields.addAll({
-  //     'mobile':mobileController.text
-  //   });
-  //   request.headers.addAll(headers);
-  //   http.StreamedResponse response = await request.send();
-  //   if (response.statusCode == 200) {
-  //     var result =   await response.stream.bytesToString();
-  //     var finalResult =  jsonDecode(result);
-  //     mobileOtp =  finalResult['data']['otp'];
-  //     mobileNo =  finalResult['data']['user_phone'];
-  //     print('____Som______${mobileOtp}_________');
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //     setState(() {
-  //       Fluttertoast.showToast(msg: "${finalResult['message']}");
-  //     });
-  //     if(finalResult['status'] == false){
-  //       Fluttertoast.showToast(msg: "${finalResult['message']}");
-  //     }else{
-  //       Navigator.push(context, MaterialPageRoute(builder: (context)=>VerificationPage(mobile: mobileNo,otp: mobileOtp,)));
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //     }
-  //     // Navigator.push(context, MaterialPa
-  //     // geRoute(builder: (context)=>))
-  //
-  //
-  //   }
-  //   else {
-  //     setState(() {
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //     });
-  //     print(response.reasonPhrase);
-  //   }
-  //
-  // }
+  getToken() async {
+    var fcmToken = await FirebaseMessaging.instance.getToken();
+    setState(() {
+      token = fcmToken.toString();
+    });
+    print("FCM ID Is______________ $token");
+  }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

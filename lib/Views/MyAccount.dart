@@ -12,8 +12,10 @@ import 'package:jdx/AuthViews/LoginScreen.dart';
 import 'package:jdx/CustomWidgets/CustomElevetedButton.dart';
 import 'package:jdx/Models/order_accept_response.dart';
 import 'package:jdx/Utils/ApiPath.dart';
+import 'package:jdx/Views/DriverErningHistroy.dart';
 import 'package:jdx/Views/Feedback.dart';
 import 'package:jdx/Views/MyProfile.dart';
+import 'package:jdx/Views/OnlineOfflineHistory.dart';
 import 'package:jdx/Views/PaymentScreen.dart';
 import 'package:jdx/Views/driver_payment_system.dart';
 import 'package:jdx/Views/past_parcel_history.dart';
@@ -132,9 +134,10 @@ class _MyAccountState extends State<MyAccount> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(const Duration(milliseconds: 300), () {
-      return getProfile();
-    });
+    getProfile();
+    // Future.delayed(const Duration(seconds: 2), () {
+    //   return getProfile();
+    // });
   }
 
   GetProfileModel? getProfileModel;
@@ -174,36 +177,41 @@ class _MyAccountState extends State<MyAccount> {
     return Scaffold(
         backgroundColor: colors.primary,
         appBar: AppBar(
-          backgroundColor: const Color.fromRGBO(15, 54, 140, 1),
+          backgroundColor: const Color.fromRGBO(15, 54, 140, 10),
           elevation: 0,
           centerTitle: true,
-          leading: Container(
-            margin: const EdgeInsets.all(10),
-            decoration: const BoxDecoration(
-                shape: BoxShape.circle, color: Colors.white),
-            child: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
+          leading: Padding(
+            padding: const EdgeInsets.only(top: 10,left: 10),
+            child: Container(
+              height: 15,
+              width: 15,
+              margin: const EdgeInsets.all(5),
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: Colors.white),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
               ),
             ),
           ),
           title: Container(
-              padding: const EdgeInsets.all(2),
+              padding: const EdgeInsets.only(top: 10),
               child:  Text(
                 getTranslated(context, "My Account"),
                // 'My Account',
-                style: TextStyle(color: Colors.white, fontSize: 24),
+                style: TextStyle(color: Colors.white, fontSize: 18),
               )),
         ),
         body: Container(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             const SizedBox(
-              height: 20,
+              height: 15,
             ),
             Expanded(
                 child: Container(
@@ -211,8 +219,8 @@ class _MyAccountState extends State<MyAccount> {
               decoration: BoxDecoration(
                   color: Colors.blue.shade50,
                   borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20))),
+                      topLeft: Radius.circular(35),
+                      topRight: Radius.circular(35))),
               child: ListView(
                 children: [
                   Padding(
@@ -232,10 +240,9 @@ class _MyAccountState extends State<MyAccount> {
                                     height: 70,
                                     width: 70,
                                     child:
-                                        getProfileModel!.data![0].userImage ==
+                                        getProfileModel?.data?[0].userImage ==
                                                     null ||
-                                                getProfileModel!
-                                                        .data![0].userImage ==
+                                                getProfileModel?.data?[0].userImage ==
                                                     ""
                                             ? ClipRRect(
                                                 borderRadius:
@@ -248,7 +255,7 @@ class _MyAccountState extends State<MyAccount> {
                                                 borderRadius:
                                                     BorderRadius.circular(100),
                                                 child: Image.network(
-                                                  "${getProfileModel!.data![0].userImage}",
+                                                  "${getProfileModel?.data?[0].userImage}",
                                                   fit: BoxFit.fill,
                                                 )),
                                   ),
@@ -268,13 +275,13 @@ class _MyAccountState extends State<MyAccount> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
-                                        "${getProfileModel!.data![0].userFullname}",
+                                        "${getProfileModel?.data?[0].userFullname}",
                                         style: const TextStyle(
                                           fontSize: 14,
                                         ),
                                       ),
                                       Text(
-                                        '${getProfileModel!.data![0].userEmail}',
+                                        '${getProfileModel?.data?[0].userEmail}',
                                         style: const TextStyle(
                                           fontSize: 14,
                                         ),
@@ -545,7 +552,7 @@ class _MyAccountState extends State<MyAccount> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CommissionCharge()));
+                                builder: (context) => OnlineOfflineHistoryScreen()));
                       },
                       child: Container(
                         height: 60,
@@ -563,7 +570,59 @@ class _MyAccountState extends State<MyAccount> {
                                     Image.asset("assets/images/termscondition.png", height: 15, width: 15, color: Colors.green,),
                                     const SizedBox(width: 20,),
                                     Text(
-                                    getTranslated(context, "Commission Charge"),
+                                    getTranslated(context, "OnlineOffline"),
+                                  //  'Commission Charge',
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  ],
+                                ),
+                                Container(
+                                    height: 30,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                        color: Colors.blue.shade50,
+                                        borderRadius:
+                                        BorderRadius.circular(30)),
+                                    child: const Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: 14,
+                                    ))
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                    const EdgeInsets.only(top: 10.0, left: 5, right: 5),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DriverErningHistroy()));
+                      },
+                      child: Container(
+                        height: 60,
+                        child: Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(11)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children:  [
+                                    Image.asset("assets/images/eran.png", height: 20, width: 20, color: Colors.green,),
+                                    const SizedBox(width: 20,),
+                                    Text(
+                                    getTranslated(context, "DRIVER_EARNING"),
                                   //  'Commission Charge',
                                     style: const TextStyle(
                                         fontSize: 14,

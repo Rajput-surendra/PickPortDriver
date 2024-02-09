@@ -52,7 +52,73 @@ class _TermsConditionsWidgetState extends State<TermsConditionsWidget> {
   }
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Scaffold(
+      backgroundColor: colors.primary,
+      body:  Column(
+        children: [
+          const SizedBox(height: 25,),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10,right: 20),
+              child: Container(
+                color: colors.primary,
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(100)
+                        ),
+                        child: const Center(child: Icon(Icons.arrow_back)),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: Center(child: Text(getTranslated(context, "Terms & Conditions"),style: const TextStyle(color: Colors.white,fontSize: 18),)),
+                          )),
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 18,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Color(0xFFDDEDFA),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
+              ),
+              child:
+              gettmc == null? Center(child: CircularProgressIndicator()):   ListView(
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Html(data: "${gettmc!.data!.pgDescri}"),
+                ],
+              ),
+
+            ),
+          )
+
+        ],
+      ),
+
+    );
+
+
+      SafeArea(
         child: Scaffold(
             backgroundColor: colors.whiteTemp,
             appBar: PreferredSize(

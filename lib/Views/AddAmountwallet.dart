@@ -13,6 +13,8 @@ import 'Mywallet.dart';
 
 import 'package:http/http.dart'as http;
 
+import 'SupportNewScreen.dart';
+
 class AddAmount extends StatefulWidget {
   const AddAmount({Key? key, this.walletBalance}) : super(key: key);
  final String? walletBalance;
@@ -132,16 +134,15 @@ class _AddAmountState extends State<AddAmount> {
                         BorderRadius.circular(100)),
                     child: InkWell(
                         onTap: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) =>
-                          //         const SupportNewScreen()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                  const SupportNewScreen()));
                         },
-                        child: Center(
-                          child: Image.asset(
-                            'assets/ProfileAssets/support.png',scale: 1.3,
-                          ),
+                        child: Icon(
+                          Icons.headset_rounded,
+                          color: Colors.black,
                         )),
                   ),
                 ],

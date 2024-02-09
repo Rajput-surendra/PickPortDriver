@@ -205,6 +205,9 @@ class _SignUpScreen extends State<SignUpScreen> {
   _getCamera(int vall) async {
     PickedFile? pickedFile = await _picker.getImage(
       source: ImageSource.camera,
+      imageQuality: 10,
+      maxHeight: 10,
+      maxWidth: 10
     );
     if (pickedFile != null) {
       if (vall == 1) {
@@ -365,7 +368,7 @@ class _SignUpScreen extends State<SignUpScreen> {
               child: Text(
                 getTranslated(context, "Pic Image"),
                // 'Pic Image',
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF0F368C)),
@@ -384,7 +387,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                     },
                     child: Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                          const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                       decoration: BoxDecoration(
                         border: Border.all(color: colors.primary),
                         borderRadius: BorderRadius.circular(10),
@@ -393,7 +396,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                           child: Text(
                               getTranslated(context, "From Gallery"),
                             //'From Gallery',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xFF0F368C)))),
@@ -404,7 +407,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                     child: Text(
                       getTranslated(context, "OR"),
                       //'OR',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF0F368C)),
@@ -418,7 +421,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                     },
                     child: Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                          const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                       decoration: BoxDecoration(
                         border: Border.all(color: colors.primary),
                         borderRadius: BorderRadius.circular(10),
@@ -427,7 +430,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                         child: Text(
                             getTranslated(context, "From Camera"),
                            // 'From Camera',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFF0F368C))),
@@ -453,7 +456,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                   child: Text(
                       getTranslated(context, "Upload Driving License"),
                     //'Upload Driving License',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF0F368C)))),
@@ -469,14 +472,14 @@ class _SignUpScreen extends State<SignUpScreen> {
                       },
                       child: Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                              const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                           decoration: BoxDecoration(
                               border: Border.all(color: colors.primary),
                               borderRadius: BorderRadius.circular(10)),
                           child: Text(
                               getTranslated(context, "Driving License Front"),
                               //'Driving License Front',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff757575)))),
@@ -493,7 +496,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                       },
                       child: Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                              const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                           decoration: BoxDecoration(
                               border: Border.all(color: colors.primary),
                               borderRadius: BorderRadius.circular(10)),
@@ -502,7 +505,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                               Text(
                                 getTranslated(context, "Driving License Back"),
                              //   'Driving License Back',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xff757575),
@@ -531,7 +534,7 @@ class _SignUpScreen extends State<SignUpScreen> {
               child: Text(
                   getTranslated(context, "Pan card"),
                 //'Pan Card',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF0F368C)))),
@@ -553,7 +556,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                       child: Text(
                         getTranslated(context, "Pan Card Front"),
                        // 'Pan Card Front',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.bold,
                               color: Color(0xff757575),),
@@ -572,7 +575,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                   },
                   child: Container(
                       padding:
-                      EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                       decoration: BoxDecoration(
                           border: Border.all(color: colors.primary),
                           borderRadius: BorderRadius.circular(10)),
@@ -581,7 +584,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                           Text(
                             getTranslated(context, "Pan Card Back"),
                             //'Pan Card Back',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff757575),
@@ -608,7 +611,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                   child: Text(
                       getTranslated(context, "Upload Aadhar Card"),
                     //'Upload Aadhar Card',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF0F368C)))),
@@ -625,14 +628,14 @@ class _SignUpScreen extends State<SignUpScreen> {
                       },
                       child: Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                              const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                           decoration: BoxDecoration(
                               border: Border.all(color: colors.primary),
                               borderRadius: BorderRadius.circular(10)),
                           child:  Text(
                               getTranslated(context, "Aadhar Card Front"),
                               //'Aadhar Card Front',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff757575)))),
@@ -650,7 +653,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                       },
                       child: Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                              const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                           decoration: BoxDecoration(
                               border: Border.all(color: colors.primary),
                               borderRadius: BorderRadius.circular(10)),
@@ -659,7 +662,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                             Text(
                                 getTranslated(context, "Aadhar Card Back"),
                               //'Aadhar Card Back',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xff757575))),
@@ -683,7 +686,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                   child: Text(
                       getTranslated(context, "Upload Rc"),
                     //  'Upload Rc',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF0F368C)))),
@@ -700,14 +703,14 @@ class _SignUpScreen extends State<SignUpScreen> {
                       },
                       child: Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                              const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                           decoration: BoxDecoration(
                               border: Border.all(color: colors.primary),
                               borderRadius: BorderRadius.circular(10)),
                           child: Text(
                               getTranslated(context, "Rc Front"),
                             //'Rc Front',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff757575)))),
@@ -725,7 +728,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                       },
                       child: Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                              const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                           decoration: BoxDecoration(
                               border: Border.all(color: colors.primary),
                               borderRadius: BorderRadius.circular(10)),
@@ -734,7 +737,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                                Text(
                                   getTranslated(context, "Rc Back"),
                                   //'Rc Back',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xff757575))),
@@ -789,14 +792,14 @@ class _SignUpScreen extends State<SignUpScreen> {
                         Text(
                           getTranslated(context, "Sign Up"),
                          // 'Sign Up',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 24,
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => GetHelp() ));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const GetHelp() ));
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -807,7 +810,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                             child: Text(
                               getTranslated(context, "NEED_HELP"),
                              // 'Need Help ?',
-                              style: TextStyle(color: colors.primary, fontSize: 12),
+                              style: const TextStyle(color: colors.primary, fontSize: 12),
                             ),
                           ),
                         )
@@ -819,7 +822,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                      Text(
                       getTranslated(context, "Welcome to PickPort"),
                      // 'Welcome to Pickport',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
@@ -855,14 +858,14 @@ class _SignUpScreen extends State<SignUpScreen> {
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
                             prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 10),
                               child: Image.asset(
                                 'assets/images/Name.png',
                                 scale: 1.3,
                                 color: colors.secondary,
                               ),
                             ),
-                            contentPadding: EdgeInsets.only(top: 22, left: 5),
+                            contentPadding: const EdgeInsets.only(top: 22, left: 5),
                             border: InputBorder.none,
                             hintText:
                             getTranslated(context, "Name"),
@@ -898,14 +901,14 @@ class _SignUpScreen extends State<SignUpScreen> {
                           decoration: InputDecoration(
                             counterText: "",
                             prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 10),
                               child: Image.asset(
                                 'assets/images/MOBILE NUMBER.png',
                                 scale: 1.3,
                                 color: colors.secondary,
                               ),
                             ),
-                            contentPadding: EdgeInsets.only(top: 22, left: 5),
+                            contentPadding: const EdgeInsets.only(top: 22, left: 5),
                             border: InputBorder.none,
                             hintText:
                             getTranslated(context, "Mobile number")
@@ -944,14 +947,14 @@ class _SignUpScreen extends State<SignUpScreen> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 10),
                               child: Image.asset(
                                 'assets/images/EMAIL ID.png',
                                 scale: 1.3,
                                 color: colors.secondary,
                               ),
                             ),
-                            contentPadding: EdgeInsets.only(top: 22, left: 5),
+                            contentPadding: const EdgeInsets.only(top: 22, left: 5),
                             border: InputBorder.none,
                             hintText:
                             getTranslated(context, "Email id")
@@ -998,7 +1001,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                                 color: colors.secondary,
                               ),
                             ),
-                            contentPadding: EdgeInsets.only(top: 22, left: 0),
+                            contentPadding: const EdgeInsets.only(top: 22, left: 0),
                             border: InputBorder.none,
                             hintText:
                             getTranslated(context, "Vehicle_number")
@@ -1038,14 +1041,14 @@ class _SignUpScreen extends State<SignUpScreen> {
                           decoration: InputDecoration(
                             counterText: "",
                             prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 10),
                               child: Image.asset(
                                 'assets/images/PROFILE PHOTO.png',
                                 scale: 1.3,
                                 color: colors.secondary,
                               ),
                             ),
-                            contentPadding: EdgeInsets.only(top: 22, left: 5),
+                            contentPadding: const EdgeInsets.only(top: 22, left: 5),
                             border: InputBorder.none,
                             hintText:
                             getTranslated(context, "Profile Photo"),
@@ -1062,7 +1065,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                     imageFile != null
                         ? Column(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Card(
@@ -1081,12 +1084,12 @@ class _SignUpScreen extends State<SignUpScreen> {
                                           fit: BoxFit.fill)),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                             ],
                           )
-                        : SizedBox.shrink(),
+                        : const SizedBox.shrink(),
 
                     // InkWell(
                     //   onTap: () => showExitPopup3(),
@@ -1160,14 +1163,14 @@ class _SignUpScreen extends State<SignUpScreen> {
                           keyboardType: TextInputType.phone,
                           decoration:  InputDecoration(
                             counterText: "",
-                            prefixIcon: Padding(
+                            prefixIcon: const Padding(
                               padding: EdgeInsets.only(top: 10),
                               child: Icon(
                                 Icons.location_city,size: 30,
                                 color: CustomColors.accentColor,
                               ),
                             ),
-                            contentPadding: EdgeInsets.only(top: 22, left: 5),
+                            contentPadding: const EdgeInsets.only(top: 22, left: 5),
                             border: InputBorder.none,
                             hintText:
                             getTranslated(context, "Pan card"),
@@ -1184,7 +1187,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                     panCardFile != null
                         ? Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Expanded(
@@ -1228,12 +1231,12 @@ class _SignUpScreen extends State<SignUpScreen> {
                               ),
                             ),
                           ),
-                        ): SizedBox.shrink(),
+                        ): const SizedBox.shrink(),
                         const SizedBox(
                           height: 10,
                         ),
                       ],
-                    ): SizedBox.shrink(),
+                    ): const SizedBox.shrink(),
                     // Card(
                     //   elevation: 1,
                     //   shape: RoundedRectangleBorder(
@@ -1312,14 +1315,14 @@ class _SignUpScreen extends State<SignUpScreen> {
                           decoration: InputDecoration(
                             counterText: "",
                             prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 10),
                               child: Image.asset(
                                 'assets/images/DRIVING LICENSE.png',
                                 scale: 1.5,
                                 color: colors.secondary,
                               ),
                             ),
-                            contentPadding: EdgeInsets.only(top: 22, left: 0),
+                            contentPadding: const EdgeInsets.only(top: 22, left: 0),
                             border: InputBorder.none,
                             hintText:
                             getTranslated(context, "Driving License"),
@@ -1337,7 +1340,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                     drivingLicenseFile != null
                         ? Row(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Expanded(
@@ -1380,13 +1383,13 @@ class _SignUpScreen extends State<SignUpScreen> {
                                         ),
                                       ),
                                     )
-                                  : SizedBox.shrink(),
-                              SizedBox(
+                                  : const SizedBox.shrink(),
+                              const SizedBox(
                                 height: 10,
                               ),
                             ],
                           )
-                        : SizedBox.shrink(),
+                        : const SizedBox.shrink(),
                     const SizedBox(
                       height: 5,
                     ),
@@ -1471,14 +1474,14 @@ class _SignUpScreen extends State<SignUpScreen> {
                           decoration: InputDecoration(
                             counterText: "",
                             prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 10),
                               child: Image.asset(
                                 'assets/images/AADHAR CARD.png',
                                 scale: 1.5,
                                 color: colors.secondary,
                               ),
                             ),
-                            contentPadding: EdgeInsets.only(top: 22, left: 0),
+                            contentPadding: const EdgeInsets.only(top: 22, left: 0),
                             border: InputBorder.none,
                             hintText:
                             getTranslated(context, "Aadhar Card"),
@@ -1496,7 +1499,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                     aadharCardFrontFile != null
                         ? Row(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Expanded(
@@ -1539,13 +1542,13 @@ class _SignUpScreen extends State<SignUpScreen> {
                                         ),
                                       ),
                                     )
-                                  : SizedBox.shrink(),
-                              SizedBox(
+                                  : const SizedBox.shrink(),
+                              const SizedBox(
                                 height: 10,
                               ),
                             ],
                           )
-                        : SizedBox.shrink(),
+                        : const SizedBox.shrink(),
 
                     const SizedBox(
                       height: 5,
@@ -1630,14 +1633,14 @@ class _SignUpScreen extends State<SignUpScreen> {
                           decoration: InputDecoration(
                             counterText: "",
                             prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 10),
                               child: Image.asset(
                                 'assets/images/RC.png',
                                 scale: 1.4,
                                 color: colors.secondary,
                               ),
                             ),
-                            contentPadding: EdgeInsets.only(top: 22, left: 0),
+                            contentPadding: const EdgeInsets.only(top: 22, left: 0),
                             border: InputBorder.none,
                             hintText:
                             getTranslated(context, "RC"),
@@ -1655,7 +1658,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                     rcFrontFile != null
                         ? Row(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Expanded(
@@ -1697,13 +1700,13 @@ class _SignUpScreen extends State<SignUpScreen> {
                                         ),
                                       ),
                                     )
-                                  : SizedBox.shrink(),
-                              SizedBox(
+                                  : const SizedBox.shrink(),
+                              const SizedBox(
                                 height: 10,
                               ),
                             ],
                           )
-                        : SizedBox.shrink(),
+                        : const SizedBox.shrink(),
                     const SizedBox(
                       height: 5,
                     ),
@@ -1720,7 +1723,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                         child: TextFormField(
                           controller: addressController,
                           decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(top: 20,),
+                              contentPadding: const EdgeInsets.only(top: 20,),
                               prefixIcon: Image.asset(
                                 'assets/images/ADDRESS.png',
                                height: 10,
@@ -1801,7 +1804,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                                     hint:  Text(
                                       getTranslated(context, "State"),
                                      // "State",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.black54,
                                           fontWeight: FontWeight.w400,
                                           fontSize: 18),
@@ -1898,7 +1901,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                                     hint:Text(
                                       getTranslated(context, "City"),
                                       //"City",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.black54,
                                           fontWeight: FontWeight.w400,
                                           fontSize: 18),
@@ -2094,14 +2097,14 @@ class _SignUpScreen extends State<SignUpScreen> {
                           controller: referController,
                           decoration: InputDecoration(
                             prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 10),
                               child: Image.asset(
                                 'assets/images/REFERAL ODE.png',
                                 scale: 1.3,
                                 color: colors.secondary,
                               ),
                             ),
-                            contentPadding: EdgeInsets.only(top: 22, left: 5),
+                            contentPadding: const EdgeInsets.only(top: 22, left: 5),
                             border: InputBorder.none,
                             hintText:
                             getTranslated(context, "Referral Code (Optional)"),
@@ -2116,7 +2119,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                    Text(
                       getTranslated(context, "Vehicle type"),
                      // "Vehicle type",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 8,
@@ -2157,7 +2160,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                                         Text(
                                           getTranslated(context, "2 Wheeler Gear"),
                                           // '2 Wheeler Gear',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 14,
                                           ),
                                         ),
@@ -2189,7 +2192,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                                           "${getTranslated(context, "3 Wheeler")}     ",
 
                                           // 'Mahindra Pickup',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 14,
                                           ),
                                         ),
@@ -2220,7 +2223,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                                         Text(
                                           getTranslated(context, "Mahindra Pickup"),
                                           //'3 Wheeler',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 14,
                                           ),
                                         ),
@@ -2255,7 +2258,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                                         Text(
                                           getTranslated(context, "2 Wheeler Non Gear"),
                                           // '2 Wheeler Non Gear',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 14,
                                           ),
                                         ),
@@ -2287,7 +2290,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                                           "${getTranslated(context, "Tata Ace")}                 ",
 
                                           // 'Tata 407',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 14,
                                           ),
                                         ),
@@ -2316,9 +2319,9 @@ class _SignUpScreen extends State<SignUpScreen> {
                                           width: 5,
                                         ),
                                         Text(
-                                          getTranslated(context, "Tata 407"),
+                                          getTranslated(context, "Tato 407"),
                                           // 'Tata Ace',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 14,
                                           ),
                                         ),
@@ -2338,7 +2341,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                     Text(
                       getTranslated(context, "Insurance"),
                     //  "Insurance",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Row(
                       children: [
@@ -2390,7 +2393,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                     Text(
                       getTranslated(context, "Pollution Emission"),
                      // "Pollution Emission",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Row(
                       children: [
@@ -2459,7 +2462,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                          Text(
                           getTranslated(context, "I agree to all"),
                           //'I agree to all ',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 12, fontWeight: FontWeight.bold),
                         ),
                         InkWell(
@@ -2478,7 +2481,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                             getTranslated(context, "T&C"),
                            // "T&C",
                             // getTranslated(context, "Terms and Conditions"),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                               color: colors.primary,
@@ -2506,7 +2509,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                           child: Text(
                              getTranslated(context, "Privacy Policy"),
                             //"Privacy Policy",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                                 color: colors.primary),
@@ -2522,10 +2525,15 @@ class _SignUpScreen extends State<SignUpScreen> {
                         onTap: () {
                           bool isValidateFiles = isValidate();
                           if (_formKey.currentState!.validate() && isValidateFiles) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AddBankDetails(
+                            if(isTerm == false) {
+                              Fluttertoast.showToast(msg: getTranslated(context, "I agree to all"));
+                              // "I agree to all ");
+                            }else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddBankDetails(
                                         mobile: mobController.text,
                                         name: nameController.text,
                                         address: addressController.text,
@@ -2547,12 +2555,11 @@ class _SignUpScreen extends State<SignUpScreen> {
                                         pollution: _value1.toString(),
                                         vType: selected.toString(),
                                       ),
-                              ),
-                            );
-                          } else if (isTerm == false) {
-                            Fluttertoast.showToast(msg: getTranslated(context, "I agree to all"));
-                           // "I agree to all ");
-                          } else {
+                                ),
+                              );
+                            }
+                            return;
+                          }  else {
                             Fluttertoast.showToast(
                                 msg: getTranslated(context, "All field are required"));
                                // "All field are required");
@@ -2568,7 +2575,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                               child: Text(
                                 getTranslated(context, "Next"),
                                // 'Next',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18),
@@ -2597,7 +2604,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                                 child:  Text(
                                   getTranslated(context, "Login"),
                                  // 'Login',
-                                  style: TextStyle(color: colors.secondary),
+                                  style: const TextStyle(color: colors.secondary),
                                 )
                             )
                           ],

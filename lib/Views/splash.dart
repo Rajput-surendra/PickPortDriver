@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     //Timer(Duration(seconds: 5), () {Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SignInScreen()));});
     super.initState();
-    Future.delayed(const Duration(seconds: 3),(){
+    Future.delayed(const Duration(seconds: 7),(){
       return checkLogin();
     });
     // _controller = VideoPlayerController.asset("assets/images/splash.gif");
@@ -34,15 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
     //     });
     //   });
     // });
-    Future.delayed(Duration(seconds: 5),(){
-      print('____Som______${isLan}_________');
-      if(userid == null || userid == ""||isLan==false){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ChangeLanguage()));
-      }
-      else {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNav()));
-      }
-    });
+
   }
 
   _getVideoBackground() {
@@ -61,6 +53,18 @@ class _SplashScreenState extends State<SplashScreen> {
     userid = pref.getString('userId');
     print("this is iser============> $userid");
     print("this is iser============> $isLan");
+
+      print('____Som______${isLan}_____${userid}____');
+      if(userid == null || userid == ""){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
+      }
+      else if(isLan==false){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ChangeLanguage()));
+      }
+      else {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNav()));
+      }
+
     setState(() {
 
     });
@@ -70,9 +74,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Image.asset("assets/images/splash.gif"),
-      ),
+      body: SizedBox(
+        width: double.infinity,
+          child: Image.asset("assets/images/driver.gif",fit: BoxFit.fill,)),
     );
   }
 }

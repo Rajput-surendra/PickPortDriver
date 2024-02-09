@@ -689,7 +689,6 @@ class _AddBankDetailsState extends State<AddBankDetails> {
     });
 
     print('____Som______${request.fields}_________');
-    print("${request.fields} ${request.files}"+"_______________++++++++++");
     request.files.add(await http.MultipartFile.fromPath('user_image', '${imageFile?.path}'));
     request.files.add(await http.MultipartFile.fromPath('driving_licence_photob', '${drivingLicenseBackFile?.path}'));
     request.files.add(await http.MultipartFile.fromPath('driving_licence_photof', '${drivingLicenseFile?.path}'));
@@ -700,7 +699,9 @@ class _AddBankDetailsState extends State<AddBankDetails> {
     request.files.add(await http.MultipartFile.fromPath('pan_card_photof', '${panCardFile?.path}'));
     request.files.add(await http.MultipartFile.fromPath('pan_card_photob', '${pancardBackFile?.path}'));
     request.files.add(await http.MultipartFile.fromPath('check_book', '${imageFile1?.path}'));
+    print('____Som___request.files___${request.files}_________');
     request.headers.addAll(headers);
+    print('____Som___request.files___${request.files}_________');
     http.StreamedResponse response = await request.send();
     //print(await response.stream.bytesToString());
     if (response.statusCode == 200) {
@@ -712,7 +713,21 @@ class _AddBankDetailsState extends State<AddBankDetails> {
        });
        if(finalResult['status'] == true){
          Fluttertoast.showToast(msg: "${finalResult['message']}");
-         Navigator.push(context, MaterialPageRoute(builder: (context){return LoginScreen();}));
+         setState(() {
+
+         });
+         imageFile = null;
+         drivingLicenseBackFile = null;
+         drivingLicenseFile = null;
+         rcBackFile= null;
+         rcFrontFile = null;
+         aadharCardBackFile = null;
+         aadharCardFrontFile = null;
+         panCardFile = null;
+         pancardBackFile = null;
+         imageFile1 = null;
+         Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+
 
        }else{
          setState(() {

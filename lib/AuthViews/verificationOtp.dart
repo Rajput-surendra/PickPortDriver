@@ -69,13 +69,9 @@ class _VerificationPageState extends State<VerificationPage> {
         );
 
         if (widget.fromForgetPassword == true) {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const ChangePasswordScreen()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ChangePasswordScreen()));
         } else {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const BottomNav()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const BottomNav()));
         }
 
         setState(() {
@@ -200,32 +196,44 @@ class _VerificationPageState extends State<VerificationPage> {
         appBar: AppBar(
           backgroundColor: colors.primary,
           elevation: 0,
-          leadingWidth: 0,
-          title: Row(
-            children: [
-              const SizedBox(
+         centerTitle: true,
+         // leadingWidth: 0,
+          leading: InkWell(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 40,
                 width: 40,
+                decoration: BoxDecoration(
+                    color: colors.whiteTemp,
+                    borderRadius: BorderRadius.circular(100)
+                ),
+                child: const Center(child: Icon(Icons.arrow_back,color: Colors.black,)),
               ),
-              // Icon(
-              //   Icons.arrow_back_ios,
-              //   color: Colors.white,
-              // ),
-              Container(
-                  padding: const EdgeInsets.all(2),
+            ),
+          ),
+          title: Container(
+              padding: const EdgeInsets.all(2),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 25),
                   child: Text(
                     getTranslated(context, "Verification"),
                     //'Verification',
-                    style: const TextStyle(color: Colors.white, fontSize: 24),
-                  )),
-            ],
-          ),
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                ),
+              )),
         ),
         body: SingleChildScrollView(
           child: SizedBox(
             child:
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const SizedBox(
-                height: 20,
+                height: 5,
               ),
               Container(
                 height: MediaQuery.of(context).size.height,
@@ -233,8 +241,8 @@ class _VerificationPageState extends State<VerificationPage> {
                 decoration: BoxDecoration(
                     color: Colors.blue.shade50,
                     borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20))),
+                        topLeft: Radius.circular(35),
+                        topRight: Radius.circular(35))),
                 child: Column(
                   children: [
                     const SizedBox(

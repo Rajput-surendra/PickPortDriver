@@ -129,11 +129,11 @@ class _MyWalletState extends State<MyWallet> {
       backgroundColor: colors.primary,
       body: Column(
         children: [
-          const SizedBox(height: 10,),
+          const SizedBox(height: 20,),
           Expanded(
             flex: 2,
             child: Padding(
-              padding: const EdgeInsets.only(left: 20,right: 20),
+              padding: const EdgeInsets.only(left: 15,right: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -154,7 +154,7 @@ class _MyWalletState extends State<MyWallet> {
                    Text(
                     getTranslated(context, "Pickport Wallet"),
                     //"Pickport Wallet",
-                    style: TextStyle(color: colors.whiteTemp),),
+                    style: TextStyle(color: colors.whiteTemp,fontSize: 18),),
                   Container(
                     height: 40,
                     width: 40,
@@ -181,11 +181,11 @@ class _MyWalletState extends State<MyWallet> {
             ),
           ),
           Expanded(
-            flex: 11,
+            flex: 17,
             child: Container(
                 decoration: const BoxDecoration(
                     color: colors.background,
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(50),topLeft: Radius.circular(50))
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(35),topLeft: Radius.circular(35))
                 ),
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(20.0),

@@ -126,13 +126,14 @@ class _ParcelHistoryState extends State<ParcelHistory> {
             child: Text(
               getTranslated(context, "Parcel History"),
             //  'Parcel History',
-              style: TextStyle(color: Colors.white, fontSize: 24),
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: 5,),
             Container(
                 height: MediaQuery.of(context).size.height/1.0,
                 decoration: BoxDecoration(
@@ -178,7 +179,7 @@ class _ParcelHistoryState extends State<ParcelHistory> {
                                                 padding: EdgeInsets.only(
                                                     right: 8.0),
                                                 child: Text(
-                                                    getTranslated(context, "Parcel ID"),
+                                                    getTranslated(context, "Parcel Id"),
                                                    // "Parcel ID",
                                                     style: TextStyle(
                                                         fontSize: 16,fontWeight: FontWeight.bold,

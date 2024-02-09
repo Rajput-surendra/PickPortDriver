@@ -82,48 +82,45 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-      child: Scaffold(
-          backgroundColor: colors.primary,
-          body: ListView(
-            children: [
-              const SizedBox(height: 5,),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  // padding: EdgeInsets.symmetric(horizontal: 20),
-
-                  // height: MediaQuery.of(context).size.height * 0.12,
-                  // width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(color: colors.primary),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(5),
-                            decoration:
-                            const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                            child: InkWell(
-                              onTap: (){
-                                Navigator.pop(context);
-                              },
-                              child: const Icon(
-                                Icons.arrow_back,
-                                color: Colors.black,
-                              ),
+    return  Scaffold(
+        backgroundColor: colors.primary,
+        body: ListView(
+          children: [
+            const SizedBox(height: 10,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  decoration: const BoxDecoration(color: colors.primary),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration:
+                          const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                          child: InkWell(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                            child: const Icon(
+                              Icons.arrow_back,
+                              color: Colors.black,
                             ),
                           ),
-                          Text(
-                            getTranslated(context, "Withdraw Money"),
-                            //   'Withdraw Money',
-                            style: const TextStyle(
-                                fontSize: 22,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          InkWell(
+                        ),
+                        Text(
+                          getTranslated(context, "Withdraw Money"),
+                          //   'Withdraw Money',
+                          style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: InkWell(
                             onTap: (){
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>SupportNewScreen()));
                             },
@@ -137,50 +134,50 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
                               ),
                             ),
                           ),
+                        ),
 
-                        ],
-                      ),
-                    )
-                ),
-              ),
-              Padding(
-                // padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height/3.1),
-                padding: EdgeInsets.only(
-                  top:20,
-                ),
-                child:
-
-                Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    decoration: const BoxDecoration(
-                      color: Color(0xfff6f6f6),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        // Top-left corner radius
-                        topRight: Radius.circular(30),
-                        // Top-right corner radius
-                      ),
+                      ],
                     ),
-                    child:SingleChildScrollView(
-                      child:Column(
-                        children: [
-                          tabTop(),
-                          _currentIndex == 1 ? withdrawal():withdrawalRequest()
+                  )
+              ),
+            ),
+            Padding(
+              // padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height/3.1),
+              padding: EdgeInsets.only(
+                top:10,
+              ),
+              child:
 
-                        ],
-                      ),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  decoration: const BoxDecoration(
+                    color: Color(0xfff6f6f6),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      // Top-left corner radius
+                      topRight: Radius.circular(30),
+                      // Top-right corner radius
+                    ),
+                  ),
+                  child:SingleChildScrollView(
+                    child:Column(
+                      children: [
+                        tabTop(),
+                        _currentIndex == 1 ? withdrawal():withdrawalRequest()
 
-                    )
-                ),
-              )
-            ],
-          )
+                      ],
+                    ),
+
+                  )
+              ),
+            )
+          ],
+        )
 
 
 
 
-      ),
     ) ;
 
   }

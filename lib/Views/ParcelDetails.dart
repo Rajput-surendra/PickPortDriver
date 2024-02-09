@@ -55,10 +55,12 @@ class _PercelDetailsState extends State<PercelDetails> {
     return Scaffold(
       backgroundColor: colors.primary,
       body: singleBookingModel == null
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Container(
               child: Column(
+
                 children: [
+                  SizedBox(height: 25,),
                   Expanded(
                     flex: 2,
                     child: Container(
@@ -72,8 +74,8 @@ class _PercelDetailsState extends State<PercelDetails> {
                           child: Row(
                             children: [
                               Container(
-                                height: 45,
-                                width: 45,
+                                height: 35,
+                                width: 35,
                                 decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: Colors.white),
@@ -87,23 +89,30 @@ class _PercelDetailsState extends State<PercelDetails> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                width: 45,
-                              ),
-                              Text(
-                                getTranslated(context, "Parcel Details"),
-                                // 'Parcel Details',
-                                style: TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                             
+                              Expanded(
+                                child: Container(
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 20),
+                                      child: Text(
+                                        getTranslated(context, "Parcel Details"),
+                                        // 'Parcel Details',
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
                         )),
                   ),
                   Expanded(
-                    flex: 10,
+                    flex: 18,
                     child: SingleChildScrollView(
                       child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -131,7 +140,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                         Text(
                                           getTranslated(context, "Parcel Id"),
                                           //   "Parcel Id"
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: colors.blackTemp,
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -144,7 +153,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                         Text(
                                           getTranslated(context, "Parcel Date"),
                                           // "Parcel Date",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: colors.blackTemp,
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -159,7 +168,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                         Text(
                                           getTranslated(context, "Parcel Time"),
                                           // "Parcel Time",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: colors.blackTemp,
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -199,7 +208,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                     getTranslated(
                                                         context, "Sender Name"),
                                                     // "Sender Name",
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         color: colors.blackTemp,
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -209,7 +218,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                   ),
                                                   Row(
                                                     children: [
-                                                      Icon(
+                                                      const Icon(
                                                         Icons.person,
                                                         size: 20,
                                                       ),
@@ -258,14 +267,14 @@ class _PercelDetailsState extends State<PercelDetails> {
                                             getTranslated(
                                                 context, "Sender Address"),
                                             //  "Sender Address",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: colors.blackTemp,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           const SizedBox(height: 8),
                                           Row(
                                             children: [
-                                              Icon(
+                                              const Icon(
                                                 Icons.location_on,
                                                 size: 20,
                                               ),
@@ -379,7 +388,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                     getTranslated(context,
                                                         "Receiver's Name"),
                                                     // "Receiver's Name",
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         color: colors.blackTemp,
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -394,7 +403,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Icon(
+                                                      const Icon(
                                                         Icons.person,
                                                         size: 20,
                                                       ),
@@ -412,14 +421,14 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                     getTranslated(context,
                                                         "Receiver's Mobile No."),
                                                     // "Receiver's Mobile No.",
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         color: colors.blackTemp,
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
                                                   Row(
                                                     children: [
-                                                      Icon(
+                                                      const Icon(
                                                         Icons.call,
                                                         size: 20,
                                                       ),
@@ -445,7 +454,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                             getTranslated(
                                                 context, "Receiver's Address"),
                                             // "Receiver's Address",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: colors.blackTemp,
                                                 fontWeight: FontWeight.bold),
                                           ),
@@ -559,7 +568,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                               getTranslated(
                                                   context, "Parcel Details"),
                                               //"Parcel Details",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: colors.primary,
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 18),
@@ -576,7 +585,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                 getTranslated(context,
                                                     "Material Category"),
                                                 // "Material Category",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: colors.blackTemp,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15),
@@ -596,7 +605,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                 getTranslated(
                                                     context, "Parcel Weight"),
                                                 // "Parcel Weight",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: colors.blackTemp,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15),
@@ -620,7 +629,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                   getTranslated(context,
                                                       "Total Distance"),
                                                   // "Total Distance",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: colors.blackTemp,
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -640,7 +649,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                   getTranslated(
                                                       context, "Amount"),
                                                   // "Amount",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: colors.blackTemp,
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -671,7 +680,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                 getTranslated(context,
                                                     "Total Amount To be paid"),
                                                 // "Total Amount To be paid",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: colors.blackTemp,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15),
@@ -691,7 +700,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                 getTranslated(
                                                     context, "Payment Status"),
                                                 //  "Payment Status",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: colors.blackTemp,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15),
@@ -703,7 +712,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                       getTranslated(
                                                           context, "Paid"),
                                                       // "Paid",
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           color: Colors.green,
                                                           fontWeight:
                                                               FontWeight.w600),
@@ -712,7 +721,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                       getTranslated(
                                                           context, "UnPaid"),
                                                       //  "UnPaid",
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           color: Colors.red,
                                                           fontWeight:
                                                               FontWeight.w600))
@@ -729,14 +738,14 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                   getTranslated(context,
                                                       "Payment Method"),
                                                   //"Payment Method",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: colors.red,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 15)),
                                               Text(
                                                   "${singleBookingModel?.data?.first.paymentMethod}",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.red))
                                             ],
                                           ),
@@ -763,7 +772,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                             ],
                                             dashGapRadius: 0.0,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 20,
                                           ),
                                           Center(
@@ -780,7 +789,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                   getTranslated(context,
                                                       "Delivery Status"),
                                                   // "Delivery Status",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: colors.primary,
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -789,13 +798,13 @@ class _PercelDetailsState extends State<PercelDetails> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 20,
                                           ),
                                           Center(
                                               child: Image.asset(
                                                   "assets/images/status.png")),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           singleBookingModel
@@ -806,7 +815,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                   getTranslated(
                                                       context, "Delivered"),
                                                   //  "Delivered",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: colors.blackTemp,
                                                       fontWeight:
                                                           FontWeight.bold),
@@ -816,13 +825,13 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                   getTranslated(
                                                       context, "Pending"),
                                                   // "Pending",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: colors.blackTemp,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 )),
                                           widget.isCheck == true
-                                              ? SizedBox.shrink()
+                                              ? const SizedBox.shrink()
                                               : Column(
                                                   children: [
                                                     Padding(
@@ -856,7 +865,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                                     context,
                                                                     "Update Delivery Status"),
                                                                 // "Update Delivery Status"
-                                                                style: TextStyle(
+                                                                style: const TextStyle(
                                                                     color: colors
                                                                         .blackTemp,
                                                                     fontWeight:
@@ -951,7 +960,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                                   counterText:
                                                                       "",
                                                                   contentPadding:
-                                                                      EdgeInsets.only(
+                                                                      const EdgeInsets.only(
                                                                           left:
                                                                               5),
                                                                   border:
@@ -977,7 +986,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 selectedStatus == 'Order Picked Up' ||
@@ -996,14 +1005,14 @@ class _PercelDetailsState extends State<PercelDetails> {
                                               child: Text(
                                             getTranslated(context, "update"),
                                             // "Update",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 15,
                                                 color: colors.whiteTemp),
                                           )),
                                         ),
                                       )
-                                    : SizedBox.shrink(),
-                                SizedBox(
+                                    : const SizedBox.shrink(),
+                                const SizedBox(
                                   height: 20,
                                 ),
                               ],
@@ -1087,7 +1096,7 @@ class _PercelDetailsState extends State<PercelDetails> {
         if (finalResult['status'] == true) {
           if (selectedStatus == 'Delivered') {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ConfimeScreen()));
+                MaterialPageRoute(builder: (context) => const ConfimeScreen()));
           }
         } else {
           Fluttertoast.showToast(msg: '${finalResult['data']}');

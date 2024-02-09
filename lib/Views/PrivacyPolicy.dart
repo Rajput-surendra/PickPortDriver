@@ -49,47 +49,120 @@ class _privacy_policyState extends State<privacy_policy> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return SafeArea(
-        child: Scaffold(
-            backgroundColor: colors.whiteTemp,
-            appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(80),
-                child: commonAppBar(context, text:
-                getTranslated(context, "Privacy Policy"),
-              //  "Privacy & Policy"
-                )),
-            body: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                decoration: const BoxDecoration(
+    return  Scaffold(
+      backgroundColor: colors.primary,
+      body:  Column(
+        children: [
+          const SizedBox(height: 20,),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10,right: 20),
+              child: Container(
+                color: colors.primary,
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(100)
+                        ),
+                        child: const Center(child: Icon(Icons.arrow_back)),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: Center(child: Text(getTranslated(context, "Privacy Policy"),style: const TextStyle(color: Colors.white,fontSize: 18),)),
+                          )),
+                    ),
 
+                  ],
                 ),
-                child: privacyData == null || privacyData == ""
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 10),
-                        decoration: const BoxDecoration(
-                            borderRadius:
-                                BorderRadius.only(topRight: Radius.circular(0)),
-                            color: Colors.white),
-                        width: size.width,
-                        height: size.height,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Html(data: "${privacyData}"),
-                              Text(
-                                '${privacyData?.pgDescri}',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 18,
+            child: Container(
+                decoration: const BoxDecoration(
+                  color: Color(0xFFDDEDFA),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30)),
+                ),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Html(data: "${privacyData}"),
+                        privacyData == null? Center(child: CircularProgressIndicator()):  Text(
+                          '${privacyData?.pgDescri}',
+                          style: const TextStyle(
+                            fontSize: 16,
                           ),
                         ),
-                      ))));
+                      ],
+                    ),
+                  ),
+                ),
+
+            ),
+          )
+
+        ],
+      ),
+
+    );
+      // Scaffold(
+      //   backgroundColor: colors.whiteTemp,
+      //   appBar: PreferredSize(
+      //       preferredSize: const Size.fromHeight(80),
+      //       child: commonAppBar(context, text:
+      //       getTranslated(context, "Privacy Policy"),
+      //     //  "Privacy & Policy"
+      //       )),
+      //   body: Container(
+      //       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+      //       decoration: const BoxDecoration(
+      //
+      //       ),
+      //       child: privacyData == null || privacyData == ""
+      //           ? const Center(
+      //               child: CircularProgressIndicator(),
+      //             )
+      //           : Container(
+      //               padding: const EdgeInsets.symmetric(
+      //                   horizontal: 16, vertical: 10),
+      //               decoration: const BoxDecoration(
+      //                   borderRadius:
+      //                       BorderRadius.only(topRight: Radius.circular(0)),
+      //                   color: Colors.white),
+      //               width: size.width,
+      //               height: size.height,
+      //               child: SingleChildScrollView(
+      //                 child: Column(
+      //                   crossAxisAlignment: CrossAxisAlignment.start,
+      //                   children: [
+      //                     // Html(data: "${privacyData}"),
+      //                     Text(
+      //                       '${privacyData?.pgDescri}',
+      //                       style: const TextStyle(
+      //                         fontSize: 16,
+      //                       ),
+      //                     ),
+      //                   ],
+      //                 ),
+      //               ),
+      //             )));
   }
 }

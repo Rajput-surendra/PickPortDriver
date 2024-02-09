@@ -126,17 +126,16 @@ class _EditBankDetailsState extends State<EditBankDetails> {
           children: [
             Container(
               // padding: EdgeInsets.symmetric(horizontal: 20),
-
-              height: MediaQuery.of(context).size.height * 0.12,
+              height: MediaQuery.of(context).size.height * 0.09,
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(color: colors.primary),
               child: Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 15),
                 child: Row(
                   children: [
                     Container(
-                      height: 45,
-                      width: 45,
+                      height: 35,
+                      width: 35,
                       decoration:
                       const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
                       child: InkWell(
@@ -149,15 +148,23 @@ class _EditBankDetailsState extends State<EditBankDetails> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 45,),
-                   Text(
-                      getTranslated(context, "Bank Details"),
-                     // 'Bank Details',
-                      style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
+                   Expanded(
+                     child: Container(
+                       child: Center(
+                         child: Padding(
+                           padding: const EdgeInsets.only(right: 20),
+                           child: Text(
+                              getTranslated(context, "Bank Details"),
+                             // 'Bank Details',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                         ),
+                       ),
+                     ),
+                   ),
                   ],
                 ),
               )

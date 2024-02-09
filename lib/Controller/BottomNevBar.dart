@@ -104,8 +104,8 @@ class _BottomNavState extends State<BottomNav> {
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    //ParcelHistory(),
-    NotificationScreen(),
+    ParcelHistory(),
+    // NotificationScreen(),
     MyAccount()
   ];
 

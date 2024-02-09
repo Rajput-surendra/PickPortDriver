@@ -33,251 +33,143 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colors.primary,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: colors.primary,
-        elevation: 0,
-        toolbarHeight: 70,
-        centerTitle: true,
-        leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            margin: EdgeInsets.only(left: 10),
-            height: 40,
-            width: 40,
-            decoration:
-            BoxDecoration(color: colors.whiteTemp, shape: BoxShape.circle),
-            child: Center(
-                child: Icon(
-                  Icons.arrow_back,
-                  color: Colors.black,
-                )),
-          ),
-        ),
-
-        title: Text(
-          getTranslated(context, "Notification"),
-          //'Notification',
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        ),
-
-        actions: [
-          const SizedBox(
-            width: 15,
-          ),
-          InkWell(
-            onTap: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => SupportNewScreen()));
-            },
-            child: Container(
-              height: 40,
-              width: 40,
-              padding: const EdgeInsets.all(5),
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: Colors.white),
-              child: const Icon(
-                Icons.headset_rounded,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-        ],
-        // leading: Image.asset('assets/images/jdx_logo.png',
-        //     color: Colors.transparent),
-        // backgroundColor: Colors.cyan.withOpacity(0.10),
-        // elevation: 0,
-        // actions: [
-        //   Row(
-        //     children: [
-        //       Row(
-        //         children: [
-        //           isSwitched
-        //               ? const Text(
-        //                   "Online",
-        //                   style: TextStyle(color: Colors.green),
-        //                 )
-        //               : const Text(
-        //                   "Offline",
-        //                   style: TextStyle(color: Colors.pink),
-        //                 ),
-        //           const SizedBox(
-        //             width: 10,
-        //           ),
-        //           Switch.adaptive(
-        //               activeColor: Colors.green,
-        //               value: isSwitched,
-        //               onChanged: (val) {
-        //                 setState(() {
-        //                   isSwitched = val;
-        //                   getUserStatusOnlineOrOffline();
-        //                 });
-        //               }),
-        //         ],
-        //       ),
-        //     ],
-        //   ),
-        //   // Container(
-        //   //   height: 10,
-        //   //   width: 80,
-        //   //   child: CupertinoSwitch(
-        //   //     value: _switchValue,
-        //   //     onChanged: (value) {
-        //   //       setState(() {
-        //   //         _switchValue = value;
-        //   //       });
-        //   //     },
-        //   //   ),
-        //   // ),
-        // ],
-      ),
       body: Column(
         children: [
           SizedBox(
-            height: 10,
+            height: 25,
           ),
-          Container(
-            height: 20,
-          ),
-          // Expanded(
-          //   flex: 2,
-          //   child:
-          //   // Padding(
-          //   //   padding: const EdgeInsets.only(left: 20, right: 20),
-          //   //   child: Row(
-          //   //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   //     children: [
-          //   //       InkWell(
-          //   //         onTap: () {
-          //   //           Navigator.pop(context);
-          //   //         },
-          //   //         child: Container(
-          //   //           height: 40,
-          //   //           width: 40,
-          //   //           decoration: BoxDecoration(
-          //   //               color: colors.whiteTemp,
-          //   //               borderRadius: BorderRadius.circular(100)),
-          //   //           child: Center(child: Icon(Icons.arrow_back)),
-          //   //         ),
-          //   //       ),
-
-          //   //       // Container(
-          //   //       //   height: 40,
-          //   //       //   width: 40,
-          //   //       //   decoration:  BoxDecoration(
-          //   //       //       color: splashcolor,
-          //   //       //       borderRadius:
-          //   //       //       BorderRadius.circular(100)),
-          //   //       //   child: InkWell(
-          //   //       //       onTap: () {
-          //   //       //         Navigator.push(
-          //   //       //             context,
-          //   //       //             MaterialPageRoute(
-          //   //       //                 builder: (context) =>
-          //   //       //                 const NotificationScreen()));
-          //   //       //       },
-          //   //       //       child: Center(
-          //   //       //         child: Image.asset(
-          //   //       //           'assets/ProfileAssets/support.png',scale: 1.3,
-          //   //       //         ),
-          //   //       //       )),
-          //   //       // ),
-          //   //     ],
-          //   //   ),
-          //   // ),
-          // ),
           Expanded(
-            // flex: 11,
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                          color: colors.whiteTemp,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: Center(child: Icon(Icons.arrow_back)),
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const NotificationScreen()));
+                        },
+                        child: Center(
+                          child: Image.asset(
+                            'assets/images/support.png',
+                            scale: 1.3,
+                          ),
+                        )),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 18,
             child: Container(
               decoration: BoxDecoration(
                   color: colors.background,
                   borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(50),
-                      topLeft: Radius.circular(50))),
+                      topRight: Radius.circular(35),
+                      topLeft: Radius.circular(35))),
               child: Padding(
                 padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height,
                   width: double.maxFinite,
-                  child:  notificationList.isEmpty
-                      ? Center(child:  Text(
-                      getTranslated(context, "Data not available"),
-                     // 'Data Not Available'
-                  ))
+                  child: notificationList.isEmpty
+                      ? Center(
+                          child: Text(
+                          getTranslated(context, "Data not available"),
+                          // 'Data Not Available'
+                        ))
                       : ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: false,
-                      itemCount: notificationList.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                            onTap: () {},
-                            child: Card(
-                              child: Container(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
+                          scrollDirection: Axis.vertical,
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: false,
+                          itemCount: notificationList.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                                onTap: () {},
+                                child: Card(
+                                  child: Container(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        const Text(
-                                          'Id:               ',
-                                          style: TextStyle(
-                                              color: Colors.red),
-                                        ),
-                                        Text(notificationList[index]
-                                            .id ??
-                                            '')
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Text(
-                                          'Date:           ',
-                                          style: TextStyle(
-                                              color: Colors.red),
-                                        ),
-                                        Text(notificationList[index]
-                                            .date ??
-                                            '')
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          getTranslated(context, "Message:"),
-                                          //'Message:',
-                                          style: TextStyle(
-                                              color: Colors.red),
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              'Id:               ',
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                            Text(notificationList[index].id ??
+                                                '')
+                                          ],
                                         ),
                                         const SizedBox(
-                                          width: 10,
+                                          height: 20,
                                         ),
-                                        SizedBox(
-                                            width: 200,
-                                            child: Text(
-                                                notificationList[index]
-                                                    .notification ??
-                                                    ''))
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              'Date:           ',
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                            Text(notificationList[index].date ??
+                                                '')
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              getTranslated(
+                                                  context, "Message:"),
+                                              //'Message:',
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            SizedBox(
+                                                width: 200,
+                                                child: Text(
+                                                    notificationList[index]
+                                                            .notification ??
+                                                        ''))
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ));
-                      }),
+                                  ),
+                                ));
+                          }),
                 ),
               ),
             ),
@@ -402,9 +294,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
         Fluttertoast.showToast(msg: '');
       }
     } catch (e) {
-      Fluttertoast.showToast(msg:
-      getTranslated(context, "Something went wrong"),
-     // "Something went wrong"
+      Fluttertoast.showToast(
+        msg: getTranslated(context, "Something went wrong"),
+        // "Something went wrong"
       );
     } finally {
       isLoading = false;
