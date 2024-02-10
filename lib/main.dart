@@ -78,9 +78,10 @@ import 'Views/splash.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {
   debugPrint(message.data.toString());
-  debugPrint(message.notification!.title);
+  //debugPrint(message.notification!.title);
 }
-NotificationClass notificationClass=NotificationClass();
+
+LocalNotificationService notificationClass=LocalNotificationService();
 Future<void> handleNotificationPermission() async {
   const permission = Permission.notification;
   final status = await permission.status;
@@ -108,14 +109,14 @@ void main()async{
   await handleNotificationPermission();
 
 
-  FirebaseMessaging.onBackgroundMessage(myForgroundMessageHandler);
+ // FirebaseMessaging.onBackgroundMessage(myForgroundMessageHandler);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.transparent, // navigation bar color
     statusBarColor: CustomColors.primaryColor, // status bar color
   ));
-  notificationClass.initNotification();
-
- // LocalNotificationService.initialize();
+  //notificationClass.initNotification();
+  LocalNotificationService.initialize();
+  // LocalNotificationService.initialize();
 
   try{
     String? token = await FirebaseMessaging.instance.getToken();

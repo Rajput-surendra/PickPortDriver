@@ -14,6 +14,7 @@ import '../Models/GetProfileModel.dart';
 import '../Models/Get_transaction_model.dart';
 import '../Utils/ApiPath.dart';
 import '../services/session.dart';
+import 'HomeScreen.dart';
 
 class WithdrawalScreen extends StatefulWidget {
   WithdrawalScreen({Key? key, this.isFrom,this.gId}) : super(key: key);
@@ -354,9 +355,10 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
 
 
   withdrawalRequest(){
-    return  getTransactionModel == null? Center(child: CircularProgressIndicator()) : getTransactionModel?.data?.length==0 ?  Center(child: Text("No Withdrawal List Found!!")):Padding(
+    return  Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
+      child: getTransactionModel == null? Center(child: CircularProgressIndicator()) : getTransactionModel?.message == "failed." ?  Center(child: Text("No Withdrawal List Found!!")): Container(
+
         height:  MediaQuery.of(context).size.height/1.3,
         child: ListView.builder(
             physics: ScrollPhysics(),
@@ -406,6 +408,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
       "amount":amountController.text,
       "notes":messageController.text,
     });
+    print('____Som______${request.fields}_________');
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
@@ -464,7 +467,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
                       ),
                     ],
                   ),
-                  wallet == null ? Text("No Balance") :Text("₹${wallet}" ,style: TextStyle(color: colors.blackTemp,fontSize: 15),),
+                  driverEraning == null ? Text("No Balance") :Text("₹${driverEraning}" ,style: TextStyle(color: colors.blackTemp,fontSize: 20,fontWeight: FontWeight.bold),),
                   SizedBox(height: 10,),
                 ],
               ),

@@ -21,9 +21,9 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     //Timer(Duration(seconds: 5), () {Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SignInScreen()));});
     super.initState();
-    Future.delayed(const Duration(seconds: 7),(){
-      return checkLogin();
-    });
+    //Future.delayed(const Duration(seconds: 7),(){
+       checkLogin();
+   // });
     // _controller = VideoPlayerController.asset("assets/images/splash.gif");
     // _controller.initialize().then((_) {
     //   _controller.setLooping(true);

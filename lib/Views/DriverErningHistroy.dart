@@ -251,6 +251,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:jdx/Views/withdrawal_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../Utils/Color.dart';
@@ -291,12 +292,14 @@ class _DriverErningHistroyState extends State<DriverErningHistroy> {
     request.fields.addAll({
       'user_id':userId.toString()
     });
+    print('____Som______${request.fields}_________');
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       var result  = await response.stream.bytesToString();
       var finalResult  = DriverEarnModel.fromJson(json.decode(result));
       setState(() {
        getOnlineOfflineModel =  finalResult;
+      // driverEraningAmount = finalResult.total.toString();
       });
     }
     else {
@@ -349,51 +352,110 @@ class _DriverErningHistroyState extends State<DriverErningHistroy> {
           ),
           Expanded(
             flex: 18,
-            child: Container(
-                decoration: const BoxDecoration(
-                    color: Color(0xFFDDEDFA),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30)),
-                ),
-                child: getOnlineOfflineModel ==  null || getOnlineOfflineModel == "" ? Center(child: CircularProgressIndicator()) : getOnlineOfflineModel?.data?.isEmpty ?? false ?
-                Center(child: Text("No data available")) :
-              ListView.builder(
-                itemCount:getOnlineOfflineModel?.data?.length?? 0 ,
-                  itemBuilder: (context,i){
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                              getTranslated(context, "Parcel Id")),
-                              Text("${getOnlineOfflineModel?.data?[i].orderId}")
-                            ],
-                          ),
-
-                          SizedBox(height: 5,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(getTranslated(context, "Amount")),
-                              Text("${getOnlineOfflineModel?.data?[i].driverAmount}")
-                            ],
-                          )
-
-                        ],
-                      ),
-                    ),
+            child:
+            SingleChildScrollView(
+              child: Container(
+                  decoration: const BoxDecoration(
+                      color: Color(0xFFDDEDFA),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30)),
                   ),
-                );
-              })
+                  child: getOnlineOfflineModel ==  null || getOnlineOfflineModel == "" ? Center(child: CircularProgressIndicator()) : getOnlineOfflineModel?.data?.isEmpty ?? false ?
+                  Center(child: Text("No data available")) :
+                      Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 5.0,left:10 ,right: 10),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>WithdrawalScreen()));
+                              },
+                              child: Card(
 
+                                elevation: 2,
+                                child: Padding(
+                                  padding: EdgeInsets.all(18.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: const [
+                                          Icon(
+                                            Icons.account_balance_wallet,
+                                            color: colors.primary,
+                                          ),
+                                          Text(
+                                            " " + 'Available Balance',
+                                            style: TextStyle(color: colors.blackTemp,
+                                                fontWeight: FontWeight.bold,fontSize: 18),
+                                          ),
+                                        ],
+                                      ),
+                                      getOnlineOfflineModel?.total == null ? Text("No Balance") :Text("₹${getOnlineOfflineModel?.total}" ,style: TextStyle(color: colors.blackTemp,fontSize: 20,fontFamily: "lora",fontWeight: FontWeight.bold),),
+                                      SizedBox(height: 0,),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            child: Container(
+                              height: MediaQuery.of(context).size.height,
+                              child: ListView.builder(
+                              //  shrinkWrap: true,
+                                 // physics: ScrollPhysics(),
+                                  itemCount:getOnlineOfflineModel?.data?.length?? 0 ,
+                                  itemBuilder: (context,i){
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                                      child: Card(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                      getTranslated(context, "Parcel Id")),
+                                                  Text("${getOnlineOfflineModel?.data?[i].orderId}")
+                                                ],
+                                              ),
+
+                                              SizedBox(height: 5,),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(getTranslated(context, "Amount")),
+                                                  Text("₹ ${getOnlineOfflineModel?.data?[i].driverAmount}",style: TextStyle(fontFamily: "lora"),)
+                                                ],
+                                              ),
+                                              SizedBox(height: 5,),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(getTranslated(context, "Commission Charge")),
+                                                  Text("₹ ${getOnlineOfflineModel?.data?[i].adminCommission}",style: TextStyle(fontFamily: "lora"),)
+                                                ],
+                                              )
+
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ),
+                          )
+                        ],
+                      )
+
+
+              ),
             ),
           )
 

@@ -356,9 +356,11 @@ class ParcelDetails {
       String? parcelPhoto, 
       String? isCodOrderVerify, 
       String? accountName, 
-      String? accountNumber, 
-      String? parcelHistory, 
-      MaterialInfo? materialInfo,}){
+      String? accountNumber,
+    String? bookingDate,
+      String? parcelHistory,
+      MaterialInfo? materialInfo,})
+  {
     _saleId = saleId;
     _orderId = orderId;
     _barcode = barcode;
@@ -425,12 +427,14 @@ class ParcelDetails {
     _accountNumber = accountNumber;
     _parcelHistory = parcelHistory;
     _materialInfo = materialInfo;
+    _bookingDate = parcelHistory;
 }
 
   ParcelDetails.fromJson(dynamic json) {
     _saleId = json['sale_id'];
     _orderId = json['order_id'];
     _barcode = json['barcode'];
+    _bookingDate = json['booking_date'];
     _barcodeLink = json['barcode_link'];
     _userId = json['user_id'];
     _deliveryBoyId = json['delivery_boy_id'];
@@ -560,6 +564,7 @@ class ParcelDetails {
   String? _accountName;
   String? _accountNumber;
   String? _parcelHistory;
+  String?_bookingDate;
   MaterialInfo? _materialInfo;
 ParcelDetails copyWith({  String? saleId,
   String? orderId,
@@ -626,6 +631,7 @@ ParcelDetails copyWith({  String? saleId,
   String? accountName,
   String? accountNumber,
   String? parcelHistory,
+  String? bookingDate,
   MaterialInfo? materialInfo,
 }) => ParcelDetails(  saleId: saleId ?? _saleId,
   orderId: orderId ?? _orderId,
@@ -693,6 +699,7 @@ ParcelDetails copyWith({  String? saleId,
   accountNumber: accountNumber ?? _accountNumber,
   parcelHistory: parcelHistory ?? _parcelHistory,
   materialInfo: materialInfo ?? _materialInfo,
+
 );
   String? get saleId => _saleId;
   String? get orderId => _orderId;

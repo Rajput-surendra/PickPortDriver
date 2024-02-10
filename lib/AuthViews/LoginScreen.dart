@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
     request.fields.addAll({
       'user_email': emailController.text,
       'user_password': passwordController.text,
-      'firebaseToken': '4'
+      'firebaseToken': token.toString()
     });
     print("this isn ==========>${request.fields}");
     request.headers.addAll(headers);
@@ -102,7 +102,10 @@ class _LoginScreenState extends State<LoginScreen> {
     };
     var request = http.MultipartRequest(
         'POST', Uri.parse('${Urls.baseUrl}Authentication/DeliveryLogin'));
-    request.fields.addAll({'user_phone': mobileController.text});
+    request.fields.addAll({
+      'user_phone': mobileController.text,
+      'firebaseToken': token.toString()
+    });
     print('____Som______${request.fields}_________');
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
@@ -620,8 +623,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               if(emailController.text == ""){
                                 Fluttertoast.showToast(msg: getTranslated(context, "Email id is required"));
                                 return;
+
                               }if(passwordController.text == ""){
                                 Fluttertoast.showToast(msg:  getTranslated(context, "Password is required"));
+                                return;
+                              }
+                              if(isTerm==false){
+                                Fluttertoast.showToast(msg:  getTranslated(context, "I argree to all"));
                                 return;
                               }
                               else{

@@ -37,7 +37,7 @@ import 'MyAccount.dart';
 import 'NotificationScreen.dart';
 import 'ParcelDetails.dart';
 import 'SupportNewScreen.dart';
-
+String ? driverEraning;
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -70,21 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     // TODO: implement initState
-   // Future.delayed(Duration(seconds: 5), () {
-    // return
       getProfile();
-   // });
-  //  Future.delayed(Duration(seconds: 10), () {
-    //  return
-        getSliderApi();
-  //  });
-
-   // Future.delayed(Duration(seconds: 15), () {
-
-     getTransactionApi();
-  //  });
-   // Future.delayed(Duration(seconds: 20), () {
-
+      getSliderApi();
+      getDriverApi();
+      getCheckStatusApi();
       inIt();
   //  });
 
@@ -133,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _position = await getUserCurrentPosition();
     getUserOrderHistory("0");
     getDriverRating(userId ?? '300');
+    getDriverApi();
   }
 
   GetSliderModel? getSliderModel;
@@ -194,12 +184,113 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
   }
+  int status = 0;
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
       init: HomeController(),
       builder: (controller) {
         return Scaffold(
+          // FloatingActionButton
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+         //    bottomSheet:  Padding(
+         //      padding: const EdgeInsets.all(8.0),
+         //      child: Container(
+         //        child: Row(
+         //          children: [
+         //            Row(
+         //              children: [
+         //                isOnline
+         //                    ? const Text(
+         //                  "Online",
+         //                  style: TextStyle(color: Colors.green),
+         //                )
+         //                    : const Text(
+         //                  "Offline",
+         //                  style: TextStyle(color: Colors.red),
+         //                ),
+         //                const SizedBox(
+         //                  width: 10,
+         //                ),
+         //                Switch.adaptive(
+         //                    activeColor: Colors.green,
+         //                    inactiveTrackColor: Colors.red,
+         //                    value: isOnline,
+         //                    onChanged: (val) {
+         //                      setState(() {
+         //                        isOnline = val;
+         //                        getUserStatusOnlineOrOffline();
+         //                      });
+         //                    }),
+         //              ],
+         //            ),
+         //          ],
+         //        ),
+         //      ),
+         //    ),
+          floatingActionButton:  Container(
+
+            decoration:  BoxDecoration(
+              color: CustomColors.primaryColor,
+              border: Border.all(color: CustomColors.secondaryColor),
+              borderRadius: BorderRadius.circular(10)
+            ),
+            width: 110,
+            height: 50,
+            child: Center(
+              child:   Row(
+                children: [
+                  SizedBox(width: 5,),
+                  Text(
+                    status == 1 ? 'Online' : 'Offline',
+                    style: TextStyle(fontSize: 15,color:status == 0 ? Colors.red:Colors.green ),
+                  ),
+                  Switch(
+                    activeColor: Colors.green,
+                    inactiveTrackColor: Colors.red,
+                    value: status == 1,
+                    onChanged: (value) {
+                      setState(() {
+                        status = value ? 1 : 0;
+                        getStatus(status);
+                      });
+                    },
+                  ),
+
+
+                ],
+              ),
+
+
+              // Row(
+              //   children: [
+              //     SizedBox(width: 8,),
+              //     isOnline
+              //         ? const Text(
+              //       "Online",
+              //       style: TextStyle(color: Colors.green),
+              //     )
+              //         : const Text(
+              //       "Offline",
+              //       style: TextStyle(color: Colors.red),
+              //     ),
+              //     const SizedBox(
+              //       width: 2,
+              //     ),
+              //     Switch.adaptive(
+              //         activeColor: Colors.green,
+              //         inactiveTrackColor: Colors.red,
+              //         value: isOnline,
+              //         onChanged: (val) {
+              //           setState(() {
+              //             isOnline = val;
+              //             getUserStatusOnlineOrOffline();
+              //           });
+              //         }),
+              //   ],
+              // ),
+            ),
+          ),
           backgroundColor: colors.primary,
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -221,44 +312,57 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     });
                   },
-                  child: Container(
-                      height: 80,
-                      width: 80,
-                      padding: const EdgeInsets.all(12),
-                      decoration: const BoxDecoration(),
-                      child: getProfileModel?.data?[0].userImage == null
-                          ? const Center(
-                          child: CircularProgressIndicator(),
-                      ): ClipRRect(
-                              borderRadius: BorderRadius.circular(80),
-                              child: Image.network(
-                                "${getProfileModel?.data?[0].userImage}",
-                                fit: BoxFit.fill,
-                              ),
-                      ),
+                  child: Icon(Icons.menu)
+
+                ),
+                // const SizedBox(
+                //   width: 10,
+                // ),
+                Container(
+                  height: 70,
+                  width: 70,
+                  padding: const EdgeInsets.all(12),
+                  decoration: const BoxDecoration(),
+                  child: getProfileModel?.data?[0].userImage == null
+                      ? const Center(
+                    child: CircularProgressIndicator(),
+                  ): ClipRRect(
+                    borderRadius: BorderRadius.circular(80),
+                    child: Image.network(
+                      "${getProfileModel?.data?[0].userImage}",
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Column(
+                getProfileModel?.data?[0].userFullname == null ? Center(child: CircularProgressIndicator()) :Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                   Text(
-                      getTranslated(context, "Hello"),
-                     // 'Hello,',
-                      style: const TextStyle(fontSize: 16, color: Colors.white),
-                    ),
+                   // Text(
+                   //    getTranslated(context, "Hello"),
+                   //   // 'Hello,',
+                   //    style: const TextStyle(fontSize: 16, color: Colors.white),
+                   //  ),
                     Text(
                       '${getProfileModel?.data?[0].userFullname}',
                       style: const TextStyle(fontSize: 14, color: Colors.white),
+                    ),
+                    Text(
+                      '${getProfileModel?.data?[0].vehicleNo}',
+                      style: const TextStyle(fontSize: 14, color: Colors.white),
+                    ),
+                    Text(
+                      '${getProfileModel?.data?[0].vehicleType}',
+                      style: const TextStyle(fontSize: 14, color: Colors.white),
                     )
                   ],
-                )
+                ),
+
               ],
             ),
 
             actions: [
+
+
               InkWell(
                 onTap: () {
                   Navigator.push(
@@ -303,41 +407,14 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 width: 20,
               ),
+
             ],
             // leading: Image.asset('assets/images/jdx_logo.png',
             //     color: Colors.transparent),
             // backgroundColor: Colors.cyan.withOpacity(0.10),
             // elevation: 0,
             // actions: [
-            //   Row(
-            //     children: [
-            //       Row(
-            //         children: [
-            //           isSwitched
-            //               ? const Text(
-            //                   "Online",
-            //                   style: TextStyle(color: Colors.green),
-            //                 )
-            //               : const Text(
-            //                   "Offline",
-            //                   style: TextStyle(color: Colors.pink),
-            //                 ),
-            //           const SizedBox(
-            //             width: 10,
-            //           ),
-            //           Switch.adaptive(
-            //               activeColor: Colors.green,
-            //               value: isSwitched,
-            //               onChanged: (val) {
-            //                 setState(() {
-            //                   isSwitched = val;
-            //                   getUserStatusOnlineOrOffline();
-            //                 });
-            //               }),
-            //         ],
-            //       ),
-            //     ],
-            //   ),
+            //
             //   // Container(
             //   //   height: 10,
             //   //   width: 80,
@@ -356,10 +433,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 5,
-                ),
-
+                Container(height: 0),
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -370,9 +444,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             topRight: Radius.circular(35))),
                     child: ListView(
                       children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -428,9 +500,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             // sliderPointers (items , currentIndex),
                           ],
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
@@ -441,14 +511,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         _segmentButton(),
-                        Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              getTranslated(context, "New delivery list"),
-                              //'New delivery list',
-                              style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            )),
+                        // Container(
+                        //     padding: const EdgeInsets.symmetric(horizontal: 10),
+                        //     child: Text(
+                        //       getTranslated(context, "New delivery list"),
+                        //       style: const TextStyle(
+                        //           fontSize: 18, fontWeight: FontWeight.bold),
+                        //     )),
                         const SizedBox(
                           height: 10,
                         ),
@@ -527,75 +596,75 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          bottomSheet: Container(
-            color: colors.primary,
-            height: 60,
-            width: MediaQuery.of(context).size.width,
-            child: Row(children: [
-              Expanded(
-                  child: InkWell(
-                onTap: () {
-                  setState(() {
-                    isOnline = true;
-                    getUserStatusOnlineOrOffline();
-                  });
-                },
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.check_circle_rounded,
-                        color: isOnline ? Colors.green : Colors.white,
-                      ),
-                      const SizedBox(width: 5,),
-                      Text(
-                        getTranslated(context, "Online"),
-                        //'Online',
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: isOnline ? Colors.green : Colors.white),
-                      )
-                    ],
-                  ),
-                ),
-              )),
-              Container(
-                width: 1,
-                height: 60,
-                color: Colors.white,
-              ),
-              Expanded(
-                  child: InkWell(
-                onTap: () {
-                  setState(() {
-                    isOnline = false;
-                    getUserStatusOnlineOrOffline();
-                    print('____Som______${isOnline}_________');
-                  });
-                },
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.wifi_tethering_off,
-                      color: isOnline ? Colors.white : Colors.red,
-                    ),
-                    const SizedBox(width: 5,),
-                    Text(
-                      getTranslated(context, "Offline"),
-                      // 'Offline',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: isOnline ? Colors.white : Colors.red),
-                    ),
-                  ],
-                  ),
-                ),
-              ))
-            ]),
-          ),
+          // bottomSheet: Container(
+          //   color: colors.primary,
+          //   height: 60,
+          //   width: MediaQuery.of(context).size.width,
+          //   child: Row(children: [
+          //     Expanded(
+          //         child: InkWell(
+          //       onTap: () {
+          //         setState(() {
+          //           isOnline = true;
+          //           getUserStatusOnlineOrOffline();
+          //         });
+          //       },
+          //       child: Container(
+          //         child: Row(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           children: [
+          //             Icon(
+          //               Icons.check_circle_rounded,
+          //               color: isOnline ? Colors.green : Colors.white,
+          //             ),
+          //             const SizedBox(width: 5,),
+          //             Text(
+          //               getTranslated(context, "Online"),
+          //               //'Online',
+          //               style: TextStyle(
+          //                   fontSize: 16,
+          //                   color: isOnline ? Colors.green : Colors.white),
+          //             )
+          //           ],
+          //         ),
+          //       ),
+          //     )),
+          //     Container(
+          //       width: 1,
+          //       height: 60,
+          //       color: Colors.white,
+          //     ),
+          //     Expanded(
+          //         child: InkWell(
+          //       onTap: () {
+          //         setState(() {
+          //           isOnline = false;
+          //           getUserStatusOnlineOrOffline();
+          //           print('____Som______${isOnline}_________');
+          //         });
+          //       },
+          //       child: Container(
+          //         child: Row(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //         children: [
+          //           Icon(
+          //             Icons.wifi_tethering_off,
+          //             color: isOnline ? Colors.white : Colors.red,
+          //           ),
+          //           const SizedBox(width: 5,),
+          //           Text(
+          //             getTranslated(context, "Offline"),
+          //             // 'Offline',
+          //             style: TextStyle(
+          //                 fontSize: 16,
+          //                 color: isOnline ? Colors.white : Colors.red),
+          //           ),
+          //         ],
+          //         ),
+          //       ),
+          //     ))
+          //   ]),
+          // ),
         );
       },
     );
@@ -696,15 +765,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         .end,
                                                                 children: [
                                                                   Text(
-                                                                      DateFormat(
-                                                                              'yyyy-MM-dd')
-                                                                          .format(orderHistoryList[index]
-                                                                              .onDate),
+                                                                      "${orderHistoryList[index].parcelDetails.first.bookingDate ?? ''}",
                                                                       style: const TextStyle(
                                                                           fontSize:
-                                                                              14,
+                                                                          14,
                                                                           color: colors
-                                                                              .black54)),
+                                                                              .blackTemp,fontFamily: 'lora')),
                                                                   Text(
                                                                       "₹ ${orderHistoryList[index].parcelDetails.first.materialInfo?.price ?? ''}",
                                                                       style: const TextStyle(
@@ -1289,10 +1355,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               }),
 
                                 ),
+                              // const SizedBox(height: 10,),
+                              // const Text("  Transaction History",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
                               const SizedBox(height: 10,),
-                              const Text("  Transaction History",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
-                              const SizedBox(height: 10,),
-                              withdrawalRequest()
+                              walletAmount(),
+                              const SizedBox(height: 20,),
                             ],
                           );
   }
@@ -1403,16 +1470,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                 CrossAxisAlignment
                                     .end,
                                 children: [
+                                  // Text(
+                                  //     DateFormat(
+                                  //         'yyyy-MM-dd')
+                                  //         .format(orderHistoryList[index]
+                                  //         .onDate),
+                                  //     style: const TextStyle(
+                                  //         fontSize:
+                                  //         14,
+                                  //         color: colors
+                                  //             .black54)),
                                   Text(
-                                      DateFormat(
-                                          'yyyy-MM-dd')
-                                          .format(orderHistoryList[index]
-                                          .onDate),
+                                      "₹ ${orderHistoryList[index].parcelDetails.first.bookingDate ?? ''}",
                                       style: const TextStyle(
                                           fontSize:
                                           14,
                                           color: colors
-                                              .black54)),
+                                              .blackTemp,fontFamily: 'lora')),
                                   Text(
                                       "₹ ${orderHistoryList[index].parcelDetails.first.materialInfo?.price ?? ''}",
                                       style: const TextStyle(
@@ -1998,62 +2072,64 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     );
   }
-  withdrawalRequest(){
-    return  getTransactionModel == null? /*Center(child: CircularProgressIndicator()) : getTransactionModel?.data?.isEmpty ?*/  const Center(child: Text("No Withdrawal List Found!!")):Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        // height:  MediaQuery.of(context).size.height,
-        child: ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: getTransactionModel?.data?.length ??0,
-            itemBuilder: (context,i){
-              return Card(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 8, 8, 32),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 3,),
-                      Text("₹ ${getTransactionModel?.data?[i].amount}"),
-                      const SizedBox(height: 3,),
-                      Text("${getTransactionModel?.data?[i].date}"),
-                      const SizedBox(height: 3,),
-                      Text("${getTransactionModel?.data?[i].notes}"),
-                      const SizedBox(height: 3,),
-                      Text("${getTransactionModel?.data?[i].paymentStatus}"),
-                    ],
-                  ),
-                ),
-              );
-            }),
-      ),
-    );
-  }
-  GetTransactionModel? getTransactionModel;
-
-  getTransactionApi() async {
+  // withdrawalRequest(){
+  //   return  getTransactionModel == null? /*Center(child: CircularProgressIndicator()) : getTransactionModel?.data?.isEmpty ?*/  const Center(child: Text("No Withdrawal List Found!!")):Padding(
+  //     padding: const EdgeInsets.all(8.0),
+  //     child: Container(
+  //       // height:  MediaQuery.of(context).size.height,
+  //       child: ListView.builder(
+  //           physics: const NeverScrollableScrollPhysics(),
+  //           shrinkWrap: true,
+  //           itemCount: getTransactionModel?.data?.length ??0,
+  //           itemBuilder: (context,i){
+  //             return Card(
+  //               child: Padding(
+  //                 padding: const EdgeInsets.fromLTRB(8, 8, 8, 32),
+  //                 child: Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: [
+  //                     const SizedBox(height: 3,),
+  //                     Text("₹ ${getTransactionModel?.data?[i].amount}"),
+  //                     const SizedBox(height: 3,),
+  //                     Text("${getTransactionModel?.data?[i].date}"),
+  //                     const SizedBox(height: 3,),
+  //                     Text("${getTransactionModel?.data?[i].notes}"),
+  //                     const SizedBox(height: 3,),
+  //                     Text("${getTransactionModel?.data?[i].paymentStatus}"),
+  //                   ],
+  //                 ),
+  //               ),
+  //             );
+  //           }),
+  //     ),
+  //   );
+  // }
+  // GetTransactionModel? getTransactionModel;
+  //
+  String? driverAmount;
+  getDriverApi() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString("userId");
     var headers = {
       'Cookie': 'ci_session=84167892b4c1be830d2a6845f3443f5df00291c5'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('${Urls.baseUrl}Payment/api_wallet_history'));
+    var request = http.MultipartRequest('POST', Uri.parse('${Urls.baseUrl}Payment/driverAmounts'));
     request.fields.addAll({
       'user_id':userId.toString()
     });
-    print('____Som______${request.fields}_________');
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      print('____Som______${request.fields}_________');
       var result  = await response.stream.bytesToString();
-      var finalResult = GetTransactionModel.fromJson(json.decode(result));
-      // Fluttertoast.showToast(msg: "${finalResult.message}");
+      var finalResult = jsonDecode(result);
+      driverAmount =  finalResult['data'];
+      driverEraning =  finalResult['driver_amont'];
+      print('____Som______${driverAmount}_________');
+
       setState(() {
-        getTransactionModel = finalResult;
+
       });
     }
     else {
@@ -2061,31 +2137,127 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
   }
+     walletAmount(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10)
+            ),
+          child:Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+             // crossAxisAlignment: CrossAxisAlignment.start,
 
-  void getUserStatusOnlineOrOffline() async {
+              children: [
+                Text(getTranslated(context, "Pickport Wallet"),style: const TextStyle(fontWeight: FontWeight.bold)),
+                driverAmount == null ?  Text("₹ No Available Amount",style: TextStyle(fontWeight: FontWeight.bold,fontFamily: "lora",fontSize: 12),) : Text("₹ ${driverAmount}",style: TextStyle(fontWeight: FontWeight.bold,fontFamily: "lora",fontSize: 20),)
+
+               ],
+             ),
+          ),
+          ),
+        )  ,
+        Expanded(
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10)
+            ),
+            child:Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+              //  crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(getTranslated(context, "DRIVER_EARNING"),style: const TextStyle(
+                      fontWeight: FontWeight.bold
+                   )),
+                  driverEraning == null ?  Text("₹ No Available Amount",style: TextStyle(fontWeight: FontWeight.bold,fontFamily: "lora",fontSize: 12),) :Text("₹ ${driverEraning}",style: TextStyle(fontWeight: FontWeight.bold,fontFamily: "lora",fontSize: 20),)
+                ],
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+     }
+   getUserStatusOnlineOrOffline(String status) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
 
     try {
       Map<String, String> body = {};
       body[RequestKeys.userId] = userId ?? '';
-      body[RequestKeys.status] = isOnline ? '2' : '1';
+      body[RequestKeys.status] = status.toString();
       var res = await api.userOfflineOnlineApi(body);
       if (res.status) {
-        print('_____success____');
-
-        // responseData = res.data?.userid.toString();
       } else {
         Fluttertoast.showToast(msg: '');
       }
     } catch (e) {
       Fluttertoast.showToast(msg:
       getTranslated(context, "Invalid Email & Password"),
-        //  "Invalid Email & Password"
       );
     } finally {}
   }
 
+  getStatus(int status) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    var headers = {
+      'Cookie': 'ci_session=8380ff83d04889e6ff2ef0c0cd5e47f95872c1d4'
+    };
+    var request = http.MultipartRequest('POST', Uri.parse('${Urls.baseUrl}Payment/driver_online_offline'));
+    request.fields.addAll({
+      'user_id':userId.toString(),
+      'status':status.toString()
+    });
+    print('____Som______${request.fields}_________');
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var result  = await response.stream.bytesToString();
+      var finalResult =  jsonDecode(result);
+      print('finalResult__________${finalResult}_________');
+      setState(() {
+
+      });
+
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+
+  }
+getCheckStatusApi() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final userId = prefs.getString('userId');
+  var headers = {
+    'Cookie': 'ci_session=2747e6c4d835602c8ddba0682c7ea48a33b6856c'
+  };
+  var request = http.MultipartRequest('POST', Uri.parse('${Urls.baseUrl}Payment/online_ofline_status'));
+  request.fields.addAll({
+    'user_id': userId.toString()
+  });
+
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    var result  = await response.stream.bytesToString();
+    var finalResult =  jsonDecode(result);
+    print('finalResult__________${finalResult}_________');
+    setState(() {
+      status=int.parse(finalResult["data"].toString());
+      print('____Som______${status}_________');
+    });
+   // Fluttertoast.showToast(msg: "${finalResult['']}");
+  }
+  else {
+  print(response.reasonPhrase);
+  }
+
+}
    getUserOrderHistory(String status) async {
     isLoading = true;
     setState(() {});
@@ -2229,7 +2401,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: InkWell(
                 onTap: ()  {
                   setSegmentValue(0);
-                  getTransactionApi();
+                 // getTransactionApi();
                 },
                 child: Container(
                     height: 30,
@@ -3463,11 +3635,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 color: colors.blackTemp,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          Text(parcelDataList
-                                                  ?.data?[index].onDate
-                                                  .toString()
-                                                  .substring(0, 10) ??
-                                              '-'),
+                                        Text(parcelDataList?.data?[index].onDate.toString().substring(0, 10) ?? '-'),
+                                        //  Text(parcelDataList?.data?[index].onDate.toString()),
                                         ],
                                       ),
                                     ],
@@ -3563,7 +3732,7 @@ class _HomeScreenState extends State<HomeScreen> {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      print('_____fffff______${request.fields}__________');
+      print('_____fffff___ddddddddddd___${request.fields}__________');
       final result = await response.stream.bytesToString();
       print('___________${result}__________');
       var finalResult = Acceptorder.fromJson(jsonDecode(result));

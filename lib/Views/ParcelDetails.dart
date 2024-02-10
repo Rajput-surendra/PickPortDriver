@@ -60,7 +60,7 @@ class _PercelDetailsState extends State<PercelDetails> {
               child: Column(
 
                 children: [
-                  SizedBox(height: 25,),
+                  const SizedBox(height: 25,),
                   Expanded(
                     flex: 2,
                     child: Container(
@@ -115,6 +115,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                     flex: 18,
                     child: SingleChildScrollView(
                       child: Container(
+                        height: MediaQuery.of(context).size.height,
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           width: MediaQuery.of(context).size.width,
                           // height: MediaQuery.of(context).size.height * 0.85,
@@ -129,7 +130,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                             child: Column(
                               children: [
                                 const SizedBox(
-                                  height: 20,
+                                  height: 10,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -179,7 +180,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                                   ],
                                 ),
                                 const SizedBox(
-                                  height: 20,
+                                  height: 10,
                                 ),
                                 Card(
                                   shape: RoundedRectangleBorder(
@@ -241,19 +242,17 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
+                                                  const SizedBox(height: 5,),
                                                   Row(
                                                     children: [
-                                                      const Icon(
-                                                        Icons.call,
-                                                        size: 20,
-                                                      ),
-                                                      InkWell(
-                                                          onTap: () {
-                                                            _launchPhoneDialer(
-                                                                "${singleBookingModel?.data?.first.phoneNo}");
-                                                          },
-                                                          child: Text(
-                                                              "${singleBookingModel?.data?.first.phoneNo}")),
+                                                     InkWell(
+                                                       onTap: (){
+                                                         _launchPhoneDialer(
+                                                             "${singleBookingModel?.data?.first.phoneNo}");
+                                                       },
+                                                         child: const Icon(Icons.call,color: Colors.green,)),
+                                                      Text(
+                                                          "${singleBookingModel?.data?.first.phoneNo}"),
                                                     ],
                                                   ),
                                                 ],
@@ -274,17 +273,14 @@ class _PercelDetailsState extends State<PercelDetails> {
                                           const SizedBox(height: 8),
                                           Row(
                                             children: [
-                                              const Icon(
-                                                Icons.location_on,
-                                                size: 20,
-                                              ),
+                                              Image.asset("assets/images/gstlo-removebg-preview.png"),
                                               Container(
                                                   width: 250,
                                                   child: Text(
                                                     "${singleBookingModel?.data?.first.senderFulladdress}",
                                                     overflow:
                                                         TextOverflow.ellipsis,
-                                                    maxLines: 1,
+                                                    maxLines: 3,
                                                   )),
                                             ],
                                           ),
@@ -331,16 +327,32 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                    child: Center(
                                                      child: Row(
                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                       children: const [
-                                                         Icon(
-                                                           Icons.location_on_outlined,
-                                                           color: Colors.white,
+                                                       children:  [
+                                                         Container(
+                                                           height: 20,
+                                                           width: 20,
+                                                          // padding: const EdgeInsets.all(8),
+                                                           decoration: const BoxDecoration(
+                                                               shape: BoxShape
+                                                                   .circle,
+                                                               color: Colors
+                                                                   .red),
+                                                           child:
+                                                           const Center(
+                                                             child: Icon(
+                                                               Icons
+                                                                   .pin_drop,
+                                                               size: 14,
+                                                               color: Colors
+                                                                   .white,
+                                                             ),
+                                                           ),
                                                          ),
-                                                         SizedBox(
+                                                         const SizedBox(
                                                            width: 5,
                                                          ),
-                                                         Text(
-                                                           'Track Order',
+                                                         const Text(
+                                                           'Go To Pickup Location',
                                                            style: TextStyle(
                                                                fontSize: 12, color: Colors.white),
                                                          )
@@ -426,22 +438,36 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
+
                                                   Row(
                                                     children: [
-                                                      const Icon(
-                                                        Icons.call,
-                                                        size: 20,
-                                                      ),
                                                       InkWell(
-                                                        onTap: () {
-                                                          _launchPhoneDialer(
-                                                              "${singleBookingModel?.data?.first.receiverPhone}");
-                                                        },
-                                                        child: Text(
-                                                            "${singleBookingModel?.data?.first.receiverPhone}"),
-                                                      ),
+                                                          onTap: (){
+                                                            _launchPhoneDialer(
+                                                                "${singleBookingModel?.data?.first.receiverPhone}");
+                                                          },
+                                                          child: Icon(Icons.call,color: Colors.green,)),
+
+                                                      Text(
+                                                          "${singleBookingModel?.data?.first.receiverPhone}"),
                                                     ],
                                                   ),
+                                                  // Row(
+                                                  //   children: [
+                                                  //     const Icon(
+                                                  //       Icons.call,
+                                                  //       size: 20,
+                                                  //     ),
+                                                  //     InkWell(
+                                                  //       onTap: () {
+                                                  //         _launchPhoneDialer(
+                                                  //             "${singleBookingModel?.data?.first.receiverPhone}");
+                                                  //       },
+                                                  //       child: Text(
+                                                  //           "${singleBookingModel?.data?.first.receiverPhone}"),
+                                                  //     ),
+                                                  //   ],
+                                                  // ),
 
                                                 ],
                                               ),
@@ -461,15 +487,12 @@ class _PercelDetailsState extends State<PercelDetails> {
                                           const SizedBox(height: 5),
                                           Row(
                                             children: [
-                                              const Icon(
-                                                Icons.location_on,
-                                                size: 20,
-                                              ),
+                                              Image.asset("assets/images/gstlo-removebg-preview.png"),
                                               SizedBox(
                                                 width: 250,
                                                 child: Text(
                                                     "${singleBookingModel?.data?.first.receiverAddress}",
-                                                overflow: TextOverflow.ellipsis,
+                                                overflow: TextOverflow.ellipsis,maxLines: 3,
                                                 ),
                                               ),
 
@@ -517,16 +540,33 @@ class _PercelDetailsState extends State<PercelDetails> {
                                                   child: Center(
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: const [
-                                                        Icon(
-                                                          Icons.location_on_outlined,
-                                                          color: Colors.white,
+                                                      children:  [
+                                                        Container(
+                                                          height: 20,
+                                                          width: 20,
+                                                          // padding:
+                                                          // const EdgeInsets
+                                                          //     .all(8),
+                                                          decoration: const BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color: Colors
+                                                                  .red),
+                                                          child:
+                                                          const Icon(
+                                                            Icons
+                                                                .pin_drop,
+                                                            size: 14,
+                                                            color: Colors
+                                                                .white,
+                                                          ),
                                                         ),
-                                                        SizedBox(
+
+                                                        const SizedBox(
                                                           width: 5,
                                                         ),
-                                                        Text(
-                                                          'Track Order',
+                                                        const Text(
+                                                          'Go To DropUp Location',
                                                           style: TextStyle(
                                                               fontSize: 12, color: Colors.white),
                                                         )
@@ -548,473 +588,257 @@ class _PercelDetailsState extends State<PercelDetails> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                Card(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  elevation: 2,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: colors.whiteTemp,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Center(
-                                            child: Text(
-                                              getTranslated(
-                                                  context, "Parcel Details"),
-                                              //"Parcel Details",
-                                              style: const TextStyle(
-                                                  color: colors.primary,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                getTranslated(context,
-                                                    "Material Category"),
-                                                // "Material Category",
-                                                style: const TextStyle(
-                                                    color: colors.blackTemp,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              ),
-                                              Text(
-                                                  "${singleBookingModel?.data?.first.title}"),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                getTranslated(
-                                                    context, "Parcel Weight"),
-                                                // "Parcel Weight",
-                                                style: const TextStyle(
-                                                    color: colors.blackTemp,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                      "${singleBookingModel?.data?.first.parcelWeight}Kg"),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                  getTranslated(context,
-                                                      "Total Distance"),
-                                                  // "Total Distance",
-                                                  style: const TextStyle(
-                                                      color: colors.blackTemp,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 15)),
-                                              Text(
-                                                  "${singleBookingModel?.data?.first.distance} Km."),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                  getTranslated(
-                                                      context, "Amount"),
-                                                  // "Amount",
-                                                  style: const TextStyle(
-                                                      color: colors.blackTemp,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 15)),
-                                              Text(
-                                                  "₹ ${singleBookingModel?.data?.first.totalAmount}"),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          // Row(
-                                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          //   children:  [
-                                          //     const Text("Commission Charge",style: TextStyle(
-                                          //         color: colors.blackTemp,
-                                          //         fontWeight: FontWeight.bold,fontSize: 15
-                                          //     )),
-                                          //     Text("₹ ${singleBookingModel?.data?.first.adminCommission}"),
-                                          //   ],
-                                          // ),
-                                          // const SizedBox(height: 10,),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                getTranslated(context,
-                                                    "Total Amount To be paid"),
-                                                // "Total Amount To be paid",
-                                                style: const TextStyle(
-                                                    color: colors.blackTemp,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              ),
-                                              Text(
-                                                  "₹ ${singleBookingModel?.data?.first.totalAmount}"),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                getTranslated(
-                                                    context, "Payment Status"),
-                                                //  "Payment Status",
-                                                style: const TextStyle(
-                                                    color: colors.blackTemp,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              ),
-                                              singleBookingModel?.data?.first
-                                                          .paymentMethod ==
-                                                      "online"
-                                                  ? Text(
-                                                      getTranslated(
-                                                          context, "Paid"),
-                                                      // "Paid",
-                                                      style: const TextStyle(
-                                                          color: Colors.green,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    )
-                                                  : Text(
-                                                      getTranslated(
-                                                          context, "UnPaid"),
-                                                      //  "UnPaid",
-                                                      style: const TextStyle(
-                                                          color: Colors.red,
-                                                          fontWeight:
-                                                              FontWeight.w600))
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                  getTranslated(context,
-                                                      "Payment Method"),
-                                                  //"Payment Method",
-                                                  style: const TextStyle(
-                                                      color: colors.red,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 15)),
-                                              Text(
-                                                  "${singleBookingModel?.data?.first.paymentMethod}",
-                                                  style: const TextStyle(
-                                                      color: Colors.red))
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          DottedLine(
-                                            direction: Axis.horizontal,
-                                            alignment: WrapAlignment.center,
-                                            lineLength: double.infinity,
-                                            lineThickness: 1.0,
-                                            dashLength: 4.0,
-                                            //dashColor: Colors.black,
-                                            dashGradient: [
-                                              Colors.grey,
-                                              Colors.grey
-                                            ],
-                                            dashRadius: 0.0,
-                                            dashGapLength: 4.0,
-                                            dashGapColor: Colors.transparent,
-                                            dashGapGradient: [
-                                              Colors.grey,
-                                              Colors.grey
-                                            ],
-                                            dashGapRadius: 0.0,
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          Center(
-                                            child: Container(
-                                              height: 45,
-                                              width: 150,
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
-                                              child: Center(
-                                                child: Text(
-                                                  getTranslated(context,
-                                                      "Delivery Status"),
-                                                  // "Delivery Status",
-                                                  style: const TextStyle(
-                                                      color: colors.primary,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 18),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (ctx) => Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: AlertDialog(
+                                              insetPadding: EdgeInsets.zero,
+                                              contentPadding: EdgeInsets.zero,
+                                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                                              title:Card(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(10)),
+                                                elevation: 0,
+                                                child: Container(
+                                                  width: 400,
+                                                  decoration: BoxDecoration(
+                                                      color: colors.whiteTemp,
+                                                      borderRadius:
+                                                      BorderRadius.circular(10)),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                      children: [
+                                                        Center(
+                                                          child: Text(
+                                                            getTranslated(
+                                                                context, "Parcel Details"),
+                                                            //"Parcel Details",
+                                                            style: const TextStyle(
+                                                                color: colors.primary,
+                                                                fontWeight: FontWeight.bold,
+                                                                fontSize: 18),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              getTranslated(context,
+                                                                  "Material Category"),
+                                                              // "Material Category",
+                                                              style: const TextStyle(
+                                                                  color: colors.blackTemp,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 15),
+                                                            ),
+                                                            Text(
+                                                                "${singleBookingModel?.data?.first.title}"),
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              getTranslated(
+                                                                  context, "Parcel Weight"),
+                                                              // "Parcel Weight",
+                                                              style: const TextStyle(
+                                                                  color: colors.blackTemp,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 15),
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                    "${singleBookingModel?.data?.first.parcelWeight}Kg"),
+                                                              ],
+                                                            )
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                                getTranslated(context,"Total Distance"),
+                                                                // "Total Distance",
+                                                                style: const TextStyle(
+                                                                    color: colors.blackTemp,
+                                                                    fontWeight:
+                                                                    FontWeight.bold,
+                                                                    fontSize: 15)),
+                                                            Text(
+                                                                "${singleBookingModel?.data?.first.distance} Km."),
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                                getTranslated(
+                                                                    context, "Amount"),
+                                                                // "Amount",
+                                                                style: const TextStyle(
+                                                                    color: colors.blackTemp,
+                                                                    fontWeight:
+                                                                    FontWeight.bold,
+                                                                    fontSize: 15)),
+                                                            Text(
+                                                                "₹ ${singleBookingModel?.data?.first.totalAmount}"),
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        // Row(
+                                                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        //   children:  [
+                                                        //     const Text("Commission Charge",style: TextStyle(
+                                                        //         color: colors.blackTemp,
+                                                        //         fontWeight: FontWeight.bold,fontSize: 15
+                                                        //     )),
+                                                        //     Text("₹ ${singleBookingModel?.data?.first.adminCommission}"),
+                                                        //   ],
+                                                        // ),
+                                                        // const SizedBox(height: 10,),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              getTranslated(context,
+                                                                  "Total Amount To be paid"),
+                                                              // "Total Amount To be paid",
+                                                              style: const TextStyle(
+                                                                  color: colors.blackTemp,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 15),
+                                                            ),
+                                                            Text(
+                                                                "₹ ${singleBookingModel?.data?.first.totalAmount}"),
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              getTranslated(
+                                                                  context, "Payment Status"),
+                                                              //  "Payment Status",
+                                                              style: const TextStyle(
+                                                                  color: colors.blackTemp,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 15),
+                                                            ),
+                                                            singleBookingModel?.data?.first.paymentMethod == "online"
+                                                                ? Text(getTranslated(context, "Paid"),
+                                                              // "Paid",
+                                                              style: const TextStyle(
+                                                                  color: Colors.green,
+                                                                  fontWeight:
+                                                                  FontWeight.w600),
+                                                            )
+                                                                : Text(
+                                                                getTranslated(context, "UnPaid"),
+                                                                //  "UnPaid",
+                                                                style: const TextStyle(
+                                                                    color: Colors.red,
+                                                                    fontWeight:
+                                                                    FontWeight.w600))
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                                getTranslated(context,
+                                                                    "Payment Method"),
+                                                                //"Payment Method",
+                                                                style: const TextStyle(
+                                                                    color: colors.red,
+                                                                    fontWeight:
+                                                                    FontWeight.bold,
+                                                                    fontSize: 15)),
+                                                            singleBookingModel?.data?.first.paymentMethod == "Cash On Delivery" ? Text(getTranslated(context, "Cash Payment",),style: const TextStyle(
+                                                                color: Colors.red)):  Text(
+                                                                "${singleBookingModel?.data?.first.paymentMethod}",
+                                                                style: const TextStyle(
+                                                                    color: Colors.red))
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(
-                                            height: 20,
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 30,
+                                        padding: const EdgeInsets.only(
+                                            left: 5, right: 10, top: 5, bottom: 5),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            color:  colors.primary),
+                                        child: Center(
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children:  [
+                                              Text(getTranslated(context, "View Detail"), style: const TextStyle(fontSize: 12, color: Colors.white),
+                                             )
+                                            ],
                                           ),
-                                          Center(
-                                              child: Image.asset(
-                                                  "assets/images/status.png")),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          singleBookingModel
-                                                      ?.data?.first.status ==
-                                                  "4"
-                                              ? Center(
-                                                  child: Text(
-                                                  getTranslated(
-                                                      context, "Delivered"),
-                                                  //  "Delivered",
-                                                  style: const TextStyle(
-                                                      color: colors.blackTemp,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ))
-                                              : Center(
-                                                  child: Text(
-                                                  getTranslated(
-                                                      context, "Pending"),
-                                                  // "Pending",
-                                                  style: const TextStyle(
-                                                      color: colors.blackTemp,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                )),
-                                          widget.isCheck == true
-                                              ? const SizedBox.shrink()
-                                              : Column(
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Card(
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10)),
-                                                        elevation: 2,
-                                                        child: Container(
-                                                          decoration: BoxDecoration(
-                                                              color: colors
-                                                                  .whiteTemp,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10)),
-                                                          child:
-                                                              DropdownButtonHideUnderline(
-                                                            child:
-                                                                DropdownButton2<
-                                                                    String>(
-                                                              value:
-                                                                  selectedStatus,
-                                                              hint: Text(
-                                                                getTranslated(
-                                                                    context,
-                                                                    "Update Delivery Status"),
-                                                                // "Update Delivery Status"
-                                                                style: const TextStyle(
-                                                                    color: colors
-                                                                        .blackTemp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
-                                                              ),
-                                                              isExpanded: true,
-                                                              onChanged: (String?
-                                                                  newValue) {
-                                                                if (selectedStatus ==
-                                                                        'Out for Delivery' ||
-                                                                    selectedStatus ==
-                                                                        "Cancel") {
-                                                                  orderUpdateApi(
-                                                                      selectedStatus);
-                                                                }
-
-                                                                setState(() {
-                                                                  selectedStatus =
-                                                                      newValue!;
-                                                                });
-                                                              },
-                                                              items: <String>[
-                                                                'Order Picked Up',
-                                                                'Out for Delivery',
-                                                                'Delivered',
-                                                                'Cancel'
-                                                              ].map<
-                                                                  DropdownMenuItem<
-                                                                      String>>((String
-                                                                  value) {
-                                                                return DropdownMenuItem<
-                                                                    String>(
-                                                                  value: value,
-                                                                  child: Text(
-                                                                      value),
-                                                                );
-                                                              }).toList(),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    if (selectedStatus ==
-                                                            'Delivered' ||
-                                                        selectedStatus ==
-                                                            'Order Picked Up')
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          selectedStatus ==
-                                                                  'Order Picked Up'
-                                                              ? Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      left: 20),
-                                                                  child: Text(
-                                                                      "OTP:${senderOTP}"),
-                                                                )
-                                                              : Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      left: 20),
-                                                                  child: Text(
-                                                                      "OTP:${receiverOtp}"),
-                                                                ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    top: 16.0,
-                                                                    left: 20,
-                                                                    right: 20),
-                                                            child: Container(
-                                                              height: 45,
-                                                              decoration: BoxDecoration(
-                                                                  border: Border
-                                                                      .all(),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10)),
-                                                              child:
-                                                                  TextFormField(
-                                                                maxLength: 6,
-                                                                controller:
-                                                                    _otpController,
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                  counterText:
-                                                                      "",
-                                                                  contentPadding:
-                                                                      const EdgeInsets.only(
-                                                                          left:
-                                                                              5),
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  hintText: getTranslated(
-                                                                      context,
-                                                                      "Enter OTP"),
-                                                                  // 'Enter OTP',
-                                                                ),
-                                                                keyboardType:
-                                                                    TextInputType
-                                                                        .number,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      )
-                                                  ],
-                                                )
-                                        ],
+                                        ),
                                       ),
                                     ),
-                                  ),
+
+
+                                  ],
                                 ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                selectedStatus == 'Order Picked Up' ||
-                                        selectedStatus == "Delivered"
-                                    ? InkWell(
-                                        onTap: () {
-                                          orderDelevertCompleteByOtp();
-                                        },
-                                        child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: colors.primary),
-                                          child: Center(
-                                              child: Text(
-                                            getTranslated(context, "update"),
-                                            // "Update",
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                color: colors.whiteTemp),
-                                          )),
-                                        ),
-                                      )
-                                    : const SizedBox.shrink(),
-                                const SizedBox(
-                                  height: 20,
-                                ),
+
+
+                                const SizedBox(height: 10,),
+                                statusDelivery(),
+
                               ],
                             ),
                           )),
@@ -1026,6 +850,256 @@ class _PercelDetailsState extends State<PercelDetails> {
     );
   }
 
+
+  statusDelivery(){
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10)
+      ),
+      child: Column(
+        children: [
+          // DottedLine(
+          //   direction: Axis.horizontal,
+          //   alignment: WrapAlignment.center,
+          //   lineLength: double.infinity,
+          //   lineThickness: 1.0,
+          //   dashLength: 4.0,
+          //   //dashColor: Colors.black,
+          //   dashGradient: [
+          //     Colors.grey,
+          //     Colors.grey
+          //   ],
+          //   dashRadius: 0.0,
+          //   dashGapLength: 4.0,
+          //   dashGapColor: Colors.transparent,
+          //   dashGapGradient: [
+          //     Colors.grey,
+          //     Colors.grey
+          //   ],
+          //   dashGapRadius: 0.0,
+          // ),
+
+          Container(
+            height: 45,
+            width: 150,
+            decoration: BoxDecoration(
+                // border: Border.all(),
+                borderRadius:
+                BorderRadius.circular(
+                    10)),
+            child: Center(
+              child: Text(
+                getTranslated(context,
+                    "Delivery Status"),
+                // "Delivery Status",
+                style: const TextStyle(
+                    color: colors.primary,
+                    fontWeight:
+                    FontWeight.bold,
+                    fontSize: 16),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          singleBookingModel?.data?.first.status == "4" ?  Center(
+              child: Image.asset(
+                  "assets/images/delivered-removebg-preview.png")):Center(
+              child: Image.asset(
+                  "assets/images/status.png")),
+          const SizedBox(
+            height: 5,
+          ),
+          singleBookingModel?.data?.first.status == "4"
+              ? Center(
+              child: Text(
+                getTranslated(
+                    context, "Delivered"),
+                //  "Delivered",
+                style: const TextStyle(
+                    color: colors.blackTemp,
+                    fontWeight:
+                    FontWeight.bold),
+              ))
+              : Center(
+              child: Text(
+                getTranslated(
+                    context, "Pending"),
+                // "Pending",
+                style: const TextStyle(
+                    color: colors.blackTemp,
+                    fontWeight:
+                    FontWeight.bold),
+              )),
+          widget.isCheck == true
+              ? const SizedBox.shrink()
+              : Column(
+            children: [
+              Padding(
+                padding:
+                const EdgeInsets.all(8.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  elevation: 2,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: colors
+                            .whiteTemp,
+                        borderRadius:
+                        BorderRadius
+                            .circular(
+                            10)),
+                    child:
+                    DropdownButtonHideUnderline(
+                      child:
+                      DropdownButton2<
+                          String>(
+                        value:
+                        selectedStatus,
+                        hint: Text(
+                          getTranslated(
+                              context,
+                              "Update Delivery Status"),
+                          // "Update Delivery Status"
+                          style: const TextStyle(
+                              color: colors
+                                  .blackTemp,
+                              fontWeight:
+                              FontWeight
+                                  .bold),
+                        ),
+                        isExpanded: true,
+                        onChanged: (String?
+                        newValue) {
+                          if (selectedStatus == "Cancel") {
+                            orderUpdateApi(
+                                selectedStatus);
+                          }
+
+                          setState(() {
+                            selectedStatus =
+                            newValue!;
+                          });
+                        },
+                        items: <String>[
+                          'Order Picked Up',
+                          'Delivered',
+                          'Cancel'
+                        ].map<
+                            DropdownMenuItem<
+                                String>>((String
+                        value) {
+                          return DropdownMenuItem<
+                              String>(
+                            value: value,
+                            child: Text(
+                                value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              if (selectedStatus == 'Delivered' || selectedStatus == 'Order Picked Up')
+                Column(
+                  crossAxisAlignment:
+                  CrossAxisAlignment
+                      .start,
+                  children: [
+                    selectedStatus ==
+                        'Order Picked Up'
+                        ? Padding(
+                      padding: const EdgeInsets
+                          .only(
+                          left: 20),
+                      child: Text(
+                          "OTP:${senderOTP}"),
+                    )
+                        : Padding(
+                      padding: const EdgeInsets
+                          .only(
+                          left: 20),
+                      child: Text(
+                          "OTP:${receiverOtp}"),
+                    ),
+                    Padding(
+                      padding:
+                      const EdgeInsets.only(top: 16.0, left: 20, right: 20),
+                      child: Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            border: Border
+                                .all(),
+                            borderRadius:
+                            BorderRadius
+                                .circular(
+                                10)),
+                        child:
+                        TextFormField(
+                          maxLength: 6,
+                          controller:
+                          _otpController,
+                          decoration:
+                          InputDecoration(
+                            counterText:
+                            "",
+                            contentPadding:
+                            const EdgeInsets.only(
+                                left:
+                                5),
+                            border:
+                            InputBorder
+                                .none,
+                            hintText: getTranslated(
+                                context,
+                                "Enter OTP"),
+                            // 'Enter OTP',
+                          ),
+                          keyboardType:
+                          TextInputType
+                              .number,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          selectedStatus == 'Order Picked Up' || selectedStatus == "Delivered"
+              ? InkWell(
+            onTap: () {
+              orderDelevertCompleteByOtp();
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius:
+                    BorderRadius.circular(10),
+                    color: colors.primary),
+                child: Center(
+                    child: Text(
+                      getTranslated(context, "Submit"),
+                      // "Update",
+                      style: const TextStyle(
+                          fontSize: 15,
+                          color: colors.whiteTemp),
+                    )),
+              ),
+            ),
+          )
+              : const SizedBox.shrink(),
+
+        ],
+      ),
+    );
+  }
   final _otpController = TextEditingController();
   String? selectedStatus; // Default status
   String? orderId, senderOTP, receiverOtp;

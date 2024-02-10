@@ -549,6 +549,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                     camGallPopup(valuef);
                   },
                   child: Container(
+                    width: 150,
                       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                       decoration: BoxDecoration(
                           border: Border.all(color: colors.primary),
@@ -1146,6 +1147,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                       ),
                       child: Container(
                         height: 60,
+
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white),

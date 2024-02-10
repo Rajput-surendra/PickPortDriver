@@ -148,123 +148,119 @@ import 'dart:math';
 */
 
 
-import 'dart:convert';
-import 'package:firebase_core/firebase_core.dart';
+import 'dart:math';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-class NotificationClass{
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+import 'package:flutter/material.dart';
 
+class LocalNotificationService {
+  BuildContext? context;
+  static final FlutterLocalNotificationsPlugin
+  _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  initNotification() async {
-
-    await _firebaseMessaging.requestPermission();
-    try{
-      String fcmToken=await  _firebaseMessaging.getToken()??"";
-      print("=============FCM Token=============${fcmToken.toString()}");
-
-    } on FirebaseException{
-    }
-// FirebaseMessaging.onBackgroundMessage(handleBackgroundMessageing);
-
-    initPushNotification();
-  }
-  Future<void> handleBackgroundMessageing(RemoteMessage msg)async {
-
-    print("title :${msg.notification?.title}");
-    print("title :${msg.notification?.body}");
-    print("title :${msg.data}");
-
-  }
-//user ka code background and terminate mode ke liye hai,
-
-
-// neche ka code notification screen me navigate hone ke liye hai
-  initPushNotification() async {
-    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      alert: true,
-      sound: true,
-      badge: true,
-
-
+  static void initialize() async {
+    const InitializationSettings initializationSettings =
+    InitializationSettings(
+      android: AndroidInitializationSettings(
+          "@mipmap/ic_launcher"),
+      //iOS: DarwinInitializationSettings()
     );
-    FirebaseMessaging.instance.getInitialMessage().then(handleMessage)  ;
-    FirebaseMessaging.onMessageOpenedApp.listen(handleMessage)  ;
-    FirebaseMessaging.onBackgroundMessage(handleBackgroundMessageing)  ;
+    _flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-    FirebaseMessaging.onMessage.listen((msgg){
+    NotificationSettings settings =
+    await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true, // Required to display a heads up notification
+      badge: true,
+      sound: true,
+    );
 
-      final notificationnn=msgg.notification;
-      if(notificationnn==null)
-      {
-        return;
-      }
-      else{
+    FirebaseMessaging.instance.getInitialMessage().then(
+          (message) {
+        print("FirebaseMessaging.instance.getInitialMessage");
+        if (message != null) {
+          print("New Notification");
 
-        _localNotificationplugin.show(notificationnn.hashCode, notificationnn.title, notificationnn.body,
-          NotificationDetails(
+        }
+      },
+    );
 
-              android: AndroidNotificationDetails(
+    FirebaseMessaging.onMessage.listen(
+          (message) {
+        if (message.notification != null) {
 
-                  _androidChannel.id,
-                  _androidChannel.name,
-                  channelDescription: _androidChannel.description,
-                  icon: '@drawable/notiicon',
-                  // sound:RawResourceAndroidNotificationSound('soundnotification'),
-                  // priority: Priority.high,
-                  playSound: true,
+          print("message.data11 ${message.data}");
 
-                  importance: Importance.max
+          display(message);
 
+          //handleNotification(message.data);
 
+        }
+      },
+    );
 
-              )
-          ),
-          payload: jsonEncode(notificationnn.toMap()),
+    FirebaseMessaging.onMessageOpenedApp.listen(
+          (message) {
+        if (message.notification != null) {
 
-
-
-
-
-        );
-
-      }
+          print(message.notification!.body);
+          print("message.data22 ${message.data}");
 
 
 
-    });
+        }
+      },
+    );
+
 
   }
+  static  Future<void> handleNotification(Map<String, dynamic> message) async {
+    final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+    await _flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
 
-  void handleMessage(RemoteMessage ?msg){
+    if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
+      // App was opened from a notification
+      // TODO: handle the notification
 
-    if(msg==null){
-
-      return;
-    }
-    else{
-      // navigatorKey.currentState?.pushReplacement(MaterialPageRoute(builder: (context) => Notifinationn(),));
-
+    } else {
+      // App was opened normally
     }
   }
 
 
+  static void display(RemoteMessage message) async {
+    try {
+      // int id = DateTime.now().microsecondsSinceEpoch ~/1000000;
+      Random random = Random();
+      int id = random.nextInt(1000);
+      const NotificationDetails notificationDetails = NotificationDetails(
+          android: AndroidNotificationDetails(
+            "DR.Apps",
+            "DR.Apps",
+            importance: Importance.max,
+            priority: Priority.high,
+          ));
+      await _flutterLocalNotificationsPlugin.show(
+          id,
+          message.notification!.title,
+          message.notification!.body,
+          notificationDetails,
+          payload: message.data['_id']);
+    } on Exception catch (e) {
+      print('Error>>>$e');
+    }
+  }
 
 
-// for for ground msg not enough firebase messaging we need flutter local notification
-
-
-  final _androidChannel = const AndroidNotificationChannel(
-    'default_notification_channel_id 2', 'high Notification',
-    description: 'this is channel use for notification',
-    importance: Importance.defaultImportance,
-
-  );
-
-  final _localNotificationplugin = FlutterLocalNotificationsPlugin();
 
 }
-
-
-
-

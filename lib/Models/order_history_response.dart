@@ -175,6 +175,8 @@ class ParcelDetail {
     this.accountName,
     this.accountNumber,
     this.parcelHistory,
+    this.bookingTime,
+    this.bookingDate
   });
 
   MaterialInfo? materialInfo;
@@ -243,6 +245,8 @@ class ParcelDetail {
   String? accountName;
   String? accountNumber;
   String? parcelHistory;
+  String? bookingTime;
+  String? bookingDate;
 
   factory ParcelDetail.fromJson(Map<String, dynamic> json) => ParcelDetail(
     materialInfo: MaterialInfo.fromJson(json["material_info"]),
@@ -311,6 +315,8 @@ class ParcelDetail {
     accountName: json["account_name"],
     accountNumber: json["account_number"],
     parcelHistory: json["parcel_history"],
+    bookingTime: json["booking_time"],
+    bookingDate: json["booking_date"],
   );
 
   Map<String, dynamic> toJson() => {
