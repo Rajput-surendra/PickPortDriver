@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -18,7 +19,8 @@ import '../services/session.dart';
 
 class AddBankDetails extends StatefulWidget {
   AddBankDetails({Key? key,this.name,this.mobile,this.email,this.address,this.adhar,this.long,this.lat,this.cPass,this.Licence,this.pan,this.pass,this.rc,this.refer,this.vcNo,this.image,this.cID,this.sId,this.Insurance,this.pollution,this.vType}) : super(key: key);
-  String? name,email,mobile,adhar,Licence,rc,vcNo,pan,refer,pass,cPass,address,image,cID,sId,vType,Insurance,pollution;
+  String? name,email,mobile,adhar,Licence,rc,vcNo,pan,refer,pass,cPass,address,image,cID,sId,Insurance,pollution;
+  int? vType;
   double? lat,long;
   @override
   State<AddBankDetails> createState() => _AddBankDetailsState();
@@ -71,7 +73,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
             getTranslated(context, "Upload Passbook/ Cancel Check"),
             // getTranslated(context, "Pic Image"),
             // 'Pic Image',
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF0F368C)),
@@ -90,7 +92,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                 },
                 child: Container(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                  const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                   decoration: BoxDecoration(
                     border: Border.all(color: colors.primary),
                     borderRadius: BorderRadius.circular(10),
@@ -99,7 +101,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                       child: Text(
                           getTranslated(context, "From Gallery"),
                           //'From Gallery',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFF0F368C)))),
@@ -110,7 +112,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                 child: Text(
                   getTranslated(context, "OR"),
                   //'OR',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF0F368C)),
@@ -124,7 +126,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                 },
                 child: Container(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                  const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                   decoration: BoxDecoration(
                     border: Border.all(color: colors.primary),
                     borderRadius: BorderRadius.circular(10),
@@ -133,7 +135,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                     child: Text(
                         getTranslated(context, "From Camera"),
                         // 'From Camera',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF0F368C))),
@@ -151,7 +153,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
 
   @override
   Widget build(BuildContext context) {
-    print('____Som______${widget.image}_________');
+    print('____Som___ddddd___${widget.vType}_________');
     return Scaffold(
       backgroundColor: colors.primary,
       body: Container(
@@ -174,14 +176,14 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                       Text(
                         getTranslated(context, "Add Bank Details"),
                         //  'Add Bank Details',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 24,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
                       InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>GetHelp()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const GetHelp()));
                           },
                         child: Container(
                           decoration: BoxDecoration(
@@ -192,7 +194,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                           child: Text(
                             getTranslated(context, "NEED_HELP"),
                             // 'Get Help ?',
-                            style: TextStyle(color: colors.primary, fontSize: 12),
+                            style: const TextStyle(color: colors.primary, fontSize: 12),
                           ),
                         ),
                       )
@@ -207,7 +209,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                         getTranslated(context, "For Verification , Please  upload a bank  details"),
                         //  getTranslated(context, "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters"),
                         // 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters',
-                        style: TextStyle(fontSize: 12, color: Colors.white),
+                        style: const TextStyle(fontSize: 12, color: Colors.white),
                       ),
                     ],
                   )
@@ -246,14 +248,14 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                           keyboardType: TextInputType.name,
                           decoration:  InputDecoration(
                             prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 4),
+                              padding: const EdgeInsets.only(top: 4),
                               child:  Image.asset(
                                 'assets/images/BANK NAME.png',
                                 scale: 1.3,
                                 color: colors.secondary,
                               ),
                             ),
-                            contentPadding: EdgeInsets.only(top: 18, left: 5),
+                            contentPadding: const EdgeInsets.only(top: 18, left: 5),
                             border: InputBorder.none,
                             hintText:
                             getTranslated(context, "Bank Name"),
@@ -287,14 +289,14 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                           keyboardType: TextInputType.name,
                           decoration:  InputDecoration(
                             prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 4),
+                              padding: const EdgeInsets.only(top: 4),
                               child: Image.asset(
                                 'assets/images/Name.png',
                                 scale: 1.7,
                                 color: colors.secondary,
                               ),
                             ),
-                            contentPadding: EdgeInsets.only(top: 22, left: 5),
+                            contentPadding: const EdgeInsets.only(top: 22, left: 5),
                             border: InputBorder.none,
                             hintText:
                             getTranslated(context, "Account Holder Name"),
@@ -324,11 +326,11 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                             color: Colors.white),
                         child: TextFormField(
                           controller: accountNumber,
-                          maxLength: 14,
+                          maxLength: 18,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                               prefixIcon: Padding(
-                                padding: EdgeInsets.only(top: 4),
+                                padding: const EdgeInsets.only(top: 4),
                                 child: Image.asset(
                                   'assets/images/ACCOUNT  NUMBER.png',
                                   scale: 1.3,
@@ -336,19 +338,24 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                                 ),
                               ),
                               counterText: "",
-                              contentPadding: EdgeInsets.only(top: 18, left: 5),
+                              contentPadding: const EdgeInsets.only(top: 18, left: 5),
                               border: InputBorder.none,
                               hintText:
                               getTranslated(context, "Account Number")
                             // "Account Number",
                           ),
-                          validator: (v) {
-                            if (v!.isEmpty) {
-                              return
-                                getTranslated(context, "Account Number is required");
-                              // "Account Number is required";
+                          validator: (v){
+                            if (v!.isEmpty ) {
+                              return getTranslated(context, "Account Number is required");
+                              // "IFSC Code is required";
+                            }else if(v.length <9){
+                              return "Enter Minimum 9 Digit Account Number ";
+                            }else if(v.length < 18){
+                              return "Enter Maximum 18 Digit Account Number ";
                             }
-                          },
+
+                          }
+
                         ),
                       ),
                     ),
@@ -366,12 +373,14 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white),
                         child: TextFormField(
+                          inputFormatters: [UpperCaseTextFormatter()],
+                          textCapitalization: TextCapitalization.characters,
                           controller: ifscCode,
                           maxLength: 11,
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
                               prefixIcon: Padding(
-                                padding: EdgeInsets.only(top: 4),
+                                padding: const EdgeInsets.only(top: 4),
                                 child: Image.asset(
                                   'assets/images/IFSC CODE.png',
                                   scale: 1.3,
@@ -379,17 +388,20 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                                 ),
                               ),
                               counterText: "",
-                              contentPadding: EdgeInsets.only(top: 18, left: 5),
+                              contentPadding: const EdgeInsets.only(top: 18, left: 5),
                               border: InputBorder.none,
                               hintText:
                               getTranslated(context, "IFSC Code")
                             //"IFSC Code",
                           ),
                           validator: (v) {
-                            if (v!.isEmpty) {
+                            if (v!.isEmpty ) {
+
                               return
                                 getTranslated(context, "IFSC Code is required");
                               // "IFSC Code is required";
+                            }else if(v.length <11){
+                              return "Enter Valid IFSC Code ";
                             }
                           },
                         ),
@@ -448,7 +460,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                     imageFile1 != null
                         ? Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Card(
@@ -467,17 +479,17 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                                     fit: BoxFit.fill)),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                       ],
                     )
-                        : SizedBox.shrink(),
+                        : const SizedBox.shrink(),
 
                     Text(
                       getTranslated(context, "Account Type"),
                       // 'Account Type',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 10,
@@ -507,7 +519,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                                 Text(
                                   getTranslated(context, "Saving Account "),
                                   // 'Saving Account',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   ),
                                 ),
@@ -546,7 +558,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                                 Text(
                                   getTranslated(context, "Current Account "),
                                   //'Current Account',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   ),
                                 ),
@@ -585,15 +597,15 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                             height: 50,
                             width: MediaQuery.of(context).size.width * 0.7,
                             child:  Center(
-                              child:isLoding == true ? Center(child: CircularProgressIndicator()):Text(
+                              child:isLoding == true ? const Center(child: CircularProgressIndicator()):Text(
                                 getTranslated(context, "Sign Up"),
                                 // 'Sign Up',
-                                style: TextStyle(color: Colors.white,fontSize: 18),
+                                style: const TextStyle(color: Colors.white,fontSize: 18),
                               ),
                             )),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     // Center(
@@ -638,7 +650,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                                 child: Text(
                                   getTranslated(context, "Login"),
                                   //  'Login',
-                                  style: TextStyle(color: colors.secondary),
+                                  style: const TextStyle(color: colors.secondary),
                                 ))
                           ],
                         ),
@@ -693,7 +705,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
     request.files.add(await http.MultipartFile.fromPath('driving_licence_photob', '${drivingLicenseBackFile?.path}'));
     request.files.add(await http.MultipartFile.fromPath('driving_licence_photof', '${drivingLicenseFile?.path}'));
     request.files.add(await http.MultipartFile.fromPath('rc_imageb', '${rcBackFile?.path}'));
-    request.files.add(await http.MultipartFile.fromPath('rc_imagef', '${rcFrontFile?.path}'));
+      request.files.add(await http.MultipartFile.fromPath('rc_imagef', '${rcFrontFile?.path}'));
     request.files.add(await http.MultipartFile.fromPath('aadhaar_card_photob', '${aadharCardBackFile?.path}'));
     request.files.add(await http.MultipartFile.fromPath('aadhaar_card_photof', '${aadharCardFrontFile?.path}'));
     request.files.add(await http.MultipartFile.fromPath('pan_card_photof', '${panCardFile?.path}'));
@@ -806,5 +818,11 @@ class _AddBankDetailsState extends State<AddBankDetails> {
       print(response.reasonPhrase);
     }
 
+  }
+}
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(text: newValue.text.toUpperCase(), selection: newValue.selection);
   }
 }

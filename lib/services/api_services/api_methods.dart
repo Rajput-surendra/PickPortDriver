@@ -8,7 +8,7 @@ class ApiMethods {
   ApiMethods._internal();
 
   String driverOnlineOffline = 'Payment/driver_online_offline';
-  String orderHistory = 'Authentication/deliverBoyOrderHistory';
+    String orderHistory = 'Authentication/deliverBoyOrderHistory';
   String editDeliveryProfile = 'Authentication/editDeliveryProfile';
   String driverPayAmountForVendor =
       'Authentication/driver_pay_amount_for_vendor';

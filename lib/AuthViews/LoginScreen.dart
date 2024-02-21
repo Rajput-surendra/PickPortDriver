@@ -19,6 +19,8 @@ import 'ForgetPasswordScreen.dart';
 import 'SignUpScreen.dart';
 import 'package:http/http.dart' as http;
 
+import 'SignUpScreenBasicDetails.dart';
+
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
 
@@ -707,7 +709,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => const SignUpScreen()));
+                                          builder: (context) => const SignUpScreenBasicDetails()));
                                 },
                                 child:  Text(
                                   getTranslated(context, "Sign Up"),

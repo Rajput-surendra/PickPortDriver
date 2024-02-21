@@ -88,7 +88,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
       ),
       body:
       Container(
-        decoration: BoxDecoration(color: colors.splashcolor, borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30))
+        decoration: BoxDecoration(color: colors.splashcolor, borderRadius: const BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30))
         ),
         child: Column(
           children: [
@@ -110,11 +110,11 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                      Padding(
-                                      padding: EdgeInsets.only(right: 8.0),
+                                      padding: const EdgeInsets.only(right: 8.0),
                                       child: Text(
                                           getTranslated(context, "Order Id"),
                                         //"Order Id",
-                                          style: TextStyle(fontSize: 14, color: CustomColors.primary2, fontWeight: FontWeight.bold)),
+                                          style: const TextStyle(fontSize: 14, color: CustomColors.primary2, fontWeight: FontWeight.bold)),
                                     ),
                                     Text(item?.orderId ?? '-',style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
                                   ],
@@ -123,11 +123,11 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(right: 8.0),
+                                      padding: const EdgeInsets.only(right: 8.0),
                                       child: Text(
                                           getTranslated(context, "Parcel Id            "),
                                         //  "Parcel Id            ",
-                                          style: TextStyle(fontSize: 13, color: Color(0xFFBF2331))),
+                                          style: const TextStyle(fontSize: 13, color: Color(0xFFBF2331))),
                                     ),
                                     Text(item?.orderId ?? '-'),
                                   ],
@@ -156,11 +156,11 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsets.only(right: 8.0),
+                                                padding: const EdgeInsets.only(right: 8.0),
                                                 child: Text(
                                                     getTranslated(context, "Sender Name"),
                                                    // "Sender Name",
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 13, color: Color(0xFFBF2331))),
                                               ),
                                               Text(item?.senderName ?? '-'),
@@ -170,11 +170,11 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsets.only(right: 8.0),
+                                                padding: const EdgeInsets.only(right: 8.0),
                                                 child: Text(
                                                     getTranslated(context, "Receiver Name"),
                                                    // "Receiver Name",
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 13, color: Color(0xFFBF2331))),
                                               ),
                                               Text(item?.receiverName ?? ''),
@@ -194,7 +194,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                               Text(
                                                 getTranslated(context, "Sender Address"),
                                                // "Sender Address",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 13, color: Color(0xFFBF2331)),
                                               ),
                                               SizedBox(
@@ -210,7 +210,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                                Text(
                                                  getTranslated(context, "Receiver Address"),
                                                // "Receiver Address",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 13, color: Color(0xFFBF2331)),
                                               ),
                                               SizedBox(
@@ -234,7 +234,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                               Text(
                                                 getTranslated(context, "Date"),
                                                 //"Date",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 13, color: Color(0xFFBF2331)),
                                               ),
                                               Text(item?.onDate.toString() ??
@@ -249,7 +249,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                                 child: Text(
                                                   getTranslated(context, "Amount"),
                                                  // "Amount",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 14, color: CustomColors.primary2, fontWeight: FontWeight.bold),
                                                 ),
                                               ),
@@ -377,7 +377,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                             Text(
                                               getTranslated(context, "Order Status"),
                                              // "Order Status",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 13, color: Color(0xFFBF2331)),
                                             ),
                                             Text(
@@ -387,7 +387,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
 
                                           ],),
                                       ) : const SizedBox(),
-                                      item?.status == '4' ? const SizedBox(height: 10,) : SizedBox(),
+                                      item?.status == '4' ? const SizedBox(height: 10,) : const SizedBox(),
                                       // Row(
                                       //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       //   children: [
@@ -532,7 +532,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                               Text(
                                                 getTranslated(context, "Enter OTP To Pick Parcel"),
                                                // "Enter OTP To Pick Parcel",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 13, color: Color(0xFFBF2331)),
                                               ),
                                             ],
@@ -549,7 +549,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                           //FourDigitOtpFormField(onSaved: (String ) {  },),
                                           //dropDown(index),
                                         ],
-                                      ) : item?.status == '4' ? SizedBox() : Row(
+                                      ) : item?.status == '4' ? const SizedBox() : Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Column(
@@ -558,7 +558,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                               Text(
                                                 getTranslated(context, "Enter OTP to Complete Order"),
                                               //  "Enter OTP to Complete Order",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 13, color: Color(0xFFBF2331)),
                                               ),
                                             ],
@@ -576,7 +576,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                       const SizedBox(
                                         height: 40,
                                       ),
-                                      item?.status == '2' ? SizedBox.shrink() :  item?.status == '4' ? SizedBox()  :  Align(
+                                      item?.status == '2' ? const SizedBox.shrink() :  item?.status == '4' ? const SizedBox()  :  Align(
                                         alignment: Alignment.topCenter,
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -646,11 +646,11 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                      Padding(
-                                      padding: EdgeInsets.only(right: 8.0),
+                                      padding: const EdgeInsets.only(right: 8.0),
                                       child: Text(
                                           getTranslated(context, "Order Id"),
                                          // "Order Id",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 14, color: CustomColors.primary2, fontWeight: FontWeight.bold)),
                                     ),
                                     Text(item?.orderId ?? '-',style: const TextStyle(
@@ -661,11 +661,11 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                    Padding(
-                                      padding: EdgeInsets.only(right: 8.0),
+                                      padding: const EdgeInsets.only(right: 8.0),
                                       child: Text(
                                           getTranslated(context, "Parcel Id            "),
                                          // "Parcel Id            ",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 13, color: Color(0xFFBF2331))),
                                     ),
                                     Text(item?.orderId ?? '-'),
@@ -696,11 +696,11 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                                Padding(
-                                                padding: EdgeInsets.only(right: 8.0),
+                                                padding: const EdgeInsets.only(right: 8.0),
                                                 child: Text(
                                                     getTranslated(context, "Sender Name"),
                                                    // "Sender Name",
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 13, color: Color(0xFFBF2331))),
                                               ),
                                               Text(item?.senderName ?? '-'),
@@ -710,11 +710,11 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                              Padding(
-                                                padding: EdgeInsets.only(right: 8.0),
+                                                padding: const EdgeInsets.only(right: 8.0),
                                                 child: Text(
                                                     getTranslated(context, "Receiver Name"),
                                                    // "Receiver Name",
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 13, color: Color(0xFFBF2331))),
                                               ),
                                               Text(item?.receiverName ?? ''),
@@ -734,7 +734,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                                Text(
                                                  getTranslated(context, "Sender Address"),
                                               //  "Sender Address",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 13, color: Color(0xFFBF2331)),
                                               ),
                                               SizedBox(
@@ -750,7 +750,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                              Text(
                                                getTranslated(context, "Receiver Address"),
                                               //  "Receiver Address",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 13, color: Color(0xFFBF2331)),
                                               ),
                                               SizedBox(
@@ -774,7 +774,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                               Text(
                                                 getTranslated(context, "Date"),
                                               //  "Date",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 13, color: Color(0xFFBF2331)),
                                               ),
                                               Text(item?.onDate.toString() ??
@@ -789,7 +789,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                                 child: Text(
                                                   getTranslated(context, "Amount"),
                                                   //"Amount",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 14, color: CustomColors.primary2, fontWeight: FontWeight.bold),
                                                 ),
                                               ),
@@ -917,7 +917,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                             Text(
                                               getTranslated(context, "Order Status"),
                                             //  "Order Status",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 13, color: Color(0xFFBF2331)),
                                             ),
                                             Text(
@@ -927,7 +927,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
 
                                           ],),
                                       ) : const SizedBox(),
-                                      item?.status == '4' ? const SizedBox(height: 10,) : SizedBox(),
+                                      item?.status == '4' ? const SizedBox(height: 10,) : const SizedBox(),
                                       // Row(
                                       //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       //   children: [
@@ -1072,7 +1072,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                               Text(
                                                 getTranslated(context, "Enter OTP To Pick Parcel"),
                                                // "Enter OTP To Pick Parcel",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 13, color: Color(0xFFBF2331)),
                                               ),
                                             ],
@@ -1089,7 +1089,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                           //FourDigitOtpFormField(onSaved: (String ) {  },),
                                           //dropDown(index),
                                         ],
-                                      ) : item?.status == '4' ? SizedBox() : Row(
+                                      ) : item?.status == '4' ? const SizedBox() : Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Column(
@@ -1098,7 +1098,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                               Text(
                                                 getTranslated(context, "Enter OTP to Complete Order"),
                                                // "Enter OTP to Complete Order",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 13, color: Color(0xFFBF2331)),
                                               ),
                                             ],
@@ -1116,7 +1116,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                                       const SizedBox(
                                         height: 40,
                                       ),
-                                      item?.status == '2' ? SizedBox.shrink() :  item?.status == '4' ? SizedBox()  :  Align(
+                                      item?.status == '2' ? const SizedBox.shrink() :  item?.status == '4' ? const SizedBox()  :  Align(
                                         alignment: Alignment.topCenter,
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -1177,14 +1177,14 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
 
   Widget dropDown(int i) {
     return Padding(
-      padding: EdgeInsets.only(right: 7),
+      padding: const EdgeInsets.only(right: 7),
       child: DropdownButton<Widget>(
         // Initial Value
         value: dropdownvalue,
         hint: Text(
           getTranslated(context, "select status"),
           //    'select status',
-          style: TextStyle(color: Colors.black26),
+          style: const TextStyle(color: Colors.black26),
         ),
 
         borderRadius: BorderRadius.circular(10),
@@ -1305,7 +1305,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => BottomNav(),
+              builder: (context) => const BottomNav(),
             ));
         setState(() {});
       } else {
@@ -1367,7 +1367,7 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                // 'Order has been delivered successfully'
             );
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => BottomNav()));
+                context, MaterialPageRoute(builder: (context) => const BottomNav()));
           }
         }else{
           Fluttertoast.showToast(msg: '${finalResult['data']}');
@@ -1413,19 +1413,19 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children:  [
-                            Icon(
+                            const Icon(
                               Icons.check,
                               color: Colors.white,
                               size: 20,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Text(
                               getTranslated(context, "Yes"),
                              // 'Yes',
                               style:
-                                  TextStyle(fontSize: 15, color: Colors.white),
+                                  const TextStyle(fontSize: 15, color: Colors.white),
                             )
                           ],
                         ),
@@ -1447,19 +1447,19 @@ class _ParcelDetailsViewState extends State<ParcelDetailsView> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.close,
                               color: Colors.white,
                               size: 20,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Text(
                               getTranslated(context, "No"),
                             //  'No',
                               style:
-                                  TextStyle(fontSize: 15, color: Colors.white),
+                                  const TextStyle(fontSize: 15, color: Colors.white),
                             )
                           ],
                         ),
@@ -1661,7 +1661,7 @@ class OTPField extends StatelessWidget {
           _OTPInputFormatter(),
         ],
         decoration:  InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           labelText:
           getTranslated(context, "Enter OTP"),
          // 'Enter OTP',

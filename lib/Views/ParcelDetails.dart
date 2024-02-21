@@ -115,7 +115,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                     flex: 18,
                     child: SingleChildScrollView(
                       child: Container(
-                        height: MediaQuery.of(context).size.height,
+                        //height: MediaQuery.of(context).size.height/1,
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           width: MediaQuery.of(context).size.width,
                           // height: MediaQuery.of(context).size.height * 0.85,
@@ -880,7 +880,7 @@ class _PercelDetailsState extends State<PercelDetails> {
           // ),
 
           Container(
-            height: 45,
+            height: 40,
             width: 150,
             decoration: BoxDecoration(
                 // border: Border.all(),
@@ -985,7 +985,7 @@ class _PercelDetailsState extends State<PercelDetails> {
                         items: <String>[
                           'Order Picked Up',
                           'Delivered',
-                          'Cancel'
+                        /*  'Cancel'*/
                         ].map<
                             DropdownMenuItem<
                                 String>>((String
@@ -1076,7 +1076,7 @@ class _PercelDetailsState extends State<PercelDetails> {
               orderDelevertCompleteByOtp();
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
@@ -1095,6 +1095,9 @@ class _PercelDetailsState extends State<PercelDetails> {
             ),
           )
               : const SizedBox.shrink(),
+          const SizedBox(
+            height: 10,
+          ),
 
         ],
       ),
