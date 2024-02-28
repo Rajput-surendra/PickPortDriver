@@ -274,10 +274,11 @@ class _MyWalletState extends State<MyWallet> {
                                     ),
                                     const SizedBox(height: 5.0),
                                     Text(
-                                      'Status: ${item?.status == "0"? "Success": "Failed"}',
+                                      'Status: ${item?.paymentMethod == "0"? "Success": "Failed"}',
                                       style: const TextStyle(
                                           fontSize: 14.0, fontWeight: FontWeight.bold),
                                     ),
+                                    const SizedBox(height: 5.0),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [

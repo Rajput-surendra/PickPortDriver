@@ -79,8 +79,8 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                                           builder: (context) => LoginScreen()));
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xFF3700b3)),
-                                child: Icon(Icons.arrow_forward))),
+                                    backgroundColor: const Color(0xFF3700b3)),
+                                child: const Icon(Icons.arrow_forward))),
                       )
                     ],
                   ),
@@ -157,7 +157,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                           padding: const EdgeInsets.all(3.0),
                           child: ListTile(
                             leading: Padding(
-                                padding: EdgeInsetsDirectional.only(
+                                padding: const EdgeInsetsDirectional.only(
                                   start: 10.0,
                                 ),
                                 child: Text(
@@ -199,7 +199,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                                             ? colors.primary
                                             : Colors.white,
                                       )
-                                    : Icon(Icons.check_box_outline_blank,
+                                    : const Icon(Icons.check_box_outline_blank,
                                         size: 15.0, color: colors.whiteTemp),
                               ),
                             ),
@@ -251,7 +251,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
       body: SafeArea(
           top: true,
           child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   borderRadius:
                       BorderRadius.only(topRight: Radius.circular(80)),
                   color: colors.background),
@@ -267,7 +267,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 30,
                             ),
                             StatefulBuilder(

@@ -37,7 +37,9 @@ import 'MyAccount.dart';
 import 'NotificationScreen.dart';
 import 'ParcelDetails.dart';
 import 'SupportNewScreen.dart';
+
 String ? driverEraning;
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -65,18 +67,17 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading3 = false;
   String? userId;
 
-  List isActive=[];
+  List isActive = [];
 
   @override
   void initState() {
     // TODO: implement initState
-      getProfile();
-      getSliderApi();
-      getDriverApi();
-      getCheckStatusApi();
-      inIt();
-  //  });
-
+    getProfile();
+    getSliderApi();
+    getDriverApi();
+    getCheckStatusApi();
+    inIt();
+    //  });
 
 
     super.initState();
@@ -94,7 +95,8 @@ class _HomeScreenState extends State<HomeScreen> {
     var headers = {
       'Cookie': 'ci_session=6de5f73f50c4977cb7f3af6afe61f4b340359530'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('${Urls.baseUrl}User_Dashboard/getUserProfile'));
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('${Urls.baseUrl}User_Dashboard/getUserProfile'));
     request.fields.addAll({'user_id': userId.toString()});
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
@@ -103,9 +105,9 @@ class _HomeScreenState extends State<HomeScreen> {
       var finalResult = GetProfileModel.fromJson(jsonDecode(result));
       setState(() {
         getProfileModel = finalResult;
-       //  print(
-       //      '____Som______${getProfileModel?.data?[0].userFullname}_________');
-       // // Fluttertoast.showToast(msg: qrCodeResult);
+        //  print(
+        //      '____Som______${getProfileModel?.data?[0].userFullname}_________');
+        // // Fluttertoast.showToast(msg: qrCodeResult);
       });
     } else {
       print(response.reasonPhrase);
@@ -126,6 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   GetSliderModel? getSliderModel;
+
   getSliderApi() async {
     var headers = {
       'Cookie': 'ci_session=8c63df600f4c9c930d8b1e2d1e10feb8278887c0'
@@ -151,11 +154,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   int _currentPost = 0;
+
   _buildDots() {
     List<Widget> dots = [];
-    if (getSliderModel == null) {
-    } else {
-      for (int i = 0; i < getSliderModel!.data!.length; i++ ) {
+    if (getSliderModel == null) {} else {
+      for (int i = 0; i < getSliderModel!.data!.length; i++) {
         dots.add(
           Container(
             margin: const EdgeInsets.all(1.5),
@@ -171,6 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     return dots;
   }
+
   bool isButtonDisabled = false;
 
   void startTimer() {
@@ -184,7 +188,9 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
   }
+
   int status = 0;
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
@@ -192,58 +198,60 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (controller) {
         return Scaffold(
           // FloatingActionButton
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-         //    bottomSheet:  Padding(
-         //      padding: const EdgeInsets.all(8.0),
-         //      child: Container(
-         //        child: Row(
-         //          children: [
-         //            Row(
-         //              children: [
-         //                isOnline
-         //                    ? const Text(
-         //                  "Online",
-         //                  style: TextStyle(color: Colors.green),
-         //                )
-         //                    : const Text(
-         //                  "Offline",
-         //                  style: TextStyle(color: Colors.red),
-         //                ),
-         //                const SizedBox(
-         //                  width: 10,
-         //                ),
-         //                Switch.adaptive(
-         //                    activeColor: Colors.green,
-         //                    inactiveTrackColor: Colors.red,
-         //                    value: isOnline,
-         //                    onChanged: (val) {
-         //                      setState(() {
-         //                        isOnline = val;
-         //                        getUserStatusOnlineOrOffline();
-         //                      });
-         //                    }),
-         //              ],
-         //            ),
-         //          ],
-         //        ),
-         //      ),
-         //    ),
-          floatingActionButton:  Container(
+          floatingActionButtonLocation: FloatingActionButtonLocation
+              .centerFloat,
+          //    bottomSheet:  Padding(
+          //      padding: const EdgeInsets.all(8.0),
+          //      child: Container(
+          //        child: Row(
+          //          children: [
+          //            Row(
+          //              children: [
+          //                isOnline
+          //                    ? const Text(
+          //                  "Online",
+          //                  style: TextStyle(color: Colors.green),
+          //                )
+          //                    : const Text(
+          //                  "Offline",
+          //                  style: TextStyle(color: Colors.red),
+          //                ),
+          //                const SizedBox(
+          //                  width: 10,
+          //                ),
+          //                Switch.adaptive(
+          //                    activeColor: Colors.green,
+          //                    inactiveTrackColor: Colors.red,
+          //                    value: isOnline,
+          //                    onChanged: (val) {
+          //                      setState(() {
+          //                        isOnline = val;
+          //                        getUserStatusOnlineOrOffline();
+          //                      });
+          //                    }),
+          //              ],
+          //            ),
+          //          ],
+          //        ),
+          //      ),
+          //    ),
+          floatingActionButton: Container(
 
-            decoration:  BoxDecoration(
-              color: CustomColors.primaryColor,
-              border: Border.all(color: CustomColors.secondaryColor),
-              borderRadius: BorderRadius.circular(10)
+            decoration: BoxDecoration(
+                color: CustomColors.primaryColor,
+                border: Border.all(color: CustomColors.secondaryColor),
+                borderRadius: BorderRadius.circular(10)
             ),
             width: 110,
             height: 50,
             child: Center(
-              child:   Row(
+              child: Row(
                 children: [
                   SizedBox(width: 5,),
                   Text(
                     status == 1 ? 'Online' : 'Offline',
-                    style: TextStyle(fontSize: 15,color:status == 0 ? Colors.red:Colors.green ),
+                    style: TextStyle(fontSize: 15,
+                        color: status == 0 ? Colors.red : Colors.green),
                   ),
                   Switch(
                     activeColor: Colors.green,
@@ -301,18 +309,18 @@ class _HomeScreenState extends State<HomeScreen> {
             title: Row(
               children: [
                 InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MyAccount()),
-                    ).then((value){
-                      setState(() {
-                        getProfile();
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MyAccount()),
+                      ).then((value) {
+                        setState(() {
+                          getProfile();
+                        });
                       });
-                    });
-                  },
-                  child: Icon(Icons.menu)
+                    },
+                    child: Icon(Icons.menu)
 
                 ),
                 // const SizedBox(
@@ -326,7 +334,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: getProfileModel?.data?[0].userImage == null
                       ? const Center(
                     child: CircularProgressIndicator(),
-                  ): ClipRRect(
+                  ) : ClipRRect(
                     borderRadius: BorderRadius.circular(80),
                     child: Image.network(
                       "${getProfileModel?.data?[0].userImage}",
@@ -334,14 +342,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                getProfileModel?.data?[0].userFullname == null ? Center(child: CircularProgressIndicator()) :Column(
+                getProfileModel?.data?[0].userFullname == null ? Center(
+                    child: CircularProgressIndicator()) : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                   // Text(
-                   //    getTranslated(context, "Hello"),
-                   //   // 'Hello,',
-                   //    style: const TextStyle(fontSize: 16, color: Colors.white),
-                   //  ),
+                    // Text(
+                    //    getTranslated(context, "Hello"),
+                    //   // 'Hello,',
+                    //    style: const TextStyle(fontSize: 16, color: Colors.white),
+                    //  ),
                     Text(
                       '${getProfileModel?.data?[0].userFullname}',
                       style: const TextStyle(fontSize: 14, color: Colors.white),
@@ -351,7 +360,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: const TextStyle(fontSize: 14, color: Colors.white),
                     ),
                     Text(
-                      '${getProfileModel?.data?[0].vehicleType}',
+                      '${getProfileModel?.data?[0].vehicleTypeString}',
                       style: const TextStyle(fontSize: 14, color: Colors.white),
                     )
                   ],
@@ -450,46 +459,48 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             getSliderModel == null
                                 ? const Center(
-                                    child: CircularProgressIndicator())
+                                child: CircularProgressIndicator())
                                 : CarouselSlider(
-                                    items: getSliderModel?.data!
-                                        .map(
-                                          (item) => Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      child: Container(
-                                                        height: 200,
-                                                        decoration: BoxDecoration(
-                                                            image: DecorationImage(
-                                                                image: NetworkImage(
-                                                                  "${item.sliderImage}",
-                                                                ),
-                                                                fit: BoxFit.fill)),
-                                                      )),
-                                                ),
-                                              ]),
-                                        )
-                                        .toList(),
-                                    carouselController: carouselController,
-                                    options: CarouselOptions(
-                                        height: 150,
-                                        scrollPhysics:
-                                            const BouncingScrollPhysics(),
-                                        autoPlay: true,
-                                        aspectRatio: 1.8,
-                                        viewportFraction: 1,
-                                        onPageChanged: (index, reason) {
-                                          setState(() {
-                                            _currentPost = index;
-                                          });
-                                        })),
+                                items: getSliderModel?.data!
+                                    .map(
+                                      (item) =>
+                                      Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                              const EdgeInsets.all(8.0),
+                                              child: ClipRRect(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      10),
+                                                  child: Container(
+                                                    height: 200,
+                                                    decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                            image: NetworkImage(
+                                                              "${item
+                                                                  .sliderImage}",
+                                                            ),
+                                                            fit: BoxFit.fill)),
+                                                  )),
+                                            ),
+                                          ]),
+                                )
+                                    .toList(),
+                                carouselController: carouselController,
+                                options: CarouselOptions(
+                                    height: 150,
+                                    scrollPhysics:
+                                    const BouncingScrollPhysics(),
+                                    autoPlay: true,
+                                    aspectRatio: 1.8,
+                                    viewportFraction: 1,
+                                    onPageChanged: (index, reason) {
+                                      setState(() {
+                                        _currentPost = index;
+                                      });
+                                    })),
                             const SizedBox(
                               height: 5,
                             ),
@@ -505,7 +516,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
                             getTranslated(context, "Deliveries"),
-                          //  'Deliveries',
+                            //  'Deliveries',
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -524,8 +535,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         selectedSegmentVal == 0
                             ? currentDelivery(context)
                             : selectedSegmentVal == 1
-                                ? scheduleDelivery(context)
-                                : completeOrder(),
+                            ? scheduleDelivery(context)
+                            : completeOrder(),
                         const SizedBox(
                           height: 50,
                         )
@@ -670,700 +681,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-   currentDelivery(BuildContext context) {
-    return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                  width: double.maxFinite,
-                                  child: isLoading
-                                      ? const Center(
-                                          child: CircularProgressIndicator())
-                                      : orderHistoryList.isEmpty
-                                          ?  Center(
-                                              child: Text(
-                                                getTranslated(context, "Data not available"),
-                                               //   'Data not available'
-                                              ))
-                                          : ListView.builder(
-                                              scrollDirection: Axis.vertical,
-                                              shrinkWrap: true,
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              itemCount: orderHistoryList.length,
-                                              itemBuilder: (context, index) {
-                                               bool isAccepted =
-                                               orderHistoryList[index].parcelDetails.first.status == "2"? true : false;
-                                               // isButtonDisabled = isAccepted? false: true;
-                                                return InkWell(
-                                                  onTap: () {
-                                                        if(orderHistoryList[index].parcelDetails.first.status == "2"){
-                                                          Navigator.push(context,MaterialPageRoute(builder: (context) =>PercelDetails(pId: orderHistoryList[index].orderId)));
-                                                        }
-                                                        },
-
-                                                  child: Card(
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15.0),
-                                                    ),
-                                                    elevation: 2,
-                                                    color: Colors.white,
-                                                    child: Container(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 20,
-                                                          vertical: 20),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                            right:
-                                                                                8.0),
-                                                                    child: Text(
-                                                                        getTranslated(context, "Customer Name"),
-                                                                      //  "Customer Name",
-                                                                        style: const TextStyle(
-                                                                            fontSize:
-                                                                                14,
-                                                                            color:
-                                                                                colors.black54)),
-                                                                  ),
-                                                                  Text(
-                                                                      orderHistoryList[
-                                                                                  index]
-                                                                              .senderName ??
-                                                                          '',
-                                                                      style: const TextStyle(
-                                                                          fontSize:
-                                                                              16,
-                                                                          color: colors
-                                                                              .primary)),
-                                                                ],
-                                                              ),
-                                                              Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .end,
-                                                                children: [
-                                                                  Text(
-                                                                      "${orderHistoryList[index].parcelDetails.first.bookingDate ?? ''}",
-                                                                      style: const TextStyle(
-                                                                          fontSize:
-                                                                          14,
-                                                                          color: colors
-                                                                              .blackTemp,fontFamily: 'lora')),
-                                                                  Text(
-                                                                      "₹ ${orderHistoryList[index].parcelDetails.first.materialInfo?.price ?? ''}",
-                                                                      style: const TextStyle(
-                                                                          fontSize:
-                                                                              14,
-                                                                          color: colors
-                                                                              .blackTemp,fontFamily: 'lora')),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-
-                                                          const SizedBox(
-                                                            height: 20,
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              Container(
-                                                                child: Column(
-                                                                  children: [
-                                                                    Container(
-                                                                      padding:
-                                                                          const EdgeInsets
-                                                                              .all(8),
-                                                                      decoration: const BoxDecoration(
-                                                                          shape: BoxShape
-                                                                              .circle,
-                                                                          color: Colors
-                                                                              .red),
-                                                                      child:
-                                                                          const Icon(
-                                                                        Icons
-                                                                            .pin_drop,
-                                                                        size: 14,
-                                                                        color: Colors
-                                                                            .white,
-                                                                      ),
-                                                                    ),
-                                                                    Container(
-                                                                      height: 40,
-                                                                      width: 1,
-                                                                      color: Colors
-                                                                          .black,
-                                                                    ),
-                                                                    Container(
-                                                                      padding:
-                                                                          const EdgeInsets
-                                                                              .all(8),
-                                                                      decoration: const BoxDecoration(
-                                                                          shape: BoxShape
-                                                                              .circle,
-                                                                          color: Colors
-                                                                              .grey),
-                                                                      child:
-                                                                          const Icon(
-                                                                        Icons
-                                                                            .pin_drop,
-                                                                        size: 14,
-                                                                        color: Colors
-                                                                            .yellow,
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              const SizedBox(
-                                                                width: 10,
-                                                              ),
-                                                              Container(
-                                                                child: Column(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Container(
-                                                                      child:
-                                                                          Column(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment
-                                                                                .start,
-                                                                        children: [
-                                                                            Text(
-                                                                            getTranslated(context, "Pick up Point"),
-                                                                           // "Pick up Point",
-                                                                            style: const TextStyle(
-                                                                                color: colors.primary,
-                                                                                fontSize: 12),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width * 0.65,
-                                                                            child:
-                                                                                Text(
-                                                                              orderHistoryList[index].senderAddress,
-                                                                              style:
-                                                                                  const TextStyle(color: Colors.black, fontSize: 12),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                      height: 20,
-                                                                    ),
-                                                                    Container(
-                                                                      child:
-                                                                          Column(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment
-                                                                                .start,
-                                                                        children: [
-                                                                           Text(
-                                                                            getTranslated(context, "Drop Point"),
-                                                                          //  "Drop Point",
-                                                                            style: const TextStyle(
-                                                                                color: colors.primary,
-                                                                                fontSize: 12),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width * 0.65,
-                                                                            child:
-                                                                                Text(
-                                                                              orderHistoryList[index].parcelDetails.first.receiverAddress ?? "",
-                                                                              style:
-                                                                                  const TextStyle(color: Colors.black, fontSize: 12),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 20,
-                                                          ),
-                                                          // const SizedBox(
-                                                          //   height: 10,
-                                                          // ),
-
-                                                          // Row(
-                                                          //   crossAxisAlignment:
-                                                          //       CrossAxisAlignment
-                                                          //           .start,
-                                                          //   mainAxisAlignment:
-                                                          //       MainAxisAlignment
-                                                          //           .spaceBetween,
-                                                          //   children: [
-                                                          //     Column(
-                                                          //       crossAxisAlignment:
-                                                          //           CrossAxisAlignment
-                                                          //               .start,
-                                                          //       children: [
-                                                          //         const Text(
-                                                          //           "Mobile No",
-                                                          //           style: TextStyle(
-                                                          //               fontSize:
-                                                          //                   13,
-                                                          //               color: Color(
-                                                          //                   0xFFBF2331)),
-                                                          //         ),
-                                                          //         Text(orderHistoryList[
-                                                          //                     index]
-                                                          //                 .phoneNo ??
-                                                          //             ''),
-                                                          //       ],
-                                                          //     ),
-                                                          //     Column(
-                                                          //       crossAxisAlignment:
-                                                          //           CrossAxisAlignment
-                                                          //               .start,
-                                                          //       children: [
-                                                          //         const Text(
-                                                          //           "Material category ",
-                                                          //           style: TextStyle(
-                                                          //               fontSize:
-                                                          //                   13,
-                                                          //               color: Color(
-                                                          //                   0xFFBF2331)),
-                                                          //         ),
-                                                          //         SizedBox(
-                                                          //           width: 100,
-                                                          //           child: Text(
-                                                          //             orderHistoryList[index]
-                                                          //                     .senderAddress ??
-                                                          //                 '',
-                                                          //             maxLines: 3,
-                                                          //             overflow:
-                                                          //                 TextOverflow
-                                                          //                     .clip,
-                                                          //           ),
-                                                          //         ),
-                                                          //       ],
-                                                          //     ),
-                                                          //   ],
-                                                          // ),
-                                                          // const SizedBox(
-                                                          //   height: 10,
-                                                          // ),
-                                                          // Row(
-                                                          //   crossAxisAlignment:
-                                                          //       CrossAxisAlignment
-                                                          //           .start,
-                                                          //   mainAxisAlignment:
-                                                          //       MainAxisAlignment
-                                                          //           .spaceBetween,
-                                                          //   children: [
-                                                          //     Column(
-                                                          //       crossAxisAlignment:
-                                                          //           CrossAxisAlignment
-                                                          //               .start,
-                                                          //       children: [
-                                                          //         const Text(
-                                                          //           "Recipient Address",
-                                                          //           style: TextStyle(
-                                                          //               fontSize:
-                                                          //                   13,
-                                                          //               color: Color(
-                                                          //                   0xFFBF2331)),
-                                                          //         ),
-                                                          //         SizedBox(
-                                                          //           width: 100,
-                                                          //           child: Text(
-                                                          //             orderHistoryList[index]
-                                                          //                     .senderAddress ??
-                                                          //                 '',
-                                                          //             maxLines: 3,
-                                                          //             overflow:
-                                                          //                 TextOverflow
-                                                          //                     .clip,
-                                                          //           ),
-                                                          //         ),
-                                                          //       ],
-                                                          //     ),
-                                                          //     Padding(
-                                                          //       padding:
-                                                          //           const EdgeInsets
-                                                          //                   .only(
-                                                          //               right:
-                                                          //                   16),
-                                                          //       child: Card(
-                                                          //         elevation: 0,
-                                                          //         color: CustomColors
-                                                          //             .accentColor,
-                                                          //         child: Padding(
-                                                          //           padding:
-                                                          //               const EdgeInsets
-                                                          //                       .all(
-                                                          //                   8.0),
-                                                          //           child: Column(
-                                                          //             crossAxisAlignment:
-                                                          //                 CrossAxisAlignment
-                                                          //                     .center,
-                                                          //             children: [
-                                                          //               const Text(
-                                                          //                 "order Amount",
-                                                          //                 textAlign:
-                                                          //                     TextAlign.center,
-                                                          //                 style: TextStyle(
-                                                          //                     fontSize:
-                                                          //                         14,
-                                                          //                     color:
-                                                          //                         CustomColors.White,
-                                                          //                     fontWeight: FontWeight.bold),
-                                                          //               ),
-                                                          //               Text(
-                                                          //                 '₹ ' + orderHistoryList[index].orderAmount ??
-                                                          //                     '',
-                                                          //                 style: TextStyle(
-                                                          //                     fontSize:
-                                                          //                         14,
-                                                          //                     fontWeight:
-                                                          //                         FontWeight.bold,
-                                                          //                     color: CustomColors.White),
-                                                          //               ),
-                                                          //             ],
-                                                          //           ),
-                                                          //         ),
-                                                          //       ),
-                                                          //     ),
-                                                          //   ],
-                                                          // ),
-                                                          // const SizedBox(
-                                                          //   height: 10,
-                                                          // ),
-                                                          // Row(
-                                                          //   crossAxisAlignment:
-                                                          //       CrossAxisAlignment
-                                                          //           .start,
-                                                          //   mainAxisAlignment:
-                                                          //       MainAxisAlignment
-                                                          //           .spaceBetween,
-                                                          //   children: [
-                                                          //     Column(
-                                                          //       crossAxisAlignment:
-                                                          //           CrossAxisAlignment
-                                                          //               .start,
-                                                          //       children: [
-                                                          //         const Text(
-                                                          //           "Recipient Flat Number",
-                                                          //           style: TextStyle(
-                                                          //               fontSize:
-                                                          //                   13,
-                                                          //               color: Color(
-                                                          //                   0xFFBF2331)),
-                                                          //         ),
-                                                          //         Text(orderHistoryList[
-                                                          //                 index]
-                                                          //             .saleIds
-                                                          //             .toString()),
-                                                          //       ],
-                                                          //     ),
-                                                          //     Column(
-                                                          //       crossAxisAlignment:
-                                                          //           CrossAxisAlignment
-                                                          //               .start,
-                                                          //       children: [
-                                                          //         const Text(
-                                                          //           "Date                        ",
-                                                          //           style: TextStyle(
-                                                          //               fontSize:
-                                                          //                   13,
-                                                          //               color: Color(
-                                                          //                   0xFFBF2331)),
-                                                          //         ),
-                                                          //         Text(orderHistoryList[
-                                                          //                 index]
-                                                          //             .onDate
-                                                          //             .toString()
-                                                          //             .substring(
-                                                          //                 0, 11)),
-                                                          //       ],
-                                                          //     ),
-                                                          //   ],
-                                                          // ),
-                                                          // const SizedBox(
-                                                          //   height: 10,
-                                                          // ),
-                                                          // const SizedBox(
-                                                          //   height: 10,
-                                                          // ),
-
-                                                      // Future.delayed( Duration(milliseconds: 500), () {
-                                                      //   setState(() {
-                                                      //     // Here you can write your code for open new view
-                                                      //   });
-                                                      //
-                                                      // });
-
-
-                                                        // Row(
-                                                        //     mainAxisAlignment:
-                                                        //         MainAxisAlignment
-                                                        //             .spaceBetween,
-                                                        //     children: [
-                                                        //       Expanded(
-                                                        //         child:
-                                                        //         isButtonDisabled? Container(
-                                                        //           height: 35,
-                                                        //           width: double.maxFinite,
-                                                        //           decoration: BoxDecoration(
-                                                        //             borderRadius: BorderRadius.circular(30),
-                                                        //             color: colors.primary
-                                                        //           ),
-                                                        //
-                                                        //           child: Center(
-                                                        //             child: Text("Wait For 5 Second..",style: TextStyle(
-                                                        //               color: colors.whiteTemp
-                                                        //             ),),
-                                                        //           ),
-                                                        //         ):  InkWell(
-                                                        //           // onTap: orderHistoryList[index].isAccepted ?? false
-                                                        //           //     ? null
-                                                        //           //     : () {
-                                                        //           //   getUserOrderHistory();
-                                                        //           //   setState(() {
-                                                        //           //           orderHistoryList[index].isAccepted = true;
-                                                        //           //           orderRejectedOrAccept(index, context);
-                                                        //           //         });
-                                                        //           //       },
-                                                        //           onTap: orderHistoryList[index].parcelDetails.first.status == "2"?
-                                                        //               (){
-                                                        //                 Navigator.push(
-                                                        //                     context,
-                                                        //                     MaterialPageRoute(
-                                                        //                         builder: (context) =>
-                                                        //                             PercelDetails(
-                                                        //                                 pId: orderHistoryList[index]
-                                                        //                                     .orderId)));
-                                                        //               }
-                                                        //               :(){
-                                                        //             setState(() {
-                                                        //               orderRejectedOrAccept(index, context);
-                                                        //              // getUserOrderHistory();
-                                                        //             });
-                                                        //           },
-                                                        //           child:
-                                                        //               Container(
-                                                        //             padding:
-                                                        //                 const EdgeInsets.all(10),
-                                                        //             width: MediaQuery.of(context).size.width *
-                                                        //                 0.30,
-                                                        //             decoration: BoxDecoration(
-                                                        //                 borderRadius:
-                                                        //                     BorderRadius.circular(
-                                                        //                         20),
-                                                        //                 color:  isButtonDisabled ? Colors.blue :
-                                                        //                 // orderHistoryList[index].isAccepted ?? false
-                                                        //                 orderHistoryList[index].parcelDetails.first.status == "2"
-                                                        //                     ? Colors.grey
-                                                        //                     : Colors.green),
-                                                        //             child: Center(
-                                                        //               child: Text(
-                                                        //                   // orderHistoryList[index].isAccepted??false
-                                                        //                        orderHistoryList[index].parcelDetails.first.status == "2"
-                                                        //                       ? getTranslated(context, "View Detail")//'Accepted'
-                                                        //                       : getTranslated(context, "Accept"),//'Accept',
-                                                        //                   style: const TextStyle(
-                                                        //                       color:
-                                                        //                           Colors.white)),
-                                                        //             ),
-                                                        //           ),
-                                                        //         ),
-                                                        //       ),
-                                                        //       const SizedBox(
-                                                        //         width: 20,
-                                                        //       ),
-                                                        //       // orderHistoryList[
-                                                        //       //                 index]
-                                                        //       //             .isAccepted ??
-                                                        //       //         false
-                                                        //       //     ? SizedBox
-                                                        //       //         .shrink()
-                                                        //       //     : Expanded(
-                                                        //       //         child:
-                                                        //       //             InkWell(
-                                                        //       //           onTap:
-                                                        //       //               () {
-                                                        //       //             orderRejectedOrAccept(
-                                                        //       //                 index,
-                                                        //       //                 context,
-                                                        //       //                 isRejected:
-                                                        //       //                     true);
-                                                        //       //           },
-                                                        //       //           child:
-                                                        //       //               Container(
-                                                        //       //             width: MediaQuery.of(context).size.width *
-                                                        //       //                 0.35,
-                                                        //       //             padding:
-                                                        //       //                 const EdgeInsets.all(10),
-                                                        //       //             decoration: BoxDecoration(
-                                                        //       //                 borderRadius:
-                                                        //       //                     BorderRadius.circular(20),
-                                                        //       //                 color: Colors.red),
-                                                        //       //             child:
-                                                        //       //                  Center(
-                                                        //       //               child:
-                                                        //       //                   Text(
-                                                        //       //                     getTranslated(context, "Reject"),
-                                                        //       //               //  'Reject',
-                                                        //       //                 style:
-                                                        //       //                     TextStyle(color: Colors.white),
-                                                        //       //               ),
-                                                        //       //             ),
-                                                        //       //           ),
-                                                        //       //         ),
-                                                        //       //       ),
-                                                        //     ],
-                                                        //   ),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                            children: [
-                                                              Expanded(
-                                                                child:isButtonDisabled == true ? Container(
-                                                                  height: 35,
-                                                                  width: double.maxFinite,
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius: BorderRadius.circular(30),
-                                                                      color: colors.primary
-                                                                  ),
-
-                                                                  child: const Center(
-                                                                    child: Text("Wait For 5 Second..",style: TextStyle(
-                                                                        color: colors.whiteTemp
-                                                                    ),),
-                                                                  ),
-                                                                ):  InkWell(
-                                                                  onTap:
-                                                                  // orderHistoryList[index].isAccepted ?? false
-                                                                  //     ? null
-                                                                  //     :
-                                                                      () {
-                                                                        if(orderHistoryList[index].parcelDetails.first.status == "2"){
-                                                                          Navigator.push(context,MaterialPageRoute(builder: (context) =>PercelDetails(pId: orderHistoryList[index].orderId)));
-                                                                        }
-                                                                    setState(() {
-                                                                      orderHistoryList[index].isAccepted = true;
-                                                                      orderRejectedOrAccept(index, context);
-
-                                                                    });
-                                                                  },
-                                                                  child:
-                                                                  Container(
-                                                                    padding:
-                                                                    const EdgeInsets.all(10),
-                                                                    width: MediaQuery.of(context).size.width *
-                                                                        0.30,
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            20),
-                                                                        color:isButtonDisabled ? Colors.blue :   orderHistoryList[index].parcelDetails.first.status == "2"
-                                                                            ? Colors.grey
-                                                                            : Colors.green),
-                                                                    child: Center(
-                                                                      child: Text(
-                                                                          orderHistoryList[index].parcelDetails.first.status == "2"
-                                                                              ? getTranslated(context, "View Detail")//'Accepted'
-                                                                              : getTranslated(context, "Accept"),//'Accept',
-                                                                          style: const TextStyle(
-                                                                              color:
-                                                                              Colors.white)),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              const SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              // orderHistoryList[
-                                                              //                 index]
-                                                              //             .isAccepted ??
-                                                              //         false
-                                                              //     ? SizedBox
-                                                              //         .shrink()
-                                                              //     : Expanded(
-                                                              //         child:
-                                                              //             InkWell(
-                                                              //           onTap:
-                                                              //               () {
-                                                              //             orderRejectedOrAccept(
-                                                              //                 index,
-                                                              //                 context,
-                                                              //                 isRejected:
-                                                              //                     true);
-                                                              //           },
-                                                              //           child:
-                                                              //               Container(
-                                                              //             width: MediaQuery.of(context).size.width *
-                                                              //                 0.35,
-                                                              //             padding:
-                                                              //                 const EdgeInsets.all(10),
-                                                              //             decoration: BoxDecoration(
-                                                              //                 borderRadius:
-                                                              //                     BorderRadius.circular(20),
-                                                              //                 color: Colors.red),
-                                                              //             child:
-                                                              //                  Center(
-                                                              //               child:
-                                                              //                   Text(
-                                                              //                     getTranslated(context, "Reject"),
-                                                              //               //  'Reject',
-                                                              //                 style:
-                                                              //                     TextStyle(color: Colors.white),
-                                                              //               ),
-                                                              //             ),
-                                                              //           ),
-                                                              //         ),
-                                                              //       ),
-                                                            ],
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                );
-                                              }),
-
-                                ),
-                              // const SizedBox(height: 10,),
-                              // const Text("  Transaction History",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
-                              const SizedBox(height: 10,),
-                              walletAmount(),
-                              const SizedBox(height: 20,),
-                            ],
-                          );
-  }
-   scheduleDelivery(BuildContext context) {
+  currentDelivery(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1373,7 +691,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ? const Center(
               child: CircularProgressIndicator())
               : orderHistoryList.isEmpty
-              ?  Center(
+              ? Center(
               child: Text(
                 getTranslated(context, "Data not available"),
                 //   'Data not available'
@@ -1385,29 +703,22 @@ class _HomeScreenState extends State<HomeScreen> {
               const NeverScrollableScrollPhysics(),
               itemCount: orderHistoryList.length,
               itemBuilder: (context, index) {
-                bool isAccepted = orderHistoryList[index]
-                    .parcelDetails.first.status == "2"? true : false;
+                bool isAccepted =
+                orderHistoryList[index].parcelDetails.first.status == "2"
+                    ? true
+                    : false;
                 // isButtonDisabled = isAccepted? false: true;
                 return InkWell(
-                  onTap: isAccepted
-                      ? () {
-                    print(
-                        '____Som___jj___${orderHistoryList[index].orderId}_________');
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) =>
-                    //           OrderDetailView(orderDetail: orderHistoryList[index]),
-                    //     ));
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                PercelDetails(
-                                    pId: orderHistoryList[index]
-                                        .orderId)));
-                  }
-                      : null,
+                  onTap: () {
+                    if (orderHistoryList[index].parcelDetails.first.status ==
+                        "2") {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) =>
+                              PercelDetails(
+                                  pId: orderHistoryList[index].orderId)));
+                    }
+                  },
+
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius:
@@ -1470,30 +781,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                 CrossAxisAlignment
                                     .end,
                                 children: [
-                                  // Text(
-                                  //     DateFormat(
-                                  //         'yyyy-MM-dd')
-                                  //         .format(orderHistoryList[index]
-                                  //         .onDate),
-                                  //     style: const TextStyle(
-                                  //         fontSize:
-                                  //         14,
-                                  //         color: colors
-                                  //             .black54)),
                                   Text(
-                                      "₹ ${orderHistoryList[index].parcelDetails.first.bookingDate ?? ''}",
+                                      "${orderHistoryList[index].parcelDetails
+                                          .first.bookingDate ?? ''}",
                                       style: const TextStyle(
                                           fontSize:
                                           14,
                                           color: colors
-                                              .blackTemp,fontFamily: 'lora')),
+                                              .blackTemp, fontFamily: 'lora')),
                                   Text(
-                                      "₹ ${orderHistoryList[index].parcelDetails.first.materialInfo?.price ?? ''}",
+                                      "₹ ${orderHistoryList[index].parcelDetails
+                                          .first.materialInfo?.price ?? ''}",
                                       style: const TextStyle(
                                           fontSize:
                                           14,
                                           color: colors
-                                              .blackTemp,fontFamily: 'lora')),
+                                              .blackTemp, fontFamily: 'lora')),
                                 ],
                               ),
                             ],
@@ -1569,7 +872,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             .start,
                                         children: [
                                           Text(
-                                            getTranslated(context, "Pick up Point"),
+                                            getTranslated(
+                                                context, "Pick up Point"),
                                             // "Pick up Point",
                                             style: const TextStyle(
                                                 color: colors.primary,
@@ -1577,12 +881,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           Container(
                                             width:
-                                            MediaQuery.of(context).size.width * 0.65,
+                                            MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width * 0.65,
                                             child:
                                             Text(
-                                              orderHistoryList[index].senderAddress,
+                                              orderHistoryList[index]
+                                                  .senderAddress,
                                               style:
-                                              const TextStyle(color: Colors.black, fontSize: 12),
+                                              const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12),
                                             ),
                                           ),
                                         ],
@@ -1599,7 +909,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             .start,
                                         children: [
                                           Text(
-                                            getTranslated(context, "Drop Point"),
+                                            getTranslated(
+                                                context, "Drop Point"),
                                             //  "Drop Point",
                                             style: const TextStyle(
                                                 color: colors.primary,
@@ -1607,12 +918,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           Container(
                                             width:
-                                            MediaQuery.of(context).size.width * 0.65,
+                                            MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width * 0.65,
                                             child:
                                             Text(
-                                              orderHistoryList[index].parcelDetails.first.receiverAddress ?? "",
+                                              orderHistoryList[index]
+                                                  .parcelDetails.first
+                                                  .receiverAddress ?? "",
                                               style:
-                                              const TextStyle(color: Colors.black, fontSize: 12),
+                                              const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12),
                                             ),
                                           ),
                                         ],
@@ -1965,7 +1283,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 .spaceBetween,
                             children: [
                               Expanded(
-                                child:isButtonDisabled == true ? Container(
+                                child: isButtonDisabled == true ? Container(
                                   height: 35,
                                   width: double.maxFinite,
                                   decoration: BoxDecoration(
@@ -1974,11 +1292,760 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
 
                                   child: const Center(
-                                    child: Text("Wait For 5 Second..",style: TextStyle(
+                                    child: Text(
+                                      "Wait For 5 Second..", style: TextStyle(
                                         color: colors.whiteTemp
                                     ),),
                                   ),
-                                ):  InkWell(
+                                ) : InkWell(
+                                  onTap:
+                                  // orderHistoryList[index].isAccepted ?? false
+                                  //     ? null
+                                  //     :
+                                      () {
+                                    if (orderHistoryList[index].parcelDetails
+                                        .first.status == "2") {
+                                      Navigator.push(context, MaterialPageRoute(
+                                          builder: (context) => PercelDetails(
+                                              pId: orderHistoryList[index]
+                                                  .orderId)));
+                                    }
+                                    setState(() {
+                                      orderHistoryList[index].isAccepted = true;
+                                      orderRejectedOrAccept(index, context);
+                                    });
+                                  },
+                                  child:
+                                  Container(
+                                    padding:
+                                    const EdgeInsets.all(10),
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width *
+                                        0.30,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(
+                                            20),
+                                        color: isButtonDisabled
+                                            ? Colors.blue
+                                            : orderHistoryList[index]
+                                            .parcelDetails.first.status == "2"
+                                            ? Colors.grey
+                                            : Colors.green),
+                                    child: Center(
+                                      child: Text(
+                                          orderHistoryList[index].parcelDetails
+                                              .first.status == "2"
+                                              ? getTranslated(context,
+                                              "View Detail") //'Accepted'
+                                              : getTranslated(
+                                              context, "Accept"), //'Accept',
+                                          style: const TextStyle(
+                                              color:
+                                              Colors.white)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              // orderHistoryList[
+                              //                 index]
+                              //             .isAccepted ??
+                              //         false
+                              //     ? SizedBox
+                              //         .shrink()
+                              //     : Expanded(
+                              //         child:
+                              //             InkWell(
+                              //           onTap:
+                              //               () {
+                              //             orderRejectedOrAccept(
+                              //                 index,
+                              //                 context,
+                              //                 isRejected:
+                              //                     true);
+                              //           },
+                              //           child:
+                              //               Container(
+                              //             width: MediaQuery.of(context).size.width *
+                              //                 0.35,
+                              //             padding:
+                              //                 const EdgeInsets.all(10),
+                              //             decoration: BoxDecoration(
+                              //                 borderRadius:
+                              //                     BorderRadius.circular(20),
+                              //                 color: Colors.red),
+                              //             child:
+                              //                  Center(
+                              //               child:
+                              //                   Text(
+                              //                     getTranslated(context, "Reject"),
+                              //               //  'Reject',
+                              //                 style:
+                              //                     TextStyle(color: Colors.white),
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }),
+
+        ),
+        // const SizedBox(height: 10,),
+        // const Text("  Transaction History",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+        const SizedBox(height: 10,),
+        walletAmount(),
+        const SizedBox(height: 20,),
+      ],
+    );
+  }
+
+  scheduleDelivery(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: double.maxFinite,
+          child: isLoading
+              ? const Center(
+              child: CircularProgressIndicator())
+              : orderHistoryList.isEmpty
+              ? Center(
+              child: Text(
+                getTranslated(context, "Data not available"),
+                //   'Data not available'
+              ))
+              : ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              physics:
+              const NeverScrollableScrollPhysics(),
+              itemCount: orderHistoryList.length,
+              itemBuilder: (context, index) {
+                bool isAccepted = orderHistoryList[index]
+                    .parcelDetails.first.status == "2" ? true : false;
+                // isButtonDisabled = isAccepted? false: true;
+                return InkWell(
+                  onTap: isAccepted
+                      ? () {
+                    print(
+                        '____Som___jj___${orderHistoryList[index]
+                            .orderId}_________');
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) =>
+                    //           OrderDetailView(orderDetail: orderHistoryList[index]),
+                    //     ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PercelDetails(
+                                    pId: orderHistoryList[index]
+                                        .orderId)));
+                  }
+                      : null,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                      BorderRadius.circular(
+                          15.0),
+                    ),
+                    elevation: 2,
+                    color: Colors.white,
+                    child: Container(
+                      padding: const EdgeInsets
+                          .symmetric(
+                          horizontal: 20,
+                          vertical: 20),
+                      child: Column(
+                        crossAxisAlignment:
+                        CrossAxisAlignment
+                            .start,
+                        children: [
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment
+                                .spaceBetween,
+                            crossAxisAlignment:
+                            CrossAxisAlignment
+                                .start,
+                            children: [
+                              Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment
+                                    .start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets
+                                        .only(
+                                        right:
+                                        8.0),
+                                    child: Text(
+                                        getTranslated(context, "Customer Name"),
+                                        //  "Customer Name",
+                                        style: const TextStyle(
+                                            fontSize:
+                                            14,
+                                            color:
+                                            colors.black54)),
+                                  ),
+                                  Text(
+                                      orderHistoryList[
+                                      index]
+                                          .senderName ??
+                                          '',
+                                      style: const TextStyle(
+                                          fontSize:
+                                          16,
+                                          color: colors
+                                              .primary)),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment
+                                    .end,
+                                children: [
+                                  // Text(
+                                  //     DateFormat(
+                                  //         'yyyy-MM-dd')
+                                  //         .format(orderHistoryList[index]
+                                  //         .onDate),
+                                  //     style: const TextStyle(
+                                  //         fontSize:
+                                  //         14,
+                                  //         color: colors
+                                  //             .black54)),
+                                  Text(
+                                      "₹ ${orderHistoryList[index].parcelDetails
+                                          .first.bookingDate ?? ''}",
+                                      style: const TextStyle(
+                                          fontSize:
+                                          14,
+                                          color: colors
+                                              .blackTemp, fontFamily: 'lora')),
+                                  Text(
+                                      "₹ ${orderHistoryList[index].parcelDetails
+                                          .first.materialInfo?.price ?? ''}",
+                                      style: const TextStyle(
+                                          fontSize:
+                                          14,
+                                          color: colors
+                                              .blackTemp, fontFamily: 'lora')),
+                                ],
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      padding:
+                                      const EdgeInsets
+                                          .all(8),
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape
+                                              .circle,
+                                          color: Colors
+                                              .red),
+                                      child:
+                                      const Icon(
+                                        Icons
+                                            .pin_drop,
+                                        size: 14,
+                                        color: Colors
+                                            .white,
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 40,
+                                      width: 1,
+                                      color: Colors
+                                          .black,
+                                    ),
+                                    Container(
+                                      padding:
+                                      const EdgeInsets
+                                          .all(8),
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape
+                                              .circle,
+                                          color: Colors
+                                              .grey),
+                                      child:
+                                      const Icon(
+                                        Icons
+                                            .pin_drop,
+                                        size: 14,
+                                        color: Colors
+                                            .yellow,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .spaceBetween,
+                                  children: [
+                                    Container(
+                                      child:
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment
+                                            .start,
+                                        children: [
+                                          Text(
+                                            getTranslated(
+                                                context, "Pick up Point"),
+                                            // "Pick up Point",
+                                            style: const TextStyle(
+                                                color: colors.primary,
+                                                fontSize: 12),
+                                          ),
+                                          Container(
+                                            width:
+                                            MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width * 0.65,
+                                            child:
+                                            Text(
+                                              orderHistoryList[index]
+                                                  .senderAddress,
+                                              style:
+                                              const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Container(
+                                      child:
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment
+                                            .start,
+                                        children: [
+                                          Text(
+                                            getTranslated(
+                                                context, "Drop Point"),
+                                            //  "Drop Point",
+                                            style: const TextStyle(
+                                                color: colors.primary,
+                                                fontSize: 12),
+                                          ),
+                                          Container(
+                                            width:
+                                            MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width * 0.65,
+                                            child:
+                                            Text(
+                                              orderHistoryList[index]
+                                                  .parcelDetails.first
+                                                  .receiverAddress ?? "",
+                                              style:
+                                              const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+
+                          // Row(
+                          //   crossAxisAlignment:
+                          //       CrossAxisAlignment
+                          //           .start,
+                          //   mainAxisAlignment:
+                          //       MainAxisAlignment
+                          //           .spaceBetween,
+                          //   children: [
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Mobile No",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         Text(orderHistoryList[
+                          //                     index]
+                          //                 .phoneNo ??
+                          //             ''),
+                          //       ],
+                          //     ),
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Material category ",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         SizedBox(
+                          //           width: 100,
+                          //           child: Text(
+                          //             orderHistoryList[index]
+                          //                     .senderAddress ??
+                          //                 '',
+                          //             maxLines: 3,
+                          //             overflow:
+                          //                 TextOverflow
+                          //                     .clip,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // Row(
+                          //   crossAxisAlignment:
+                          //       CrossAxisAlignment
+                          //           .start,
+                          //   mainAxisAlignment:
+                          //       MainAxisAlignment
+                          //           .spaceBetween,
+                          //   children: [
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Recipient Address",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         SizedBox(
+                          //           width: 100,
+                          //           child: Text(
+                          //             orderHistoryList[index]
+                          //                     .senderAddress ??
+                          //                 '',
+                          //             maxLines: 3,
+                          //             overflow:
+                          //                 TextOverflow
+                          //                     .clip,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     Padding(
+                          //       padding:
+                          //           const EdgeInsets
+                          //                   .only(
+                          //               right:
+                          //                   16),
+                          //       child: Card(
+                          //         elevation: 0,
+                          //         color: CustomColors
+                          //             .accentColor,
+                          //         child: Padding(
+                          //           padding:
+                          //               const EdgeInsets
+                          //                       .all(
+                          //                   8.0),
+                          //           child: Column(
+                          //             crossAxisAlignment:
+                          //                 CrossAxisAlignment
+                          //                     .center,
+                          //             children: [
+                          //               const Text(
+                          //                 "order Amount",
+                          //                 textAlign:
+                          //                     TextAlign.center,
+                          //                 style: TextStyle(
+                          //                     fontSize:
+                          //                         14,
+                          //                     color:
+                          //                         CustomColors.White,
+                          //                     fontWeight: FontWeight.bold),
+                          //               ),
+                          //               Text(
+                          //                 '₹ ' + orderHistoryList[index].orderAmount ??
+                          //                     '',
+                          //                 style: TextStyle(
+                          //                     fontSize:
+                          //                         14,
+                          //                     fontWeight:
+                          //                         FontWeight.bold,
+                          //                     color: CustomColors.White),
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // Row(
+                          //   crossAxisAlignment:
+                          //       CrossAxisAlignment
+                          //           .start,
+                          //   mainAxisAlignment:
+                          //       MainAxisAlignment
+                          //           .spaceBetween,
+                          //   children: [
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Recipient Flat Number",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         Text(orderHistoryList[
+                          //                 index]
+                          //             .saleIds
+                          //             .toString()),
+                          //       ],
+                          //     ),
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Date                        ",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         Text(orderHistoryList[
+                          //                 index]
+                          //             .onDate
+                          //             .toString()
+                          //             .substring(
+                          //                 0, 11)),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+
+                          // Future.delayed( Duration(milliseconds: 500), () {
+                          //   setState(() {
+                          //     // Here you can write your code for open new view
+                          //   });
+                          //
+                          // });
+
+
+                          // Row(
+                          //     mainAxisAlignment:
+                          //         MainAxisAlignment
+                          //             .spaceBetween,
+                          //     children: [
+                          //       Expanded(
+                          //         child:
+                          //         isButtonDisabled? Container(
+                          //           height: 35,
+                          //           width: double.maxFinite,
+                          //           decoration: BoxDecoration(
+                          //             borderRadius: BorderRadius.circular(30),
+                          //             color: colors.primary
+                          //           ),
+                          //
+                          //           child: Center(
+                          //             child: Text("Wait For 5 Second..",style: TextStyle(
+                          //               color: colors.whiteTemp
+                          //             ),),
+                          //           ),
+                          //         ):  InkWell(
+                          //           // onTap: orderHistoryList[index].isAccepted ?? false
+                          //           //     ? null
+                          //           //     : () {
+                          //           //   getUserOrderHistory();
+                          //           //   setState(() {
+                          //           //           orderHistoryList[index].isAccepted = true;
+                          //           //           orderRejectedOrAccept(index, context);
+                          //           //         });
+                          //           //       },
+                          //           onTap: orderHistoryList[index].parcelDetails.first.status == "2"?
+                          //               (){
+                          //                 Navigator.push(
+                          //                     context,
+                          //                     MaterialPageRoute(
+                          //                         builder: (context) =>
+                          //                             PercelDetails(
+                          //                                 pId: orderHistoryList[index]
+                          //                                     .orderId)));
+                          //               }
+                          //               :(){
+                          //             setState(() {
+                          //               orderRejectedOrAccept(index, context);
+                          //              // getUserOrderHistory();
+                          //             });
+                          //           },
+                          //           child:
+                          //               Container(
+                          //             padding:
+                          //                 const EdgeInsets.all(10),
+                          //             width: MediaQuery.of(context).size.width *
+                          //                 0.30,
+                          //             decoration: BoxDecoration(
+                          //                 borderRadius:
+                          //                     BorderRadius.circular(
+                          //                         20),
+                          //                 color:  isButtonDisabled ? Colors.blue :
+                          //                 // orderHistoryList[index].isAccepted ?? false
+                          //                 orderHistoryList[index].parcelDetails.first.status == "2"
+                          //                     ? Colors.grey
+                          //                     : Colors.green),
+                          //             child: Center(
+                          //               child: Text(
+                          //                   // orderHistoryList[index].isAccepted??false
+                          //                        orderHistoryList[index].parcelDetails.first.status == "2"
+                          //                       ? getTranslated(context, "View Detail")//'Accepted'
+                          //                       : getTranslated(context, "Accept"),//'Accept',
+                          //                   style: const TextStyle(
+                          //                       color:
+                          //                           Colors.white)),
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       ),
+                          //       const SizedBox(
+                          //         width: 20,
+                          //       ),
+                          //       // orderHistoryList[
+                          //       //                 index]
+                          //       //             .isAccepted ??
+                          //       //         false
+                          //       //     ? SizedBox
+                          //       //         .shrink()
+                          //       //     : Expanded(
+                          //       //         child:
+                          //       //             InkWell(
+                          //       //           onTap:
+                          //       //               () {
+                          //       //             orderRejectedOrAccept(
+                          //       //                 index,
+                          //       //                 context,
+                          //       //                 isRejected:
+                          //       //                     true);
+                          //       //           },
+                          //       //           child:
+                          //       //               Container(
+                          //       //             width: MediaQuery.of(context).size.width *
+                          //       //                 0.35,
+                          //       //             padding:
+                          //       //                 const EdgeInsets.all(10),
+                          //       //             decoration: BoxDecoration(
+                          //       //                 borderRadius:
+                          //       //                     BorderRadius.circular(20),
+                          //       //                 color: Colors.red),
+                          //       //             child:
+                          //       //                  Center(
+                          //       //               child:
+                          //       //                   Text(
+                          //       //                     getTranslated(context, "Reject"),
+                          //       //               //  'Reject',
+                          //       //                 style:
+                          //       //                     TextStyle(color: Colors.white),
+                          //       //               ),
+                          //       //             ),
+                          //       //           ),
+                          //       //         ),
+                          //       //       ),
+                          //     ],
+                          //   ),
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment
+                                .spaceBetween,
+                            children: [
+                              Expanded(
+                                child: isButtonDisabled == true ? Container(
+                                  height: 35,
+                                  width: double.maxFinite,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: colors.primary
+                                  ),
+
+                                  child: const Center(
+                                    child: Text(
+                                      "Wait For 5 Second..", style: TextStyle(
+                                        color: colors.whiteTemp
+                                    ),),
+                                  ),
+                                ) : InkWell(
                                   onTap:
                                   // orderHistoryList[index].isAccepted ?? false
                                   //     ? null
@@ -1987,27 +2054,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                     setState(() {
                                       orderHistoryList[index].isAccepted = true;
                                       orderRejectedOrAccept(index, context);
-
                                     });
                                   },
                                   child:
                                   Container(
                                     padding:
                                     const EdgeInsets.all(10),
-                                    width: MediaQuery.of(context).size.width *
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width *
                                         0.30,
                                     decoration: BoxDecoration(
                                         borderRadius:
                                         BorderRadius.circular(
                                             20),
-                                        color:isButtonDisabled ? Colors.blue :   orderHistoryList[index].isAccepted ?? false
+                                        color: isButtonDisabled
+                                            ? Colors.blue
+                                            : orderHistoryList[index]
+                                            .isAccepted ?? false
                                             ? Colors.grey
                                             : Colors.green),
                                     child: Center(
                                       child: Text(
-                                          orderHistoryList[index].isAccepted ?? false
-                                              ? getTranslated(context, "View Detail")//'Accepted'
-                                              : getTranslated(context, "Accept"),//'Accept',
+                                          orderHistoryList[index].isAccepted ??
+                                              false
+                                              ? getTranslated(context,
+                                              "View Detail") //'Accepted'
+                                              : getTranslated(
+                                              context, "Accept"), //'Accept',
                                           style: const TextStyle(
                                               color:
                                               Colors.white)),
@@ -2072,6 +2147,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     );
   }
+
   // withdrawalRequest(){
   //   return  getTransactionModel == null? /*Center(child: CircularProgressIndicator()) : getTransactionModel?.data?.isEmpty ?*/  const Center(child: Text("No Withdrawal List Found!!")):Padding(
   //     padding: const EdgeInsets.all(8.0),
@@ -2107,25 +2183,27 @@ class _HomeScreenState extends State<HomeScreen> {
   // GetTransactionModel? getTransactionModel;
   //
   String? driverAmount;
+
   getDriverApi() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString("userId");
     var headers = {
       'Cookie': 'ci_session=84167892b4c1be830d2a6845f3443f5df00291c5'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('${Urls.baseUrl}Payment/driverAmounts'));
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('${Urls.baseUrl}Payment/driverAmounts'));
     request.fields.addAll({
-      'user_id':userId.toString()
+      'user_id': userId.toString()
     });
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      var result  = await response.stream.bytesToString();
+      var result = await response.stream.bytesToString();
       var finalResult = jsonDecode(result);
-      driverAmount =  finalResult['data'];
-      driverEraning =  finalResult['driver_amont'];
+      driverAmount = finalResult['data'];
+      driverEraning = finalResult['driver_amont'];
       print('____Som______${driverAmount}_________');
 
       setState(() {
@@ -2135,9 +2213,9 @@ class _HomeScreenState extends State<HomeScreen> {
     else {
       print(response.reasonPhrase);
     }
-
   }
-     walletAmount(){
+
+  walletAmount() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -2146,34 +2224,46 @@ class _HomeScreenState extends State<HomeScreen> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10)
             ),
-          child:Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-             // crossAxisAlignment: CrossAxisAlignment.start,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                // crossAxisAlignment: CrossAxisAlignment.start,
 
-              children: [
-                Text(getTranslated(context, "Pickport Wallet"),style: const TextStyle(fontWeight: FontWeight.bold)),
-                driverAmount == null ?  Text("₹ No Available Amount",style: TextStyle(fontWeight: FontWeight.bold,fontFamily: "lora",fontSize: 12),) : Text("₹ ${driverAmount}",style: TextStyle(fontWeight: FontWeight.bold,fontFamily: "lora",fontSize: 20),)
+                children: [
+                  Text(getTranslated(context, "Pickport Wallet"),
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  driverAmount == null ? Text("₹ 0.0 ") : Text(
+                    "₹ ${driverAmount}", style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "lora",
+                      fontSize: 20),)
 
-               ],
-             ),
+                ],
+              ),
+            ),
           ),
-          ),
-        )  ,
+        ),
         Expanded(
           child: Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10)
+                borderRadius: BorderRadius.circular(10)
             ),
-            child:Padding(
+            child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-              //  crossAxisAlignment: CrossAxisAlignment.start,
+                //  crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(getTranslated(context, "DRIVER_EARNING"),style: const TextStyle(
-                      fontWeight: FontWeight.bold
-                   )),
-                  driverEraning == null ?  Text("₹ No Available Amount",style: TextStyle(fontWeight: FontWeight.bold,fontFamily: "lora",fontSize: 12),) :Text("₹ ${driverEraning}",style: TextStyle(fontWeight: FontWeight.bold,fontFamily: "lora",fontSize: 20),)
+                  Text(getTranslated(context, "DRIVER_EARNING"),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold
+                      )),
+                  driverEraning == null ? Text("₹ No Available Amount",
+                    style: TextStyle(fontWeight: FontWeight.bold,
+                        fontFamily: "lora",
+                        fontSize: 12),) : Text("₹ ${driverEraning}",
+                    style: TextStyle(fontWeight: FontWeight.bold,
+                        fontFamily: "lora",
+                        fontSize: 20),)
                 ],
               ),
             ),
@@ -2181,8 +2271,9 @@ class _HomeScreenState extends State<HomeScreen> {
         )
       ],
     );
-     }
-   getUserStatusOnlineOrOffline(String status) async {
+  }
+
+  getUserStatusOnlineOrOffline(String status) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
 
@@ -2191,8 +2282,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body[RequestKeys.userId] = userId ?? '';
       body[RequestKeys.status] = status.toString();
       var res = await api.userOfflineOnlineApi(body);
-      if (res.status) {
-      } else {
+      if (res.status) {} else {
         Fluttertoast.showToast(msg: '');
       }
     } catch (e) {
@@ -2208,57 +2298,58 @@ class _HomeScreenState extends State<HomeScreen> {
     var headers = {
       'Cookie': 'ci_session=8380ff83d04889e6ff2ef0c0cd5e47f95872c1d4'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('${Urls.baseUrl}Payment/driver_online_offline'));
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('${Urls.baseUrl}Payment/driver_online_offline'));
     request.fields.addAll({
-      'user_id':userId.toString(),
-      'status':status.toString()
+      'user_id': userId.toString(),
+      'status': status.toString()
     });
     print('____Som______${request.fields}_________');
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
-      var result  = await response.stream.bytesToString();
-      var finalResult =  jsonDecode(result);
+      var result = await response.stream.bytesToString();
+      var finalResult = jsonDecode(result);
       print('finalResult__________${finalResult}_________');
       setState(() {
 
       });
-
     }
     else {
       print(response.reasonPhrase);
     }
-
   }
-getCheckStatusApi() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  final userId = prefs.getString('userId');
-  var headers = {
-    'Cookie': 'ci_session=2747e6c4d835602c8ddba0682c7ea48a33b6856c'
-  };
-  var request = http.MultipartRequest('POST', Uri.parse('${Urls.baseUrl}Payment/online_ofline_status'));
-  request.fields.addAll({
-    'user_id': userId.toString()
-  });
 
-  request.headers.addAll(headers);
-  http.StreamedResponse response = await request.send();
-  if (response.statusCode == 200) {
-    var result  = await response.stream.bytesToString();
-    var finalResult =  jsonDecode(result);
-    print('finalResult__________${finalResult}_________');
-    setState(() {
-      status=int.parse(finalResult["data"].toString());
-      print('____Som______${status}_________');
+  getCheckStatusApi() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    var headers = {
+      'Cookie': 'ci_session=2747e6c4d835602c8ddba0682c7ea48a33b6856c'
+    };
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('${Urls.baseUrl}Payment/online_ofline_status'));
+    request.fields.addAll({
+      'user_id': userId.toString()
     });
-   // Fluttertoast.showToast(msg: "${finalResult['']}");
-  }
-  else {
-  print(response.reasonPhrase);
+
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var result = await response.stream.bytesToString();
+      var finalResult = jsonDecode(result);
+      print('finalResult__________${finalResult}_________');
+      setState(() {
+        status = int.parse(finalResult["data"].toString());
+        print('____Som______${status}_________');
+      });
+      // Fluttertoast.showToast(msg: "${finalResult['']}");
+    }
+    else {
+      print(response.reasonPhrase);
+    }
   }
 
-}
-   getUserOrderHistory(String status) async {
+  getUserOrderHistory(String status) async {
     isLoading = true;
     setState(() {});
     /*SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -2270,7 +2361,7 @@ getCheckStatusApi() async {
       body[RequestKeys.userId1] = userId.toString() ?? '';
       body[RequestKeys.status] = status.toString();
       var res = await api.getOrderHistoryData(body);
-      print('____ffff_______${body}__________');
+      print('____ffff__888888888_____${body}__________');
       if (res.status ?? false) {
         if (kDebugMode) {
           print('_____success____');
@@ -2279,19 +2370,19 @@ getCheckStatusApi() async {
         orderHistoryList = res.data ?? [];
         isLoading = false;
 
-      //Future.delayed(const Duration(seconds: 1), () {
-          // print('One second has passed.'); // Prints after 1 second.
+        //Future.delayed(const Duration(seconds: 1), () {
+        // print('One second has passed.'); // Prints after 1 second.
         isActive.clear();
         // for(int i=0;i<orderHistoryList.length;i++){
         //   isActive.add(false);
         //  }
 
-  //  });
-  //       Future.delayed(const Duration(seconds: 10), () {
-  //         for(int i=0;i<orderHistoryList.length;i++){
-  //           isActive.add(true);
-  //         }
-  //       });
+        //  });
+        //       Future.delayed(const Duration(seconds: 10), () {
+        //         for(int i=0;i<orderHistoryList.length;i++){
+        //           isActive.add(true);
+        //         }
+        //       });
         startTimer();
         setState(() {});
       } else {
@@ -2310,7 +2401,8 @@ getCheckStatusApi() async {
     }
   }
 
-  void orderRejectedOrAccept(int index, BuildContext context, {bool? isRejected}) async {
+  void orderRejectedOrAccept(int index, BuildContext context,
+      {bool? isRejected}) async {
     if (isRejected ?? false) {
       orderHistoryList.removeAt(index);
       setState(() {});
@@ -2329,7 +2421,7 @@ getCheckStatusApi() async {
       'order_id': orderHistoryList[index].orderId,
       'status': isRejected ?? false ? '0' : '2'
     });
-    print('____Som___status___${request.fields}_________');
+    print('____Som___accept_order_request___${request.fields}_________');
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -2348,7 +2440,7 @@ getCheckStatusApi() async {
       body[RequestKeys.userId] = userId ?? '';
       body[RequestKeys.orderId] = orderHistoryList[index].orderId;
       body[RequestKeys.status] = isRejected ?? false ? '1' : '2';
-      var res = await api.getAcceptedOrderData(body);
+      var res = await api.getedOrderData(body);
 
 
       if (res.status == 1) {
@@ -2392,16 +2484,17 @@ getCheckStatusApi() async {
 
   int selectedSegmentVal = 0;
 
-  Widget _segmentButton() => Container(
+  Widget _segmentButton() =>
+      Container(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         child: Row(
           children: [
             Expanded(
               child: InkWell(
-                onTap: ()  {
+                onTap: () {
                   setSegmentValue(0);
-                 // getTransactionApi();
+                  // getTransactionApi();
                 },
                 child: Container(
                     height: 30,
@@ -2412,29 +2505,29 @@ getCheckStatusApi() async {
                                 ? colors.primary
                                 : Colors.white),
                         borderRadius: BorderRadius.circular(10)),
-                    child:  Center(
+                    child: Center(
                       child: Text(
                         getTranslated(context, "Current Delivery"),
-                       // 'Current Delivery',
+                        // 'Current Delivery',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 10,
                             color: colors.primary),
                       ),
                     )
-                    //
-                    // MaterialButton(
-                    //   shape: const StadiumBorder(),
-                    //   onPressed: () => setSegmentValue(0),
-                    //   child: const Text(
-                    //     'Current Delivery',
-                    //     style: TextStyle(
-                    //         fontWeight: FontWeight.bold,
-                    //         fontSize: 13,
-                    //         color: colors.primary),
-                    //   ),
-                    // ),
-                    ),
+                  //
+                  // MaterialButton(
+                  //   shape: const StadiumBorder(),
+                  //   onPressed: () => setSegmentValue(0),
+                  //   child: const Text(
+                  //     'Current Delivery',
+                  //     style: TextStyle(
+                  //         fontWeight: FontWeight.bold,
+                  //         fontSize: 13,
+                  //         color: colors.primary),
+                  //   ),
+                  // ),
+                ),
               ),
             ),
             const SizedBox(
@@ -2452,31 +2545,31 @@ getCheckStatusApi() async {
                                 ? colors.primary
                                 : Colors.white),
                         borderRadius: BorderRadius.circular(10)),
-                    child:  Center(
+                    child: Center(
                       child: Text(
                         getTranslated(context, "Scheduled Delivery"),
-                       // 'Scheduled Delivery',
+                        // 'Scheduled Delivery',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 10,
                             color: colors.primary),
                       ),
                     )
-                    // MaterialButton(
-                    //   shape: const StadiumBorder(),
-                    //   onPressed: () => setSegmentValue(1),
-                    //   child: const FittedBox(
-                    //     child:
-                    //     Text(
-                    //       'schedule Delivery',
-                    //       style: TextStyle(
-                    //           fontWeight: FontWeight.bold,
-                    //           fontSize: 13,
-                    //           color: colors.primary),
-                    //     ),
-                    //   ),
-                    // ),
-                    ),
+                  // MaterialButton(
+                  //   shape: const StadiumBorder(),
+                  //   onPressed: () => setSegmentValue(1),
+                  //   child: const FittedBox(
+                  //     child:
+                  //     Text(
+                  //       'schedule Delivery',
+                  //       style: TextStyle(
+                  //           fontWeight: FontWeight.bold,
+                  //           fontSize: 13,
+                  //           color: colors.primary),
+                  //     ),
+                  //   ),
+                  // ),
+                ),
               ),
             ),
             const SizedBox(
@@ -2497,27 +2590,27 @@ getCheckStatusApi() async {
                     child: Center(
                       child: Text(
                         getTranslated(context, "Parcel History"),
-                       // 'Parcel History',
+                        // 'Parcel History',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 10,
                             color: colors.primary),
                       ),
                     )
-                    // MaterialButton(
-                    //   shape: const StadiumBorder(),
-                    //   onPressed: () => setSegmentValue(2),
-                    //   child: const FittedBox(
-                    //     child: Text(
-                    //       'Parcel History',
-                    //       style: TextStyle(
-                    //           fontWeight: FontWeight.bold,
-                    //           fontSize: 13,
-                    //           color: colors.primary),
-                    //     ),
-                    //   ),
-                    // ),
-                    ),
+                  // MaterialButton(
+                  //   shape: const StadiumBorder(),
+                  //   onPressed: () => setSegmentValue(2),
+                  //   child: const FittedBox(
+                  //     child: Text(
+                  //       'Parcel History',
+                  //       style: TextStyle(
+                  //           fontWeight: FontWeight.bold,
+                  //           fontSize: 13,
+                  //           color: colors.primary),
+                  //     ),
+                  //   ),
+                  // ),
+                ),
               ),
             ),
           ],
@@ -2547,951 +2640,983 @@ getCheckStatusApi() async {
         isLoading2
             ? const Center(child: CircularProgressIndicator())
             : parcelDataList?.data?.isEmpty ?? true
-                ?  const Center(child: Text("Data Not Available"))
-                : ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: parcelDataList?.data?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {},
-                        child:
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.circular(
-                                15.0),
+            ? const Center(child: Text("Data Not Available"))
+            : ListView.builder(
+            scrollDirection: Axis.vertical,
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: parcelDataList?.data?.length ?? 0,
+            itemBuilder: (context, index) {
+              return InkWell(
+                  onTap: () {},
+                  child:
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                      BorderRadius.circular(
+                          15.0),
+                    ),
+                    elevation: 2,
+                    color: Colors.white,
+                    child: Container(
+                      padding: const EdgeInsets
+                          .symmetric(
+                          horizontal: 20,
+                          vertical: 20),
+                      child: Column(
+                        crossAxisAlignment:
+                        CrossAxisAlignment
+                            .start,
+                        children: [
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment
+                                .spaceBetween,
+                            crossAxisAlignment:
+                            CrossAxisAlignment
+                                .start,
+                            children: [
+                              Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment
+                                    .start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets
+                                        .only(
+                                        right:
+                                        8.0),
+                                    child: Text(
+                                        getTranslated(context, "Customer Name"),
+                                        //  "Customer Name",
+                                        style: const TextStyle(
+                                            fontSize:
+                                            14,
+                                            color:
+                                            colors.black54)),
+                                  ),
+                                  Text(
+                                      parcelDataList?.data?[index].senderName
+                                          .toString() ??
+                                          '',
+                                      style: const TextStyle(
+                                          fontSize:
+                                          16,
+                                          color: colors
+                                              .primary)),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment
+                                    .end,
+                                children: [
+                                  Text(
+                                    // DateFormat(
+                                    //     'yyyy-MM-dd')
+                                    //     .format(parcelDataList?.data?[index].onDate.toString()),
+                                      parcelDataList?.data?[index].onDate
+                                          .toString().substring(0, 10) ?? "_",
+                                      style: const TextStyle(
+                                          fontSize:
+                                          14,
+                                          color: colors
+                                              .black54)),
+                                  Text(
+                                      "₹ ${parcelDataList?.data?[index]
+                                          .parcelDetails!.first.materialInfo!
+                                          .price ?? ''}",
+                                      style: const TextStyle(
+                                          fontSize:
+                                          14,
+                                          color: colors
+                                              .blackTemp, fontFamily: 'lora')),
+                                ],
+                              ),
+                            ],
                           ),
-                          elevation: 2,
-                          color: Colors.white,
-                          child: Container(
-                            padding: const EdgeInsets
-                                .symmetric(
-                                horizontal: 20,
-                                vertical: 20),
-                            child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment
-                                  .start,
-                              children: [
-                                Row(
+
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      padding:
+                                      const EdgeInsets
+                                          .all(8),
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape
+                                              .circle,
+                                          color: Colors
+                                              .red),
+                                      child:
+                                      const Icon(
+                                        Icons
+                                            .pin_drop,
+                                        size: 14,
+                                        color: Colors
+                                            .white,
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 40,
+                                      width: 1,
+                                      color: Colors
+                                          .black,
+                                    ),
+                                    Container(
+                                      padding:
+                                      const EdgeInsets
+                                          .all(8),
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape
+                                              .circle,
+                                          color: Colors
+                                              .grey),
+                                      child:
+                                      const Icon(
+                                        Icons
+                                            .pin_drop,
+                                        size: 14,
+                                        color: Colors
+                                            .yellow,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                child: Column(
                                   mainAxisAlignment:
                                   MainAxisAlignment
                                       .spaceBetween,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment
-                                      .start,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment
-                                          .start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets
-                                              .only(
-                                              right:
-                                              8.0),
-                                          child: Text(
-                                              getTranslated(context, "Customer Name"),
-                                              //  "Customer Name",
-                                              style: const TextStyle(
-                                                  fontSize:
-                                                  14,
-                                                  color:
-                                                  colors.black54)),
-                                        ),
-                                        Text(
-                                            parcelDataList?.data?[index].senderName.toString()??
-                                                '',
-                                            style: const TextStyle(
-                                                fontSize:
-                                                16,
-                                                color: colors
-                                                    .primary)),
-                                      ],
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment
-                                          .end,
-                                      children: [
-                                        Text(
-                                            // DateFormat(
-                                            //     'yyyy-MM-dd')
-                                            //     .format(parcelDataList?.data?[index].onDate.toString()),
-                                         parcelDataList?.data?[index].onDate.toString().substring(0,10)?? "_",
-                                            style: const TextStyle(
-                                                fontSize:
-                                                14,
-                                                color: colors
-                                                    .black54)),
-                                        Text(
-                                            "₹ ${parcelDataList?.data?[index].parcelDetails!.first.materialInfo!.price ?? ''}",
-                                            style: const TextStyle(
-                                                fontSize:
-                                                14,
-                                                color: colors
-                                                    .blackTemp,fontFamily: 'lora')),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
                                   children: [
                                     Container(
-                                      child: Column(
+                                      child:
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment
+                                            .start,
                                         children: [
-                                          Container(
-                                            padding:
-                                            const EdgeInsets
-                                                .all(8),
-                                            decoration: const BoxDecoration(
-                                                shape: BoxShape
-                                                    .circle,
-                                                color: Colors
-                                                    .red),
-                                            child:
-                                            const Icon(
-                                              Icons
-                                                  .pin_drop,
-                                              size: 14,
-                                              color: Colors
-                                                  .white,
-                                            ),
+                                          Text(
+                                            getTranslated(
+                                                context, "Pick up Point"),
+                                            // "Pick up Point",
+                                            style: const TextStyle(
+                                                color: colors.primary,
+                                                fontSize: 12),
                                           ),
                                           Container(
-                                            height: 40,
-                                            width: 1,
-                                            color: Colors
-                                                .black,
-                                          ),
-                                          Container(
-                                            padding:
-                                            const EdgeInsets
-                                                .all(8),
-                                            decoration: const BoxDecoration(
-                                                shape: BoxShape
-                                                    .circle,
-                                                color: Colors
-                                                    .grey),
+                                            width:
+                                            MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width * 0.65,
                                             child:
-                                            const Icon(
-                                              Icons
-                                                  .pin_drop,
-                                              size: 14,
-                                              color: Colors
-                                                  .yellow,
+                                            Text(
+                                              parcelDataList?.data?[index]
+                                                  .senderAddress.toString() ??
+                                                  "",
+                                              style:
+                                              const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12),
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
                                     const SizedBox(
-                                      width: 10,
+                                      height: 20,
                                     ),
                                     Container(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .spaceBetween,
+                                      child:
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment
+                                            .start,
                                         children: [
-                                          Container(
-                                            child:
-                                            Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment
-                                                  .start,
-                                              children: [
-                                                Text(
-                                                  getTranslated(context, "Pick up Point"),
-                                                  // "Pick up Point",
-                                                  style: const TextStyle(
-                                                      color: colors.primary,
-                                                      fontSize: 12),
-                                                ),
-                                                Container(
-                                                  width:
-                                                  MediaQuery.of(context).size.width * 0.65,
-                                                  child:
-                                                  Text(
-                                                    parcelDataList?.data?[index].senderAddress.toString() ?? "",
-                                                    style:
-                                                    const TextStyle(color: Colors.black, fontSize: 12),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
+                                          Text(
+                                            getTranslated(
+                                                context, "Drop Point"),
+                                            //  "Drop Point",
+                                            style: const TextStyle(
+                                                color: colors.primary,
+                                                fontSize: 12),
                                           ),
                                           Container(
+                                            width:
+                                            MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width * 0.65,
                                             child:
-                                            Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment
-                                                  .start,
-                                              children: [
-                                                Text(
-                                                  getTranslated(context, "Drop Point"),
-                                                  //  "Drop Point",
-                                                  style: const TextStyle(
-                                                      color: colors.primary,
-                                                      fontSize: 12),
-                                                ),
-                                                Container(
-                                                  width:
-                                                  MediaQuery.of(context).size.width * 0.65,
-                                                  child:
-                                                  Text(
-                                                    parcelDataList?.data?[index].parcelDetails?.first.receiverAddress.toString()?? "",
-                                                    style:
-                                                    const TextStyle(color: Colors.black, fontSize: 12),
-                                                  ),
-                                                ),
-                                              ],
+                                            Text(
+                                              parcelDataList?.data?[index]
+                                                  .parcelDetails?.first
+                                                  .receiverAddress.toString() ??
+                                                  "",
+                                              style:
+                                              const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12),
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     )
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                // const SizedBox(
-                                //   height: 10,
-                                // ),
-                                // Row(
-                                //   crossAxisAlignment:
-                                //       CrossAxisAlignment
-                                //           .start,
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment
-                                //           .spaceBetween,
-                                //   children: [
-                                //     Column(
-                                //       crossAxisAlignment:
-                                //           CrossAxisAlignment
-                                //               .start,
-                                //       children: [
-                                //         const Text(
-                                //           "Mobile No",
-                                //           style: TextStyle(
-                                //               fontSize:
-                                //                   13,
-                                //               color: Color(
-                                //                   0xFFBF2331)),
-                                //         ),
-                                //         Text(orderHistoryList[
-                                //                     index]
-                                //                 .phoneNo ??
-                                //             ''),
-                                //       ],
-                                //     ),
-                                //     Column(
-                                //       crossAxisAlignment:
-                                //           CrossAxisAlignment
-                                //               .start,
-                                //       children: [
-                                //         const Text(
-                                //           "Material category ",
-                                //           style: TextStyle(
-                                //               fontSize:
-                                //                   13,
-                                //               color: Color(
-                                //                   0xFFBF2331)),
-                                //         ),
-                                //         SizedBox(
-                                //           width: 100,
-                                //           child: Text(
-                                //             orderHistoryList[index]
-                                //                     .senderAddress ??
-                                //                 '',
-                                //             maxLines: 3,
-                                //             overflow:
-                                //                 TextOverflow
-                                //                     .clip,
-                                //           ),
-                                //         ),
-                                //       ],
-                                //     ),
-                                //   ],
-                                // ),
-                                // const SizedBox(
-                                //   height: 10,
-                                // ),
-                                // Row(
-                                //   crossAxisAlignment:
-                                //       CrossAxisAlignment
-                                //           .start,
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment
-                                //           .spaceBetween,
-                                //   children: [
-                                //     Column(
-                                //       crossAxisAlignment:
-                                //           CrossAxisAlignment
-                                //               .start,
-                                //       children: [
-                                //         const Text(
-                                //           "Recipient Address",
-                                //           style: TextStyle(
-                                //               fontSize:
-                                //                   13,
-                                //               color: Color(
-                                //                   0xFFBF2331)),
-                                //         ),
-                                //         SizedBox(
-                                //           width: 100,
-                                //           child: Text(
-                                //             orderHistoryList[index]
-                                //                     .senderAddress ??
-                                //                 '',
-                                //             maxLines: 3,
-                                //             overflow:
-                                //                 TextOverflow
-                                //                     .clip,
-                                //           ),
-                                //         ),
-                                //       ],
-                                //     ),
-                                //     Padding(
-                                //       padding:
-                                //           const EdgeInsets
-                                //                   .only(
-                                //               right:
-                                //                   16),
-                                //       child: Card(
-                                //         elevation: 0,
-                                //         color: CustomColors
-                                //             .accentColor,
-                                //         child: Padding(
-                                //           padding:
-                                //               const EdgeInsets
-                                //                       .all(
-                                //                   8.0),
-                                //           child: Column(
-                                //             crossAxisAlignment:
-                                //                 CrossAxisAlignment
-                                //                     .center,
-                                //             children: [
-                                //               const Text(
-                                //                 "order Amount",
-                                //                 textAlign:
-                                //                     TextAlign.center,
-                                //                 style: TextStyle(
-                                //                     fontSize:
-                                //                         14,
-                                //                     color:
-                                //                         CustomColors.White,
-                                //                     fontWeight: FontWeight.bold),
-                                //               ),
-                                //               Text(
-                                //                 '₹ ' + orderHistoryList[index].orderAmount ??
-                                //                     '',
-                                //                 style: TextStyle(
-                                //                     fontSize:
-                                //                         14,
-                                //                     fontWeight:
-                                //                         FontWeight.bold,
-                                //                     color: CustomColors.White),
-                                //               ),
-                                //             ],
-                                //           ),
-                                //         ),
-                                //       ),
-                                //     ),
-                                //   ],
-                                // ),
-                                // const SizedBox(
-                                //   height: 10,
-                                // ),
-                                // Row(
-                                //   crossAxisAlignment:
-                                //       CrossAxisAlignment
-                                //           .start,
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment
-                                //           .spaceBetween,
-                                //   children: [
-                                //     Column(
-                                //       crossAxisAlignment:
-                                //           CrossAxisAlignment
-                                //               .start,
-                                //       children: [
-                                //         const Text(
-                                //           "Recipient Flat Number",
-                                //           style: TextStyle(
-                                //               fontSize:
-                                //                   13,
-                                //               color: Color(
-                                //                   0xFFBF2331)),
-                                //         ),
-                                //         Text(orderHistoryList[
-                                //                 index]
-                                //             .saleIds
-                                //             .toString()),
-                                //       ],
-                                //     ),
-                                //     Column(
-                                //       crossAxisAlignment:
-                                //           CrossAxisAlignment
-                                //               .start,
-                                //       children: [
-                                //         const Text(
-                                //           "Date                        ",
-                                //           style: TextStyle(
-                                //               fontSize:
-                                //                   13,
-                                //               color: Color(
-                                //                   0xFFBF2331)),
-                                //         ),
-                                //         Text(orderHistoryList[
-                                //                 index]
-                                //             .onDate
-                                //             .toString()
-                                //             .substring(
-                                //                 0, 11)),
-                                //       ],
-                                //     ),
-                                //   ],
-                                // ),
-                                // const SizedBox(
-                                //   height: 10,
-                                // ),
-                                // const SizedBox(
-                                //   height: 10,
-                                // ),
-
-                                // Future.delayed( Duration(milliseconds: 500), () {
-                                //   setState(() {
-                                //     // Here you can write your code for open new view
-                                //   });
-                                //
-                                // });
-
-
-                                Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment
-                                      .spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child:
-                                      // isButtonDisabled? Container(
-                                      //   height: 35,
-                                      //   width: double.maxFinite,
-                                      //   decoration: BoxDecoration(
-                                      //       borderRadius: BorderRadius.circular(30),
-                                      //       color: colors.primary
-                                      //   ),
-                                      //
-                                      //   child: Center(
-                                      //     child: Text("Wait For 5 Second..",style: TextStyle(
-                                      //         color: colors.whiteTemp
-                                      //     ),),
-                                      //   ),
-                                      // ):
-                                      InkWell(
-                                        // onTap: orderHistoryList[index].isAccepted ?? false
-                                        //     ? null
-                                        //     : () {
-                                        //   getUserOrderHistory();
-                                        //   setState(() {
-                                        //           orderHistoryList[index].isAccepted = true;
-                                        //           orderRejectedOrAccept(index, context);
-                                        //         });
-                                        //       },
-                                        onTap: parcelDataList?.data?[index].parcelDetails?.first.status.toString() == "2"?
-                                            (){
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      PercelDetails(
-                                                          pId: orderHistoryList[index]
-                                                              .orderId)));
-                                        }
-                                            :(){
-                                          setState(() {
-                                            // getUserOrderHistory("");
-                                            orderRejectedOrAccept(index, context);
-
-                                          });
-                                        },
-                                        child:
-                                        Container(
-                                          padding:
-                                          const EdgeInsets.all(10),
-                                          width: MediaQuery.of(context).size.width *
-                                              0.30,
-                                          // decoration: BoxDecoration(
-                                          //     borderRadius:
-                                          //     BorderRadius.circular(
-                                          //         20),
-                                          //     color:
-                                          //     // isButtonDisabled ? Colors.blue :
-                                          //     // orderHistoryList[index].isAccepted ?? false
-                                          //     parcelDataList?.data?[index].parcelDetails?.first.status.toString() == "2"
-                                          //         ? Colors.grey
-                                          //         : Colors.green),
-                                          child: Center(
-                                            child: Text(
-                                              // orderHistoryList[index].isAccepted??false
-                                                parcelDataList?.data?[index].parcelDetails?.first.status.toString() == "2"
-
-                                                    ? getTranslated(context, "View Detail")//'Accepted'
-                                                    : getTranslated(context, "Accept"),//'Accept',
-                                                style: const TextStyle(
-                                                    color:
-                                                    Colors.white)),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    // orderHistoryList[
-                                    //                 index]
-                                    //             .isAccepted ??
-                                    //         false
-                                    //     ? SizedBox
-                                    //         .shrink()
-                                    //     : Expanded(
-                                    //         child:
-                                    //             InkWell(
-                                    //           onTap:
-                                    //               () {
-                                    //             orderRejectedOrAccept(
-                                    //                 index,
-                                    //                 context,
-                                    //                 isRejected:
-                                    //                     true);
-                                    //           },
-                                    //           child:
-                                    //               Container(
-                                    //             width: MediaQuery.of(context).size.width *
-                                    //                 0.35,
-                                    //             padding:
-                                    //                 const EdgeInsets.all(10),
-                                    //             decoration: BoxDecoration(
-                                    //                 borderRadius:
-                                    //                     BorderRadius.circular(20),
-                                    //                 color: Colors.red),
-                                    //             child:
-                                    //                  Center(
-                                    //               child:
-                                    //                   Text(
-                                    //                     getTranslated(context, "Reject"),
-                                    //               //  'Reject',
-                                    //                 style:
-                                    //                     TextStyle(color: Colors.white),
-                                    //               ),
-                                    //             ),
-                                    //           ),
-                                    //         ),
-                                    //       ),
-                                  ],
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                        )
-                        // Card(
-                        //   shape: RoundedRectangleBorder(
-                        //     borderRadius: BorderRadius.circular(15.0),
-                        //   ),
-                        //   elevation: 2,
-                        //   color: Colors.white,
-                        //   child: SizedBox(
-                        //     width: MediaQuery.of(context).size.width / 1.1,
-                        //     child: Padding(
-                        //       padding: const EdgeInsets.all(8.0),
-                        //       child: Column(
-                        //         children: [
-                        //           Row(
-                        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //             children: [
-                        //               Column(
-                        //                 children: [
-                        //                   Column(
-                        //                     crossAxisAlignment:
-                        //                     CrossAxisAlignment.start,
-                        //                     children: [
-                        //                       Text(
-                        //                           getTranslated(context, "Order Id"),
-                        //                           //"Order Id",
-                        //                           style: const TextStyle(
-                        //                               fontSize: 14,
-                        //                               color:
-                        //                               CustomColors.primary2,
-                        //                               fontWeight:
-                        //                               FontWeight.bold)),
-                        //                       SizedBox(
-                        //                         width: 100,
-                        //                         child: Text(
-                        //                           parcelDataList
-                        //                               ?.data?[index].orderId ??
-                        //                               '-',
-                        //                           style: const TextStyle(
-                        //                               fontWeight: FontWeight.bold),
-                        //                         ),
-                        //                       ),
-                        //                     ],
-                        //                   ),
-                        //                   const SizedBox(height: 5,),
-                        //                   Column(
-                        //                     crossAxisAlignment:
-                        //                     CrossAxisAlignment.start,
-                        //                     children: [
-                        //                       Text(
-                        //                           getTranslated(context, "Sender Name"),
-                        //                           // "Sender Name",
-                        //                           style: TextStyle(
-                        //                               fontSize: 13,
-                        //                               color: Color(0xFFBF2331))),
-                        //                       SizedBox(
-                        //                         width: 100,
-                        //                         child: Text(parcelDataList
-                        //                             ?.data?[index].senderName ??
-                        //                             '-'),
-                        //                       ),
-                        //                     ],
-                        //                   ),
-                        //                   Column(
-                        //                     crossAxisAlignment:
-                        //                     CrossAxisAlignment.start,
-                        //                     children: [
-                        //                       Text(
-                        //                         getTranslated(context, "Sender Address"),
-                        //                         // "Sender Address",
-                        //                         style: TextStyle(
-                        //                             fontSize: 13,
-                        //                             color: Color(0xFFBF2331)),
-                        //                       ),
-                        //                       SizedBox(
-                        //                         width: 100,
-                        //                         child: Text(
-                        //                             parcelDataList?.data?[index]
-                        //                                 .senderAddress ??
-                        //                                 '-',
-                        //                             overflow: TextOverflow.clip),
-                        //                       ),
-                        //                     ],
-                        //                   ),
-                        //                   Column(
-                        //                     crossAxisAlignment:
-                        //                     CrossAxisAlignment.start,
-                        //                     children: [
-                        //                       Text(
-                        //                         getTranslated(context, "Date"),
-                        //                         //  "Date",
-                        //                         style: TextStyle(
-                        //                             fontSize: 13,
-                        //                             color: Color(0xFFBF2331)),
-                        //                       ),
-                        //                       SizedBox(
-                        //                         width: 100,
-                        //                         child: Text(parcelDataList
-                        //                             ?.data?[index].onDate
-                        //                             .toString()
-                        //                             .substring(0, 10) ??
-                        //                             '-'),
-                        //                       ),
-                        //                     ],
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //               Column(
-                        //                 crossAxisAlignment: CrossAxisAlignment.start,
-                        //                 children: [
-                        //                   Column(
-                        //                     crossAxisAlignment:
-                        //                     CrossAxisAlignment.start,
-                        //                     children: [
-                        //                       Row(
-                        //                         children: [
-                        //                           Text(
-                        //                               getTranslated(context, "Phone"),
-                        //                               //  "Phone",
-                        //                               style: const TextStyle(
-                        //                                   fontSize: 13,
-                        //                                   color: CustomColors
-                        //                                       .primary2)),
-                        //                           const SizedBox(
-                        //                             width: 12,
-                        //                           ),
-                        //                           InkWell(
-                        //                               onTap: () async {
-                        //                                 var url =
-                        //                                     "tel:${parcelDataList?.data?[index].phoneNo}";
-                        //                                 if (await canLaunch(
-                        //                                     url)) {
-                        //                                   await launch(url);
-                        //                                 } else {
-                        //                                   throw 'Could not launch $url';
-                        //                                 }
-                        //                               },
-                        //                               child: const Icon(
-                        //                                 Icons.local_phone,
-                        //                                 size: 20,
-                        //                                 color:
-                        //                                 CustomColors.primary2,
-                        //                               )),
-                        //                           const SizedBox(
-                        //                             width: 12,
-                        //                           ),
-                        //                           InkWell(
-                        //                               onTap: () {
-                        //                                 whatsAppLaunch(
-                        //                                     parcelDataList
-                        //                                         ?.data?[index]
-                        //                                         .phoneNo ??
-                        //                                         '');
-                        //                               },
-                        //                               child: Image.asset(
-                        //                                 'assets/whatsapplogo.webp',
-                        //                                 scale: 45,
-                        //                               ))
-                        //                         ],
-                        //                       ),
-                        //                       SizedBox(
-                        //                         width: 100,
-                        //                         child: Text(parcelDataList
-                        //                             ?.data?[index].phoneNo ??
-                        //                             '-'),
-                        //                       ),
-                        //                     ],
-                        //                   ),
-                        //                   Column(
-                        //                     crossAxisAlignment:
-                        //                     CrossAxisAlignment.start,
-                        //                     children: [
-                        //                       Row(
-                        //                         children: [
-                        //                           Text(
-                        //                               getTranslated(context, "Receiver Name"),
-                        //                               // "Receiver Name",
-                        //                               style: TextStyle(
-                        //                                   fontSize: 13,
-                        //                                   color: Color(0xFFBF2331))),
-                        //                         ],
-                        //                       ),
-                        //                       Row(
-                        //                         children: [
-                        //                           SizedBox(
-                        //                             width: 100,
-                        //                             child: Text(parcelDataList
-                        //                                 ?.data?[index].senderName ??
-                        //                                 '-'),
-                        //                           ),
-                        //                         ],
-                        //                       ),
-                        //                     ],
-                        //                   ),
-                        //                   Column(
-                        //                     crossAxisAlignment:
-                        //                     CrossAxisAlignment.start,
-                        //                     children: [
-                        //                       Text(
-                        //                         getTranslated(context, "Receiver Address"),
-                        //                         // "Receiver Address",
-                        //                         style: TextStyle(
-                        //                             fontSize: 13,
-                        //                             color: Color(0xFFBF2331)),
-                        //                       ),
-                        //                       SizedBox(
-                        //                         width: 100,
-                        //                         child: Text(
-                        //                             parcelDataList?.data?[index]
-                        //                                 .senderAddress ??
-                        //                                 '-',
-                        //                             overflow: TextOverflow.fade,
-                        //                             maxLines: 3),
-                        //                       ),
-                        //                     ],
-                        //                   ),
-                        //                   Column(
-                        //                     crossAxisAlignment:
-                        //                     CrossAxisAlignment.start,
-                        //                     children: [
-                        //                       Text(
-                        //                         getTranslated(context, "Amount"),
-                        //                         //  "Amount",
-                        //                         style: TextStyle(
-                        //                             fontSize: 13,
-                        //                             color: Color(0xFFBF2331)),
-                        //                       ),
-                        //                       SizedBox(
-                        //                         width: 100,
-                        //                         child: Text("₹ ${orderHistoryList[index].parcelDetails.first.materialInfo?.price ?? ''}",style: TextStyle(
-                        //                             fontFamily: "lora"
-                        //                         ),),
-                        //                       ),
-                        //                     ],
-                        //                   ),
-                        //                 ],
-                        //               )
-                        //
-                        //             ],
-                        //           ),
-                        //           const SizedBox(
-                        //             height: 10,
-                        //           ),
-                        //           Row(
-                        //             mainAxisAlignment:
-                        //             MainAxisAlignment.spaceBetween,
-                        //             children: [
-                        //               Expanded(
-                        //                 child: InkWell(
-                        //                   onTap: orderHistoryList[index]
-                        //                       .isAccepted ??
-                        //                       false
-                        //                       ? null
-                        //                       : () {
-                        //                     setState(() {
-                        //                       orderHistoryList[index]
-                        //                           .isAccepted = true;
-                        //                       orderRejectedOrAccept(
-                        //                           index, context);
-                        //                     });
-                        //                   },
-                        //                   child: Container(
-                        //                     padding: const EdgeInsets.all(10),
-                        //                     width: MediaQuery.of(context)
-                        //                         .size
-                        //                         .width *
-                        //                         0.35,
-                        //                     decoration: BoxDecoration(
-                        //                         borderRadius:
-                        //                         BorderRadius.circular(20),
-                        //                         color: orderHistoryList[index]
-                        //                             .isAccepted ??
-                        //                             false
-                        //                             ? Colors.grey
-                        //                             : Colors.green),
-                        //                     child: Center(
-                        //                       child: Text(
-                        //                           orderHistoryList[index]
-                        //                               .isAccepted ??
-                        //                               false
-                        //                               ? getTranslated(context, "Accepted")//'Accepted'
-                        //                               : getTranslated(context, "Accept"),//'Accept',
-                        //                           style: const TextStyle(
-                        //                               color: Colors.white)),
-                        //                     ),
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //               const SizedBox(
-                        //                 width: 20,
-                        //               ),
-                        //               orderHistoryList[index].isAccepted ??
-                        //                   false
-                        //                   ? SizedBox.shrink()
-                        //                   : Expanded(
-                        //                 child: InkWell(
-                        //                   onTap: () {
-                        //                     orderRejectedOrAccept(
-                        //                         index, context,
-                        //                         isRejected: true);
-                        //                   },
-                        //                   child: Container(
-                        //                     width: MediaQuery.of(context)
-                        //                         .size
-                        //                         .width *
-                        //                         0.35,
-                        //                     padding:
-                        //                     const EdgeInsets.all(10),
-                        //                     decoration: BoxDecoration(
-                        //                         borderRadius:
-                        //                         BorderRadius.circular(
-                        //                             20),
-                        //                         color: Colors.red),
-                        //                     child: Center(
-                        //                       child: Text(
-                        //                         getTranslated(context, "Reject"),
-                        //                         // 'Reject',
-                        //                         style: TextStyle(
-                        //                             color: Colors.white),
-                        //                       ),
-                        //                     ),
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //             ],
-                        //           ),
-                        //           const SizedBox(
-                        //             height: 10,
-                        //           ),
-                        //           orderHistoryList[index].isAccepted ?? false
-                        //               ? InkWell(
-                        //                   onTap: () {
-                        //                     Navigator.push(
-                        //                         context,
-                        //                         //  MaterialPageRoute(builder: (context) => ParcelDetailsView(parcelFullDetail: parcelDataList!.data![index].parcelDetails)))
-                        //                         MaterialPageRoute(
-                        //                             builder: (context) =>
-                        //                                 PercelDetails(
-                        //                                     pId: parcelDataList
-                        //                                             ?.data?[
-                        //                                                 index]
-                        //                                             .orderId ??
-                        //                                         ""))).then(
-                        //                         (value) =>
-                        //                             getAcceptedOrder('2'));
-                        //                   },
-                        //                   child:  Align(
-                        //                       alignment: Alignment.bottomCenter,
-                        //                       child: Text(
-                        //                         getTranslated(context, "See full details"),
-                        //                      //   'See full details',
-                        //                         style: TextStyle(
-                        //                             decoration: TextDecoration
-                        //                                 .underline,
-                        //                             color: Colors.red),
-                        //                       )),
-                        //                 )
-                        //               : const SizedBox.shrink()
-                        //
-                        //           /* Row(
-                        //               children: [
-                        //                 Column(
-                        //                   crossAxisAlignment:
-                        //                       CrossAxisAlignment.start,
-                        //                   children: [
-                        //                     const Text(
-                        //                       "Payment Method",
-                        //                       style: TextStyle(
-                        //                           fontSize: 13,
-                        //                           color: Color(0xFFBF2331)),
-                        //                     ),
-                        //                     Text(parcelDataList[index]
-                        //                         .paymentMethod
-                        //                         .toString()),
-                        //                   ],
-                        //                 ),
-                        //               ],
-                        //             ),
-                        //             SizedBox(
-                        //               height: 10,
-                        //             ),*/
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                      );
-                    }),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // Row(
+                          //   crossAxisAlignment:
+                          //       CrossAxisAlignment
+                          //           .start,
+                          //   mainAxisAlignment:
+                          //       MainAxisAlignment
+                          //           .spaceBetween,
+                          //   children: [
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Mobile No",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         Text(orderHistoryList[
+                          //                     index]
+                          //                 .phoneNo ??
+                          //             ''),
+                          //       ],
+                          //     ),
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Material category ",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         SizedBox(
+                          //           width: 100,
+                          //           child: Text(
+                          //             orderHistoryList[index]
+                          //                     .senderAddress ??
+                          //                 '',
+                          //             maxLines: 3,
+                          //             overflow:
+                          //                 TextOverflow
+                          //                     .clip,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // Row(
+                          //   crossAxisAlignment:
+                          //       CrossAxisAlignment
+                          //           .start,
+                          //   mainAxisAlignment:
+                          //       MainAxisAlignment
+                          //           .spaceBetween,
+                          //   children: [
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Recipient Address",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         SizedBox(
+                          //           width: 100,
+                          //           child: Text(
+                          //             orderHistoryList[index]
+                          //                     .senderAddress ??
+                          //                 '',
+                          //             maxLines: 3,
+                          //             overflow:
+                          //                 TextOverflow
+                          //                     .clip,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     Padding(
+                          //       padding:
+                          //           const EdgeInsets
+                          //                   .only(
+                          //               right:
+                          //                   16),
+                          //       child: Card(
+                          //         elevation: 0,
+                          //         color: CustomColors
+                          //             .accentColor,
+                          //         child: Padding(
+                          //           padding:
+                          //               const EdgeInsets
+                          //                       .all(
+                          //                   8.0),
+                          //           child: Column(
+                          //             crossAxisAlignment:
+                          //                 CrossAxisAlignment
+                          //                     .center,
+                          //             children: [
+                          //               const Text(
+                          //                 "order Amount",
+                          //                 textAlign:
+                          //                     TextAlign.center,
+                          //                 style: TextStyle(
+                          //                     fontSize:
+                          //                         14,
+                          //                     color:
+                          //                         CustomColors.White,
+                          //                     fontWeight: FontWeight.bold),
+                          //               ),
+                          //               Text(
+                          //                 '₹ ' + orderHistoryList[index].orderAmount ??
+                          //                     '',
+                          //                 style: TextStyle(
+                          //                     fontSize:
+                          //                         14,
+                          //                     fontWeight:
+                          //                         FontWeight.bold,
+                          //                     color: CustomColors.White),
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // Row(
+                          //   crossAxisAlignment:
+                          //       CrossAxisAlignment
+                          //           .start,
+                          //   mainAxisAlignment:
+                          //       MainAxisAlignment
+                          //           .spaceBetween,
+                          //   children: [
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Recipient Flat Number",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         Text(orderHistoryList[
+                          //                 index]
+                          //             .saleIds
+                          //             .toString()),
+                          //       ],
+                          //     ),
+                          //     Column(
+                          //       crossAxisAlignment:
+                          //           CrossAxisAlignment
+                          //               .start,
+                          //       children: [
+                          //         const Text(
+                          //           "Date                        ",
+                          //           style: TextStyle(
+                          //               fontSize:
+                          //                   13,
+                          //               color: Color(
+                          //                   0xFFBF2331)),
+                          //         ),
+                          //         Text(orderHistoryList[
+                          //                 index]
+                          //             .onDate
+                          //             .toString()
+                          //             .substring(
+                          //                 0, 11)),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+
+                          // Future.delayed( Duration(milliseconds: 500), () {
+                          //   setState(() {
+                          //     // Here you can write your code for open new view
+                          //   });
+                          //
+                          // });
+
+
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment
+                                .spaceBetween,
+                            children: [
+                              Expanded(
+                                child:
+                                // isButtonDisabled? Container(
+                                //   height: 35,
+                                //   width: double.maxFinite,
+                                //   decoration: BoxDecoration(
+                                //       borderRadius: BorderRadius.circular(30),
+                                //       color: colors.primary
+                                //   ),
+                                //
+                                //   child: Center(
+                                //     child: Text("Wait For 5 Second..",style: TextStyle(
+                                //         color: colors.whiteTemp
+                                //     ),),
+                                //   ),
+                                // ):
+                                InkWell(
+                                  // onTap: orderHistoryList[index].isAccepted ?? false
+                                  //     ? null
+                                  //     : () {
+                                  //   getUserOrderHistory();
+                                  //   setState(() {
+                                  //           orderHistoryList[index].isAccepted = true;
+                                  //           orderRejectedOrAccept(index, context);
+                                  //         });
+                                  //       },
+                                  onTap: parcelDataList?.data?[index]
+                                      .parcelDetails?.first.status.toString() ==
+                                      "2" ?
+                                      () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PercelDetails(
+                                                    pId: orderHistoryList[index]
+                                                        .orderId)));
+                                  }
+                                      : () {
+                                    setState(() {
+                                      // getUserOrderHistory("");
+                                      orderRejectedOrAccept(index, context);
+                                    });
+                                  },
+                                  child:
+                                  Container(
+                                    padding:
+                                    const EdgeInsets.all(10),
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width *
+                                        0.30,
+                                    // decoration: BoxDecoration(
+                                    //     borderRadius:
+                                    //     BorderRadius.circular(
+                                    //         20),
+                                    //     color:
+                                    //     // isButtonDisabled ? Colors.blue :
+                                    //     // orderHistoryList[index].isAccepted ?? false
+                                    //     parcelDataList?.data?[index].parcelDetails?.first.status.toString() == "2"
+                                    //         ? Colors.grey
+                                    //         : Colors.green),
+                                    child: Center(
+                                      child: Text(
+                                        // orderHistoryList[index].isAccepted??false
+                                          parcelDataList?.data?[index]
+                                              .parcelDetails?.first.status
+                                              .toString() == "4" ? "Accepted" :
+                                          parcelDataList?.data?[index]
+                                              .parcelDetails?.first.status
+                                              .toString() == "2"
+
+                                              ? getTranslated(context,
+                                              "View Detail") //'Accepted'
+                                              : getTranslated(
+                                              context, "Accept"), //'Accept',
+                                          style: const TextStyle(
+                                              color:
+                                              Colors.white)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              // orderHistoryList[
+                              //                 index]
+                              //             .isAccepted ??
+                              //         false
+                              //     ? SizedBox
+                              //         .shrink()
+                              //     : Expanded(
+                              //         child:
+                              //             InkWell(
+                              //           onTap:
+                              //               () {
+                              //             orderRejectedOrAccept(
+                              //                 index,
+                              //                 context,
+                              //                 isRejected:
+                              //                     true);
+                              //           },
+                              //           child:
+                              //               Container(
+                              //             width: MediaQuery.of(context).size.width *
+                              //                 0.35,
+                              //             padding:
+                              //                 const EdgeInsets.all(10),
+                              //             decoration: BoxDecoration(
+                              //                 borderRadius:
+                              //                     BorderRadius.circular(20),
+                              //                 color: Colors.red),
+                              //             child:
+                              //                  Center(
+                              //               child:
+                              //                   Text(
+                              //                     getTranslated(context, "Reject"),
+                              //               //  'Reject',
+                              //                 style:
+                              //                     TextStyle(color: Colors.white),
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                // Card(
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(15.0),
+                //   ),
+                //   elevation: 2,
+                //   color: Colors.white,
+                //   child: SizedBox(
+                //     width: MediaQuery.of(context).size.width / 1.1,
+                //     child: Padding(
+                //       padding: const EdgeInsets.all(8.0),
+                //       child: Column(
+                //         children: [
+                //           Row(
+                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //             children: [
+                //               Column(
+                //                 children: [
+                //                   Column(
+                //                     crossAxisAlignment:
+                //                     CrossAxisAlignment.start,
+                //                     children: [
+                //                       Text(
+                //                           getTranslated(context, "Order Id"),
+                //                           //"Order Id",
+                //                           style: const TextStyle(
+                //                               fontSize: 14,
+                //                               color:
+                //                               CustomColors.primary2,
+                //                               fontWeight:
+                //                               FontWeight.bold)),
+                //                       SizedBox(
+                //                         width: 100,
+                //                         child: Text(
+                //                           parcelDataList
+                //                               ?.data?[index].orderId ??
+                //                               '-',
+                //                           style: const TextStyle(
+                //                               fontWeight: FontWeight.bold),
+                //                         ),
+                //                       ),
+                //                     ],
+                //                   ),
+                //                   const SizedBox(height: 5,),
+                //                   Column(
+                //                     crossAxisAlignment:
+                //                     CrossAxisAlignment.start,
+                //                     children: [
+                //                       Text(
+                //                           getTranslated(context, "Sender Name"),
+                //                           // "Sender Name",
+                //                           style: TextStyle(
+                //                               fontSize: 13,
+                //                               color: Color(0xFFBF2331))),
+                //                       SizedBox(
+                //                         width: 100,
+                //                         child: Text(parcelDataList
+                //                             ?.data?[index].senderName ??
+                //                             '-'),
+                //                       ),
+                //                     ],
+                //                   ),
+                //                   Column(
+                //                     crossAxisAlignment:
+                //                     CrossAxisAlignment.start,
+                //                     children: [
+                //                       Text(
+                //                         getTranslated(context, "Sender Address"),
+                //                         // "Sender Address",
+                //                         style: TextStyle(
+                //                             fontSize: 13,
+                //                             color: Color(0xFFBF2331)),
+                //                       ),
+                //                       SizedBox(
+                //                         width: 100,
+                //                         child: Text(
+                //                             parcelDataList?.data?[index]
+                //                                 .senderAddress ??
+                //                                 '-',
+                //                             overflow: TextOverflow.clip),
+                //                       ),
+                //                     ],
+                //                   ),
+                //                   Column(
+                //                     crossAxisAlignment:
+                //                     CrossAxisAlignment.start,
+                //                     children: [
+                //                       Text(
+                //                         getTranslated(context, "Date"),
+                //                         //  "Date",
+                //                         style: TextStyle(
+                //                             fontSize: 13,
+                //                             color: Color(0xFFBF2331)),
+                //                       ),
+                //                       SizedBox(
+                //                         width: 100,
+                //                         child: Text(parcelDataList
+                //                             ?.data?[index].onDate
+                //                             .toString()
+                //                             .substring(0, 10) ??
+                //                             '-'),
+                //                       ),
+                //                     ],
+                //                   ),
+                //                 ],
+                //               ),
+                //               Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.start,
+                //                 children: [
+                //                   Column(
+                //                     crossAxisAlignment:
+                //                     CrossAxisAlignment.start,
+                //                     children: [
+                //                       Row(
+                //                         children: [
+                //                           Text(
+                //                               getTranslated(context, "Phone"),
+                //                               //  "Phone",
+                //                               style: const TextStyle(
+                //                                   fontSize: 13,
+                //                                   color: CustomColors
+                //                                       .primary2)),
+                //                           const SizedBox(
+                //                             width: 12,
+                //                           ),
+                //                           InkWell(
+                //                               onTap: () async {
+                //                                 var url =
+                //                                     "tel:${parcelDataList?.data?[index].phoneNo}";
+                //                                 if (await canLaunch(
+                //                                     url)) {
+                //                                   await launch(url);
+                //                                 } else {
+                //                                   throw 'Could not launch $url';
+                //                                 }
+                //                               },
+                //                               child: const Icon(
+                //                                 Icons.local_phone,
+                //                                 size: 20,
+                //                                 color:
+                //                                 CustomColors.primary2,
+                //                               )),
+                //                           const SizedBox(
+                //                             width: 12,
+                //                           ),
+                //                           InkWell(
+                //                               onTap: () {
+                //                                 whatsAppLaunch(
+                //                                     parcelDataList
+                //                                         ?.data?[index]
+                //                                         .phoneNo ??
+                //                                         '');
+                //                               },
+                //                               child: Image.asset(
+                //                                 'assets/whatsapplogo.webp',
+                //                                 scale: 45,
+                //                               ))
+                //                         ],
+                //                       ),
+                //                       SizedBox(
+                //                         width: 100,
+                //                         child: Text(parcelDataList
+                //                             ?.data?[index].phoneNo ??
+                //                             '-'),
+                //                       ),
+                //                     ],
+                //                   ),
+                //                   Column(
+                //                     crossAxisAlignment:
+                //                     CrossAxisAlignment.start,
+                //                     children: [
+                //                       Row(
+                //                         children: [
+                //                           Text(
+                //                               getTranslated(context, "Receiver Name"),
+                //                               // "Receiver Name",
+                //                               style: TextStyle(
+                //                                   fontSize: 13,
+                //                                   color: Color(0xFFBF2331))),
+                //                         ],
+                //                       ),
+                //                       Row(
+                //                         children: [
+                //                           SizedBox(
+                //                             width: 100,
+                //                             child: Text(parcelDataList
+                //                                 ?.data?[index].senderName ??
+                //                                 '-'),
+                //                           ),
+                //                         ],
+                //                       ),
+                //                     ],
+                //                   ),
+                //                   Column(
+                //                     crossAxisAlignment:
+                //                     CrossAxisAlignment.start,
+                //                     children: [
+                //                       Text(
+                //                         getTranslated(context, "Receiver Address"),
+                //                         // "Receiver Address",
+                //                         style: TextStyle(
+                //                             fontSize: 13,
+                //                             color: Color(0xFFBF2331)),
+                //                       ),
+                //                       SizedBox(
+                //                         width: 100,
+                //                         child: Text(
+                //                             parcelDataList?.data?[index]
+                //                                 .senderAddress ??
+                //                                 '-',
+                //                             overflow: TextOverflow.fade,
+                //                             maxLines: 3),
+                //                       ),
+                //                     ],
+                //                   ),
+                //                   Column(
+                //                     crossAxisAlignment:
+                //                     CrossAxisAlignment.start,
+                //                     children: [
+                //                       Text(
+                //                         getTranslated(context, "Amount"),
+                //                         //  "Amount",
+                //                         style: TextStyle(
+                //                             fontSize: 13,
+                //                             color: Color(0xFFBF2331)),
+                //                       ),
+                //                       SizedBox(
+                //                         width: 100,
+                //                         child: Text("₹ ${orderHistoryList[index].parcelDetails.first.materialInfo?.price ?? ''}",style: TextStyle(
+                //                             fontFamily: "lora"
+                //                         ),),
+                //                       ),
+                //                     ],
+                //                   ),
+                //                 ],
+                //               )
+                //
+                //             ],
+                //           ),
+                //           const SizedBox(
+                //             height: 10,
+                //           ),
+                //           Row(
+                //             mainAxisAlignment:
+                //             MainAxisAlignment.spaceBetween,
+                //             children: [
+                //               Expanded(
+                //                 child: InkWell(
+                //                   onTap: orderHistoryList[index]
+                //                       .isAccepted ??
+                //                       false
+                //                       ? null
+                //                       : () {
+                //                     setState(() {
+                //                       orderHistoryList[index]
+                //                           .isAccepted = true;
+                //                       orderRejectedOrAccept(
+                //                           index, context);
+                //                     });
+                //                   },
+                //                   child: Container(
+                //                     padding: const EdgeInsets.all(10),
+                //                     width: MediaQuery.of(context)
+                //                         .size
+                //                         .width *
+                //                         0.35,
+                //                     decoration: BoxDecoration(
+                //                         borderRadius:
+                //                         BorderRadius.circular(20),
+                //                         color: orderHistoryList[index]
+                //                             .isAccepted ??
+                //                             false
+                //                             ? Colors.grey
+                //                             : Colors.green),
+                //                     child: Center(
+                //                       child: Text(
+                //                           orderHistoryList[index]
+                //                               .isAccepted ??
+                //                               false
+                //                               ? getTranslated(context, "Accepted")//'Accepted'
+                //                               : getTranslated(context, "Accept"),//'Accept',
+                //                           style: const TextStyle(
+                //                               color: Colors.white)),
+                //                     ),
+                //                   ),
+                //                 ),
+                //               ),
+                //               const SizedBox(
+                //                 width: 20,
+                //               ),
+                //               orderHistoryList[index].isAccepted ??
+                //                   false
+                //                   ? SizedBox.shrink()
+                //                   : Expanded(
+                //                 child: InkWell(
+                //                   onTap: () {
+                //                     orderRejectedOrAccept(
+                //                         index, context,
+                //                         isRejected: true);
+                //                   },
+                //                   child: Container(
+                //                     width: MediaQuery.of(context)
+                //                         .size
+                //                         .width *
+                //                         0.35,
+                //                     padding:
+                //                     const EdgeInsets.all(10),
+                //                     decoration: BoxDecoration(
+                //                         borderRadius:
+                //                         BorderRadius.circular(
+                //                             20),
+                //                         color: Colors.red),
+                //                     child: Center(
+                //                       child: Text(
+                //                         getTranslated(context, "Reject"),
+                //                         // 'Reject',
+                //                         style: TextStyle(
+                //                             color: Colors.white),
+                //                       ),
+                //                     ),
+                //                   ),
+                //                 ),
+                //               ),
+                //             ],
+                //           ),
+                //           const SizedBox(
+                //             height: 10,
+                //           ),
+                //           orderHistoryList[index].isAccepted ?? false
+                //               ? InkWell(
+                //                   onTap: () {
+                //                     Navigator.push(
+                //                         context,
+                //                         //  MaterialPageRoute(builder: (context) => ParcelDetailsView(parcelFullDetail: parcelDataList!.data![index].parcelDetails)))
+                //                         MaterialPageRoute(
+                //                             builder: (context) =>
+                //                                 PercelDetails(
+                //                                     pId: parcelDataList
+                //                                             ?.data?[
+                //                                                 index]
+                //                                             .orderId ??
+                //                                         ""))).then(
+                //                         (value) =>
+                //                             getAcceptedOrder('2'));
+                //                   },
+                //                   child:  Align(
+                //                       alignment: Alignment.bottomCenter,
+                //                       child: Text(
+                //                         getTranslated(context, "See full details"),
+                //                      //   'See full details',
+                //                         style: TextStyle(
+                //                             decoration: TextDecoration
+                //                                 .underline,
+                //                             color: Colors.red),
+                //                       )),
+                //                 )
+                //               : const SizedBox.shrink()
+                //
+                //           /* Row(
+                //               children: [
+                //                 Column(
+                //                   crossAxisAlignment:
+                //                       CrossAxisAlignment.start,
+                //                   children: [
+                //                     const Text(
+                //                       "Payment Method",
+                //                       style: TextStyle(
+                //                           fontSize: 13,
+                //                           color: Color(0xFFBF2331)),
+                //                     ),
+                //                     Text(parcelDataList[index]
+                //                         .paymentMethod
+                //                         .toString()),
+                //                   ],
+                //                 ),
+                //               ],
+                //             ),
+                //             SizedBox(
+                //               height: 10,
+                //             ),*/
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+              );
+            }),
       ],
     );
   }
@@ -3502,149 +3627,155 @@ getCheckStatusApi() async {
         isLoading2
             ? const Center(child: CircularProgressIndicator())
             : parcelDataList?.data?.isEmpty ?? false
-                ? Center(child: Text(
-            getTranslated(context, "Data not available"),
+            ? Center(child: Text(
+          getTranslated(context, "Data not available"),
           //  'Data Not Available'
         ))
-                : ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: parcelDataList?.data?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      print(
-                          '___________${pastParcelDataList.length}__________');
+            : ListView.builder(
+            scrollDirection: Axis.vertical,
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: parcelDataList?.data?.length ?? 0,
+            itemBuilder: (context, index) {
+              print(
+                  '___________${pastParcelDataList.length}__________');
 
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PercelDetails(
-                                        pId: parcelDataList
-                                            ?.data?[index].orderId,
-                                        isCheck: true,
-                                      )));
-                        },
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          elevation: 2,
-                          color: Colors.white,
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              PercelDetails(
+                                pId: parcelDataList
+                                    ?.data?[index].orderId,
+                                isCheck: true,
+                              )));
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  elevation: 2,
+                  color: Colors.white,
+                  child: SizedBox(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 1.1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Padding(
-                                            padding:
-                                                EdgeInsets.only(right: 8.0),
-                                            child: Text("Parcel ID",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: colors.blackTemp,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                          ),
-                                          Text(
-                                              "#${parcelDataList?.data?[index].orderId ?? '-'}"),
-                                        ],
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          parcelDataList
-                                                      ?.data?[index]
-                                                      .parcelDetails
-                                                      ?.first
-                                                      .status ==
-                                                  "4"
-                                              ? Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 20),
-                                                  child: Text(
-                                                      getTranslated(context, "Delivered"),
-                                                      //"Delivered",
-                                                      style: const TextStyle(
-                                                          fontSize: 15,
-                                                          color: Colors.green,
-                                                          fontWeight:
-                                                              FontWeight.bold)),
-                                                )
-                                              : Text(
-                                              getTranslated(context, "cancel"),
-                                              //"Cancel",
-                                                  style: const TextStyle(
-                                                      fontSize: 13,
-                                                      color: Colors.red,
-                                                      fontWeight:
-                                                          FontWeight.bold))
-                                        ],
-                                      )
-                                    ],
+                                  const Padding(
+                                    padding:
+                                    EdgeInsets.only(right: 8.0),
+                                    child: Text("Parcel ID",
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            color: colors.blackTemp,
+                                            fontWeight:
+                                            FontWeight.bold)),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
+                                  Text(
+                                      "#${parcelDataList?.data?[index]
+                                          .orderId ?? '-'}"),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                                children: [
+                                  parcelDataList
+                                      ?.data?[index]
+                                      .parcelDetails
+                                      ?.first
+                                      .status ==
+                                      "4"
+                                      ? Padding(
+                                    padding:
+                                    const EdgeInsets.only(
+                                        right: 20),
+                                    child: Text(
+                                        getTranslated(context, "Delivered"),
+                                        //"Delivered",
+                                        style: const TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.green,
+                                            fontWeight:
+                                            FontWeight.bold)),
+                                  )
+                                      : Text(
+                                      getTranslated(context, "cancel"),
+                                      //"Cancel",
+                                      style: const TextStyle(
+                                          fontSize: 13,
+                                          color: Colors.red,
+                                          fontWeight:
+                                          FontWeight.bold))
+                                ],
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    getTranslated(context, "Receiver's Name :"),
+                                    //"Receiver's Name :",
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        color: colors.blackTemp,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                           Text(
-                                            getTranslated(context, "Receiver's Name :"),
-                                            //"Receiver's Name :",
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                color: colors.blackTemp,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(parcelDataList
-                                                  ?.data?[index]
-                                                  .parcelDetails
-                                                  ?.first
-                                                  .receiverName
-                                                  .toString() ??
-                                              '-'),
-                                        ],
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            getTranslated(context, "Order Date :"),
-                                           // "Order Date :",
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                color: colors.blackTemp,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        Text(parcelDataList?.data?[index].onDate.toString().substring(0, 10) ?? '-'),
-                                        //  Text(parcelDataList?.data?[index].onDate.toString()),
-                                        ],
-                                      ),
-                                    ],
+                                  Text(parcelDataList
+                                      ?.data?[index]
+                                      .parcelDetails
+                                      ?.first
+                                      .receiverName
+                                      .toString() ??
+                                      '-'),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    getTranslated(context, "Order Date :"),
+                                    // "Order Date :",
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        color: colors.blackTemp,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  /*InkWell(
+                                  Text("${parcelDataList?.data?[index]
+                                      .parcelDetails?.first.onDate}"),
+                                  //  Text(parcelDataList?.data?[index].onDate.toString()),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          /*InkWell(
                                 onTap: (){
                                   Navigator.push(context, MaterialPageRoute(builder: (context) =>  ParcelDetailsView(parcelFullDetail: parcelDataList!.data![index].parcelDetails)));
                                 },
@@ -3653,7 +3784,7 @@ getCheckStatusApi() async {
                                     child: Text('See full details', style: TextStyle(decoration: TextDecoration.underline, color: Colors.red),)),
                               )*/
 
-                                  /* Row(
+                          /* Row(
                                         children: [
                                           Column(
                                             crossAxisAlignment:
@@ -3675,17 +3806,16 @@ getCheckStatusApi() async {
                                       SizedBox(
                                         height: 10,
                                       ),*/
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }),
       ],
     );
   }
-
 
 
   void whatsAppLaunch(String num) async {

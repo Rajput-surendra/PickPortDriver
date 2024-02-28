@@ -35,7 +35,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       backgroundColor: colors.primary,
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
           Expanded(
@@ -55,7 +55,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       decoration: BoxDecoration(
                           color: colors.whiteTemp,
                           borderRadius: BorderRadius.circular(100)),
-                      child: Center(child: Icon(Icons.arrow_back)),
+                      child: const Center(child: Icon(Icons.arrow_back)),
                     ),
                   ),
                   Container(
@@ -86,7 +86,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           Expanded(
             flex: 18,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: colors.background,
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(35),
@@ -152,7 +152,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                   context, "Message:"),
                                               //'Message:',
                                               style:
-                                                  TextStyle(color: Colors.red),
+                                                  const TextStyle(color: Colors.red),
                                             ),
                                             const SizedBox(
                                               width: 10,

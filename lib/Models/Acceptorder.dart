@@ -294,8 +294,9 @@ Data copyWith({  String? orderId,
 class ParcelDetails {
   ParcelDetails({
       String? saleId, 
-      String? orderId, 
-      String? barcode, 
+      String? orderId,
+
+      String? barcode,
       String? barcodeLink, 
       String? userId, 
       String? deliveryBoyId, 
@@ -357,7 +358,7 @@ class ParcelDetails {
       String? isCodOrderVerify, 
       String? accountName, 
       String? accountNumber,
-    String? bookingDate,
+      String? bookingDate,
       String? parcelHistory,
       MaterialInfo? materialInfo,})
   {
@@ -427,14 +428,14 @@ class ParcelDetails {
     _accountNumber = accountNumber;
     _parcelHistory = parcelHistory;
     _materialInfo = materialInfo;
-    _bookingDate = parcelHistory;
+    _bookingDate = bookingDate;
 }
 
   ParcelDetails.fromJson(dynamic json) {
     _saleId = json['sale_id'];
     _orderId = json['order_id'];
     _barcode = json['barcode'];
-    _bookingDate = json['booking_date'];
+
     _barcodeLink = json['barcode_link'];
     _userId = json['user_id'];
     _deliveryBoyId = json['delivery_boy_id'];
@@ -443,6 +444,7 @@ class ParcelDetails {
     _senderAddress = json['sender_address'];
     _senderFulladdress = json['sender_fulladdress'];
     _receiverName = json['receiver_name'];
+    _bookingDate = json['booking_date'];
     _receiverPhone = json['receiver_phone'];
     _receiverAddress = json['receiver_address'];
     _reqDeliveryboyIds = json['req_deliveryboy_ids'];
@@ -510,6 +512,7 @@ class ParcelDetails {
   String? _senderAddress;
   String? _senderFulladdress;
   String? _receiverName;
+  String? _bookingDate;
   String? _receiverPhone;
   String? _receiverAddress;
   String? _reqDeliveryboyIds;
@@ -564,7 +567,7 @@ class ParcelDetails {
   String? _accountName;
   String? _accountNumber;
   String? _parcelHistory;
-  String?_bookingDate;
+
   MaterialInfo? _materialInfo;
 ParcelDetails copyWith({  String? saleId,
   String? orderId,
@@ -577,6 +580,7 @@ ParcelDetails copyWith({  String? saleId,
   String? senderAddress,
   String? senderFulladdress,
   String? receiverName,
+  String? bookingDate,
   String? receiverPhone,
   String? receiverAddress,
   String? reqDeliveryboyIds,
@@ -631,7 +635,7 @@ ParcelDetails copyWith({  String? saleId,
   String? accountName,
   String? accountNumber,
   String? parcelHistory,
-  String? bookingDate,
+
   MaterialInfo? materialInfo,
 }) => ParcelDetails(  saleId: saleId ?? _saleId,
   orderId: orderId ?? _orderId,
@@ -644,6 +648,7 @@ ParcelDetails copyWith({  String? saleId,
   senderAddress: senderAddress ?? _senderAddress,
   senderFulladdress: senderFulladdress ?? _senderFulladdress,
   receiverName: receiverName ?? _receiverName,
+  bookingDate: bookingDate ?? _bookingDate,
   receiverPhone: receiverPhone ?? _receiverPhone,
   receiverAddress: receiverAddress ?? _receiverAddress,
   reqDeliveryboyIds: reqDeliveryboyIds ?? _reqDeliveryboyIds,

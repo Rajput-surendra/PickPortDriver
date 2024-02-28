@@ -61,6 +61,7 @@ class Data {
   String? facebookID;
   String? isEmailVerified;
   String? vehicleType;
+  String? vehicleTypeString;
   String? vehicleNo;
   String? drivingLicenceNo;
   String? drivingLicencePhotof;
@@ -130,6 +131,7 @@ class Data {
         this.facebookID,
         this.isEmailVerified,
         this.vehicleType,
+        this.vehicleTypeString,
         this.vehicleNo,
         this.drivingLicenceNo,
         this.drivingLicencePhotof,
@@ -199,6 +201,7 @@ class Data {
     facebookID = json['facebookID'];
     isEmailVerified = json['is_email_verified'];
     vehicleType = json['vehicle_type'];
+    vehicleTypeString = json['vehicle_type_string'];
     vehicleNo = json['vehicle_no'];
     drivingLicenceNo = json['driving_licence_no'];
     drivingLicencePhotof = json['driving_licence_photo'];
@@ -270,6 +273,7 @@ class Data {
     data['facebookID'] = this.facebookID;
     data['is_email_verified'] = this.isEmailVerified;
     data['vehicle_type'] = this.vehicleType;
+    data['vehicle_type_string'] = this.vehicleTypeString;
     data['vehicle_no'] = this.vehicleNo;
     data['driving_licence_no'] = this.drivingLicenceNo;
     data['driving_licence_photof'] = this.drivingLicencePhotof;
